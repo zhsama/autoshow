@@ -20,7 +20,13 @@ export const POST: APIRoute = async ({ request }) => {
   l(`${pre} Starting LLM processing request`)
   
   try {
-    const body = await request.json() as any
+    interface LLMRequestBody {
+      llmServices?: string
+      options?: ProcessingOptions
+      showNoteId?: string
+    }
+    
+    const body = await request.json() as LLMRequestBody
     const llmServices = body?.llmServices
     const options: ProcessingOptions = body?.options || {}
     const showNoteId = body?.showNoteId

@@ -20,7 +20,15 @@ export const POST: APIRoute = async ({ request }) => {
   l(`${pre} Starting transcription request handler`)
   
   try {
-    const body = await request.json() as any
+    interface TranscriptionRequestBody {
+      finalPath?: string
+      s3Url?: string
+      transcriptServices?: string
+      options?: ProcessingOptions
+      showNoteId?: string
+    }
+    
+    const body = await request.json() as TranscriptionRequestBody
     l(`${pre} Request body received, parsing parameters`)
     
     const finalPath = body?.finalPath

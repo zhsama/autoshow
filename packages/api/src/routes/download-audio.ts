@@ -13,7 +13,19 @@ export const POST: APIRoute = async ({ request }) => {
   l(`${pre} Starting audio download and processing`)
   
   try {
-    const body = await request.json() as any
+    interface DownloadAudioRequestBody {
+      type?: string
+      url?: string
+      filePath?: string
+      options?: {
+        video?: string
+        file?: string
+        walletAddress?: string
+        [key: string]: unknown
+      }
+    }
+    
+    const body = await request.json() as DownloadAudioRequestBody
     const type = body?.type
     const url = body?.url
     const filePath = body?.filePath
@@ -87,6 +99,10 @@ export const POST: APIRoute = async ({ request }) => {
     }
     
     if (options.video) {
+      if (!url) {
+        err(`${pre} URL is required for video processing`)
+        return new Response(JSON.stringify({ error: 'URL is required for video processing' }), { status: 400 })
+      }
       l(`${pre} Processing video URL: ${url}`)
       const { stdout } = await execFilePromise('yt-dlp', [
         '--restrict-filenames',
@@ -124,6 +140,10 @@ export const POST: APIRoute = async ({ request }) => {
         mnemonic: ''
       }
     } else {
+      if (!filePath) {
+        err(`${pre} File path is required for file processing`)
+        return new Response(JSON.stringify({ error: 'File path is required for file processing' }), { status: 400 })
+      }
       l(`${pre} Processing local file: ${filePath}`)
       const originalFilename = filePath.split('/').pop() || ''
       const filenameWithoutExt = originalFilename.replace(/\.[^/.]+$/, '')
@@ -200,7 +220,7 @@ export const POST: APIRoute = async ({ request }) => {
         '--postprocessor-args', 'ffmpeg:-ar 16000 -ac 1',
         '--no-playlist',
         '-o', absoluteOutputPath,
-        url
+        url!
       ])
       l(`${pre} Video download completed`)
     } else if (options.file) {
@@ -209,7 +229,7 @@ export const POST: APIRoute = async ({ request }) => {
         'wav', 'mp3', 'm4a', 'aac', 'ogg', 'flac', 'mp4', 'mkv', 'avi', 'mov', 'webm'
       ])
       
-      const resolvedFilePath = resolve(projectRoot, filePath)
+      const resolvedFilePath = resolve(projectRoot, filePath!)
       await access(resolvedFilePath)
       
       const buffer = await readFile(resolvedFilePath)
@@ -273,7 +293,7 @@ export const POST: APIRoute = async ({ request }) => {
       title: metadata.title,
       publishDate: metadata.publishDate,
       frontmatter: frontMatter,
-      walletAddress: options['walletAddress'] || '',
+      walletAddress: (options?.walletAddress as string) || '',
       showLink: metadata.showLink || '',
       channel: metadata.channel || '',
       channelURL: metadata.channelURL || '',
