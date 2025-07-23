@@ -1,0 +1,40 @@
+{
+  "name": "@autoshow/shared",
+  "version": "1.0.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.client.js",
+      "require": "./dist/index.client.js",
+      "default": "./dist/index.client.js"
+    },
+    "./server": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    },
+    "./client": "./dist/index.client.js",
+    "./types": "./dist/types.js",
+    "./utils": "./dist/utils.js",
+    "./config": "./dist/site.config.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist",
+    "test:base": "tsx --test --env-file=../../.env --test-reporter=spec --test-reporter-destination=spec.log --test-concurrency=1",
+    "test:models": "npm run test:base -- ../../test/models.test.ts",
+    "test:prompts": "npm run test:base -- ../../test/prompts.test.ts",
+    "test:steps": "npm run test:base -- ../../test/steps.test.ts"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "3.799.0",
+    "@aws-sdk/s3-request-presigner": "3.799.0",
+    "chalk": "5.4.1",
+    "file-type": "20.5.0"
+  },
+  "devDependencies": {
+    "@types/node": "22.15.3",
+    "typescript": "5.8.3",
+    "tsx": "4.19.4"
+  }
+}

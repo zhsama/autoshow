@@ -1,0 +1,23 @@
+{
+  "name": "@autoshow/llm",
+  "version": "1.0.0",
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@autoshow/shared": "workspace:*",
+    "@anthropic-ai/sdk": "0.40.1",
+    "@google/generative-ai": "0.24.1",
+    "openai": "4.96.2"
+  },
+  "devDependencies": {
+    "@types/node": "22.15.3",
+    "typescript": "5.8.3"
+  }
+}
