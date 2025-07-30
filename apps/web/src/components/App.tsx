@@ -2,20 +2,16 @@
 
 import { useState } from 'react'
 import Form from './Form'
-import { ShowNotes } from './ShowNotes'
-
-const l = console.log
+import { ShowNotesList } from './ShowNotesList'
+import { logger } from '@/lib/logger'
 
 export default function App() {
-  const [refreshCount, setRefreshCount] = useState(0)
-  l('[App] Initialized with refreshCount state')
+  const [refreshKey, setRefreshKey] = useState(0)
   
   const handleNewShowNote = () => {
-    l('[App] New show note created, refreshing ShowNotes component')
-    setRefreshCount(prev => prev + 1)
+    logger.log('[App] New show note created, refreshing list')
+    setRefreshKey(prev => prev + 1)
   }
-  
-  l('[App] Rendering App component with responsive layout')
   
   return (
     <div className="flex flex-col md:flex-row gap-6 max-w-[1400px] mx-auto px-4 h-auto md:h-screen">
@@ -23,7 +19,12 @@ export default function App() {
         <Form onNewShowNote={handleNewShowNote} />
       </div>
       <div className="w-full md:w-96 flex-shrink-0 border-t md:border-t-0 md:border-l border-border pt-6 md:pt-0">
-        <ShowNotes refreshCount={refreshCount} />
+        <div className="h-full flex flex-col bg-card rounded-lg overflow-hidden">
+          <div className="p-6 border-b border-border flex-shrink-0">
+            <h1 className="text-lg font-semibold">Show Notes</h1>
+          </div>
+          <ShowNotesList key={refreshKey} initialShowNotes={[]} />
+        </div>
       </div>
     </div>
   )

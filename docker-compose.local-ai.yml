@@ -1,0 +1,72 @@
+# Docker Compose for AutoShow Local AI Services
+version: '3.8'
+
+services:
+  # Ollama service for local LLM processing
+  ollama:
+    image: ollama/ollama:latest
+    container_name: autoshow-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    environment:
+      - OLLAMA_ORIGINS=*
+    restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    networks:
+      - autoshow-network
+
+  # WhisperX service (custom container)
+  whisperx:
+    build:
+      context: ./docker/whisperx
+      dockerfile: Dockerfile
+    container_name: autoshow-whisperx
+    ports:
+      - "8000:8000"
+    volumes:
+      - whisperx_models:/app/models
+      - ./temp:/app/temp
+    environment:
+      - CUDA_VISIBLE_DEVICES=0
+    restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    networks:
+      - autoshow-network
+
+  # Redis for caching (optional)
+  redis:
+    image: redis:7-alpine
+    container_name: autoshow-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+    networks:
+      - autoshow-network
+
+volumes:
+  ollama_data:
+    driver: local
+  whisperx_models:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  autoshow-network:
+    driver: bridge
