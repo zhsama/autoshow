@@ -22,13 +22,11 @@ AutoShow uses a modern monorepo structure with **pnpm workspaces**:
 
 ```
 apps/
-└── web/              # Next.js 15 + React 19 frontend
+└── web/              # Next.js 15 + React 19 full-stack app with API routes
 packages/
 ├── shared/           # Shared utilities, types, and configurations
 ├── transcription/    # Transcription services (Deepgram, AssemblyAI, Groq, WhisperX)
-├── llm/              # LLM integrations (OpenAI, Anthropic, Gemini, Ollama)
-├── api/              # Legacy Fastify server (being migrated)
-└── ui/               # Reusable UI components
+└── llm/              # LLM integrations (OpenAI, Anthropic, Gemini, Ollama)
 ```
 
 ## 📋 Key Features
@@ -81,18 +79,62 @@ pnpm dev
 # Clone and install
 git clone https://github.com/yourusername/autoshow.git
 cd autoshow
+
+# Quick setup with dependency installer
+./install-dependencies.sh
+
+# OR manual setup:
 pnpm install
 
 # Set up environment variables (see Configuration)
-cp .env.example .env.local
+cp apps/web/.env.example apps/web/.env.local
 
 # Start development server
 pnpm dev
 ```
 
+## 🔧 System Dependencies
+
+AutoShow requires the following system tools:
+
+- **yt-dlp**: For downloading videos from YouTube and other platforms
+- **ffmpeg**: For audio/video processing and format conversion
+- **Node.js 18+** and **pnpm**: For running the application
+
+### Quick Installation
+
+Run the automated installer:
+```bash
+./install-dependencies.sh
+```
+
+### Manual Installation
+
+**macOS (using Homebrew):**
+```bash
+brew install yt-dlp ffmpeg
+npm install -g pnpm
+```
+
+**Linux (Ubuntu/Debian):**
+```bash
+# Install yt-dlp
+mkdir -p ~/.local/bin
+curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -o ~/.local/bin/yt-dlp
+chmod +x ~/.local/bin/yt-dlp
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
+
+# Install ffmpeg
+sudo apt update && sudo apt install ffmpeg
+
+# Install pnpm
+npm install -g pnpm
+```
+
 ## 📖 Documentation
 
 - [Local AI Setup Guide](./LOCAL_AI_SETUP.md) - Complete guide for WhisperX and Ollama setup
+- [YouTube Issues Guide](./YOUTUBE_ISSUES.md) - Solutions for YouTube bot detection and cookie issues
 - [CLAUDE.md](./CLAUDE.md) - Development guidance and project architecture
 
 ## 🛠️ Configuration
@@ -236,7 +278,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🙏 Acknowledgments
 
-- Built with [Astro](https://astro.build/), [SolidJS](https://www.solidjs.com/), and [Fastify](https://www.fastify.io/)
+- Built with [Next.js 15](https://nextjs.org/), [React 19](https://react.dev/), [Tailwind CSS 4](https://tailwindcss.com/), and [shadcn/ui](https://ui.shadcn.com/)
 - Transcription powered by [Deepgram](https://deepgram.com/), [AssemblyAI](https://www.assemblyai.com/), and [OpenAI Whisper](https://openai.com/research/whisper)
 - Content generation powered by various LLM providers
 

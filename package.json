@@ -17,9 +17,8 @@
   "scripts": {
     "build": "pnpm -r build",
     "dev": "pnpm --filter web dev",
-    "start": "pnpm --filter web dev",
-    "server": "pnpm --filter api start",
-    "preview": "pnpm --filter web start",
+    "start": "pnpm --filter web start",
+    "preview": "pnpm --filter web preview",
     "check": "pnpm -r check",
     "test": "pnpm -r test",
     "test:models": "pnpm --filter shared test:models",

@@ -2,12 +2,12 @@
 
 import { useLLMStep } from '@/hooks/use-form-steps'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { logger } from '@/lib/logger'
-import { L_CONFIG } from '@autoshow/shared'
+import { L_CONFIG, type LLMServiceKey } from '@autoshow/shared'
 import { createShowNote } from '@/app/actions/show-notes'
 
 interface LLMServiceStepProps {
@@ -84,7 +84,7 @@ export function LLMServiceStep({ onNewShowNote }: LLMServiceStepProps) {
         llmCost: data.llmCost,
         transcriptionService,
         transcriptionModel: transcriptionModelUsed,
-        transcriptionCost: transcriptionCostUsed,
+        transcriptionCost: transcriptionCostUsed || undefined,
         finalCost: (data.llmCost || 0) + (transcriptionCostUsed || 0),
         ...metadata,
       })
@@ -120,7 +120,7 @@ export function LLMServiceStep({ onNewShowNote }: LLMServiceStepProps) {
           <Label htmlFor="llm-service">LLM Service</Label>
           <Select
             value={llmService}
-            onValueChange={(value) => setLlmService(value as any)}
+            onValueChange={(value) => setLlmService(value as LLMServiceKey)}
           >
             <SelectTrigger id="llm-service">
               <SelectValue />
@@ -186,8 +186,8 @@ export function LLMServiceStep({ onNewShowNote }: LLMServiceStepProps) {
           onClick={handleGenerateShowNotes}
           disabled={
             isLoading || 
-            llmService === 'skip' || 
-            (llmService !== 'skip' && !llmApiKey)
+            llmService === ('skip' as LLMServiceKey) || 
+            (llmService !== ('skip' as LLMServiceKey) && (!llmApiKey || llmApiKey.trim() === ''))
           }
         >
           {isLoading ? 'Generating...' : 'Generate Show Notes'}

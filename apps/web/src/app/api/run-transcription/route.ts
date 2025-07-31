@@ -78,7 +78,7 @@ export async function POST(request: NextRequest) {
         filePath: audioSource
       })
       
-      const wordCount = transcriptionResult.transcript.split(/\s+/).filter(word => word.length > 0).length
+      const wordCount = transcriptionResult.transcript.split(/\s+/).filter((word: string) => word.length > 0).length
       
       return NextResponse.json({
         transcript: transcriptionResult.transcript,

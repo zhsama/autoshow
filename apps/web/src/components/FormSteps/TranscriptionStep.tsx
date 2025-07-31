@@ -2,7 +2,7 @@
 
 import { useTranscriptionStep } from '@/hooks/use-form-steps'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
@@ -81,11 +81,11 @@ export function TranscriptionStep() {
   }
   
   const handlePromptToggle = (promptValue: string) => {
-    setSelectedPrompts(prev =>
-      prev.includes(promptValue)
-        ? prev.filter(p => p !== promptValue)
-        : [...prev, promptValue]
-    )
+    const current = selectedPrompts
+    const updated = current.includes(promptValue)
+      ? current.filter(p => p !== promptValue)
+      : [...current, promptValue]
+    setSelectedPrompts(updated)
   }
   
   const selectedService = T_CONFIG[transcriptionService as keyof typeof T_CONFIG]

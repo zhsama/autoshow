@@ -7,29 +7,29 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 AutoShow is an automated audio/video content processing tool that generates customizable show notes. It follows a multi-stage pipeline architecture: audio input → transcription → LLM processing → formatted output.
 
 **Core Tech Stack:**
-- **Frontend**: Astro 5.7.9 (SSR mode) + SolidJS 1.9.5 + TailwindCSS 4.1.6
-- **Backend**: Fastify 5.3.2 with Node.js middleware
-- **AI Services**: Deepgram, AssemblyAI, Groq (transcription) + OpenAI, Anthropic, Google (LLM)
+- **Frontend & Backend**: Next.js 15 + React 19 + TypeScript (full-stack app with API routes)
+- **UI**: shadcn/ui + Tailwind CSS 4 + Radix UI
+- **State Management**: Zustand store with TypeScript
+- **AI Services**: Deepgram, AssemblyAI, Groq, WhisperX (transcription) + OpenAI, Anthropic, Google, Ollama (LLM)
 - **Storage**: AWS S3 + Supabase
 
 ## Common Development Commands
 
 ```bash
 # Development
-npm run dev          # Start Astro dev server with hot reload
-npm run server       # Start Fastify backend server
-npm run setup        # Initialize project (check .env and dependencies)
-
-# Building & Production
-npm run build        # Build for production
-npm run preview      # Preview production build
-npm run check        # Run Astro type checking
+pnpm dev             # Start Next.js dev server with hot reload
+pnpm build           # Build all packages and Next.js app
+pnpm start           # Start production server
+pnpm setup           # Initialize project (install dependencies and build)
 
 # Testing
-npm run test:base    # Run base test suite
-npm run test:models  # Test AI model integrations
-npm run test:prompts # Test prompt configurations
-npm run test:steps   # Test workflow steps
+pnpm test            # Run all test suites
+pnpm test:models     # Test AI model integrations
+pnpm test:prompts    # Test prompt configurations
+pnpm test:steps      # Test workflow steps
+
+# Linting
+pnpm lint            # Run ESLint across all packages
 ```
 
 ## Architecture & Code Structure
@@ -42,21 +42,25 @@ The application follows a **processing pipeline** pattern:
 4. **Output Layer**: Markdown-formatted show notes
 
 ### Key Directories
-- `src/components/`: SolidJS reactive components (App.tsx is main orchestrator)
-- `src/pages/api/`: API endpoints for transcription, LLM processing, and show notes
-- `src/services/`: Business logic for transcription, LLM, and S3 operations
-- `src/types.ts`: Central type definitions for services and data models
+- `src/app/`: Next.js 15 App Router pages and API routes
+- `src/components/`: React 19 components with shadcn/ui
+- `src/stores/`: Zustand state management stores
+- `src/hooks/`: Custom React hooks for form steps
+- `packages/shared/`: Shared types, configurations, and utilities
+- `packages/transcription/`: Transcription service implementations
+- `packages/llm/`: LLM service implementations
 
 ### Service Configuration Pattern
-The app uses a **multi-provider pattern** for AI services defined in `types.ts`:
+The app uses a **multi-provider pattern** for AI services defined in `packages/shared/src/types.ts`:
 - `T_CONFIG`: Transcription service configurations with cost/speed metrics
 - `L_CONFIG`: LLM service configurations with token cost calculations
 - `ENV_VARS_MAP`: Environment variable mappings for API keys
 
 ### Component Architecture
-- **Reactive State**: SolidJS signals manage processing state across components
-- **Form Groups**: `components/groups/` contains service selection components
-- **Server-Side Rendering**: Astro handles page routing with SolidJS islands
+- **Server Components**: Next.js 15 Server Components for optimal performance
+- **Client Components**: React 19 components with 'use client' directive
+- **State Management**: Zustand stores replace prop drilling
+- **Form Steps**: Modular step components with custom hooks
 
 ## Environment Variables
 
@@ -76,15 +80,15 @@ SUPABASE_ANON_KEY=    # Database access
 ## Development Patterns
 
 ### Adding New AI Services
-1. Update service configs in `types.ts` (`T_CONFIG` or `L_CONFIG`)
-2. Add implementation in respective service file (`src/services/`)
+1. Update service configs in `packages/shared/src/types.ts` (`T_CONFIG` or `L_CONFIG`)
+2. Add implementation in respective package (`packages/transcription/` or `packages/llm/`)
 3. Update environment variable mapping in `ENV_VARS_MAP`
-4. Add UI selection in appropriate group component
+4. Add UI selection in appropriate form step component
 
 ### Modifying Processing Pipeline
-- API routes in `src/pages/api/` handle each pipeline stage
+- API routes in `src/app/api/` handle each pipeline stage
 - Each stage is independently testable and swappable
-- State management flows through SolidJS signals from `App.tsx`
+- State management flows through Zustand stores with TypeScript
 
 ### Testing Strategy
 - Model tests validate AI service integrations
@@ -94,7 +98,7 @@ SUPABASE_ANON_KEY=    # Database access
 
 ## Configuration Notes
 
-- **Astro Config**: Runs in server mode with Node.js middleware adapter
+- **Next.js Config**: Runs with App Router and Server Components
 - **Cost Optimization**: Service selection UI shows cost per minute/token
-- **Type Safety**: All API interactions are strictly typed through `types.ts`
+- **Type Safety**: All API interactions are strictly typed through shared types
 - **Error Handling**: Each service includes fallback provider options

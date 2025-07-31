@@ -19,8 +19,7 @@
     { "path": "./packages/transcription" },
     { "path": "./packages/llm" },
     { "path": "./packages/ui" },
-    { "path": "./packages/api" },
-    { "path": "./packages/web" }
+    { "path": "./apps/web" }
   ],
   "files": [],
   "exclude": ["dist", "node_modules", "**/dist"]

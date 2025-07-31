@@ -8,6 +8,27 @@ import { createHash } from 'crypto'
 import fs from 'fs/promises'
 import path from 'path'
 
+// Function to find yt-dlp executable
+async function findYtDlp(): Promise<string> {
+  const possiblePaths = [
+    '/Users/zhsama/.local/bin/yt-dlp',
+    '/usr/local/bin/yt-dlp',
+    '/opt/homebrew/bin/yt-dlp',
+    'yt-dlp' // fallback to PATH
+  ]
+  
+  for (const ytDlpPath of possiblePaths) {
+    try {
+      await execFilePromise(ytDlpPath, ['--version'])
+      return ytDlpPath
+    } catch (error) {
+      continue
+    }
+  }
+  
+  throw new Error('yt-dlp not found. Please install yt-dlp: https://github.com/yt-dlp/yt-dlp#installation')
+}
+
 export async function POST(request: NextRequest) {
   const pre = '[api/download-audio]'
   l(`${pre} Starting audio download and processing`)
@@ -84,8 +105,10 @@ export async function POST(request: NextRequest) {
     
     if (type === 'video') {
       l(`${pre} Processing video URL: ${url}`)
-      const { stdout } = await execFilePromise('yt-dlp', [
+      const ytDlpPath = await findYtDlp()
+      const { stdout } = await execFilePromise(ytDlpPath, [
         '--restrict-filenames',
+        '--cookies-from-browser', 'chrome', // 尝试从 Chrome 浏览器获取 cookies
         '--print', '%(webpage_url)s',
         '--print', '%(channel)s',
         '--print', '%(uploader_url)s',
@@ -120,6 +143,10 @@ export async function POST(request: NextRequest) {
         mnemonic: ''
       }
     } else {
+      if (!file) {
+        return NextResponse.json({ error: 'File is required for file upload type' }, { status: 400 })
+      }
+      
       l(`${pre} Processing uploaded file: ${file.name}`)
       
       // Save uploaded file to temp directory
@@ -162,7 +189,7 @@ export async function POST(request: NextRequest) {
       coverImage: metadata.coverImage || ''
     }).join('\n')
     
-    // Execute download/conversion with retry
+    // Execute download/conversion with retry and cookie fallback
     async function executeWithRetry(command: string, args: string[]) {
       const maxRetries = 7
       for (let attempt = 1; attempt <= maxRetries; attempt++) {
@@ -176,6 +203,31 @@ export async function POST(request: NextRequest) {
           if (attempt === maxRetries) {
             throw error
           }
+          
+          // If we get a bot detection error, try different cookie strategies
+          const errorMessage = error instanceof Error ? error.message : String(error)
+          if (errorMessage.includes('Sign in to confirm you\'re not a bot') && attempt <= 3) {
+            // Try different browsers for cookies
+            const browsers = ['chrome', 'firefox', 'safari', 'edge']
+            const currentBrowser = browsers[(attempt - 1) % browsers.length]
+            
+            // Update args to use different browser cookies
+            const newArgs = args.map(arg => 
+              arg === 'chrome' || arg === 'firefox' || arg === 'safari' || arg === 'edge' 
+                ? currentBrowser 
+                : arg
+            )
+            
+            // If no cookie args exist, add them
+            if (!args.includes('--cookies-from-browser')) {
+              const insertIndex = args.findIndex(arg => arg.startsWith('--')) + 2
+              newArgs.splice(insertIndex, 0, '--cookies-from-browser', currentBrowser)
+            }
+            
+            l(`${pre} Trying cookies from ${currentBrowser} browser`)
+            args = newArgs
+          }
+          
           const delayMs = 1000 * 2 ** (attempt - 1)
           await new Promise((resolve) => setTimeout(resolve, delayMs))
         }
@@ -184,9 +236,11 @@ export async function POST(request: NextRequest) {
     
     if (type === 'video') {
       l(`${pre} Downloading video from URL`)
-      await executeWithRetry('yt-dlp', [
+      const ytDlpPath = await findYtDlp()
+      await executeWithRetry(ytDlpPath, [
         '--no-warnings',
         '--restrict-filenames',
+        '--cookies-from-browser', 'chrome', // 尝试从 Chrome 浏览器获取 cookies
         '--extract-audio',
         '--audio-format', 'wav',
         '--postprocessor-args', 'ffmpeg:-ar 16000 -ac 1',
@@ -295,9 +349,24 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     err(`${pre} Error:`, error)
     const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred'
+    
+    // Provide specific guidance for YouTube bot detection
+    if (errorMessage.includes('Sign in to confirm you\'re not a bot')) {
+      return NextResponse.json(
+        {
+          error: 'YouTube 反机器人保护已激活',
+          details: '由于 YouTube 的反机器人保护，无法下载此视频。建议：1) 尝试使用其他 YouTube 视频 URL，2) 或者下载视频文件后直接上传处理',
+          suggestion: '请尝试上传本地视频文件，或使用其他视频平台的链接',
+          stack: error instanceof Error ? error.stack : undefined
+        },
+        { status: 429 } // Too Many Requests
+      )
+    }
+    
     return NextResponse.json(
       {
-        error: `An error occurred while processing the audio: ${errorMessage}`,
+        error: `处理音频时发生错误: ${errorMessage}`,
+        details: errorMessage,
         stack: error instanceof Error ? error.stack : undefined
       },
       { status: 500 }
