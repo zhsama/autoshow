@@ -17,7 +17,6 @@ import {
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useTheme } from "next-themes"
-import { useEffect, useState } from "react"
 import { useSidebar } from "@/components/ui/sidebar"
 import { cn } from "@/lib/utils"
 import {
@@ -45,12 +44,6 @@ export function AppSidebar() {
   const pathname = usePathname()
   const { theme, setTheme } = useTheme()
   const { state, toggleSidebar } = useSidebar()
-  const [mounted, setMounted] = useState(false)
-
-  // 等待组件挂载完成，避免水合不匹配
-  useEffect(() => {
-    setMounted(true)
-  }, [])
 
   const items = [
     {
@@ -161,20 +154,13 @@ export function AppSidebar() {
               <SidebarMenuItem>
                 <SidebarMenuButton
                   onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                  tooltip={mounted ? (theme === "dark" ? "Light mode" : "Dark mode") : "Theme toggle"}
+                  tooltip="Toggle theme"
                 >
-                  {!mounted ? (
-                    <Moon className="h-5 w-5 shrink-0" />
-                  ) : theme === "dark" ? (
-                    <Sun className="h-5 w-5 shrink-0" />
-                  ) : (
-                    <Moon className="h-5 w-5 shrink-0" />
-                  )}
+                  <Moon className="h-5 w-5 shrink-0 dark:hidden" />
+                  <Sun className="h-5 w-5 shrink-0 hidden dark:block" />
                   {!collapsed && (
-                    <span className={cn(
-                      "transition-all duration-300"
-                    )}>
-                      {!mounted ? "Theme" : (theme === "dark" ? "Light" : "Dark")} Mode
+                    <span className="transition-all duration-300">
+                      Toggle Theme
                     </span>
                   )}
                 </SidebarMenuButton>

@@ -10,6 +10,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       defaultTheme="system"
       enableSystem
       disableTransitionOnChange
+      storageKey="autoshow-theme"
     >
       {children}
     </NextThemesProvider>
