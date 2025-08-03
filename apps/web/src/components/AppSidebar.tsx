@@ -63,11 +63,8 @@ export function AppSidebar() {
     },
   ]
 
-  const collapsed = state === "collapsed"
-
   return (
     <Sidebar
-      className={`${collapsed ? "w-16" : "w-64"} transition-all duration-300 border-r border-sidebar-border shadow-elevation-1`}
       collapsible="icon"
     >
       <SidebarContent className="flex flex-col h-full">
@@ -84,12 +81,12 @@ export function AppSidebar() {
                 onClick={toggleSidebar}
                 className={cn(
                   "h-8 w-8 transition-all duration-300",
-                  collapsed && "ml-0"
+                  state === "collapsed" && "ml-0"
                 )}
               >
                 <ChevronLeft className={cn(
                   "h-4 w-4 transition-transform duration-300",
-                  collapsed && "rotate-180"
+                  state === "collapsed" && "rotate-180"
                 )} />
               </Button>
             </div>
@@ -100,7 +97,7 @@ export function AppSidebar() {
         <SidebarGroup className="flex-1">
           <SidebarGroupLabel className="text-xs uppercase tracking-wider text-muted-foreground font-medium px-4 py-2">
             Main
-          </SidebarGroupLabel>
+          </SidebarGroupLabel>  
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
@@ -108,7 +105,7 @@ export function AppSidebar() {
                   <SidebarMenuButton asChild isActive={pathname === item.url} tooltip={item.title}>
                     <Link href={item.url} className="mx-2 rounded-lg">
                       <item.icon className="h-5 w-5 shrink-0" />
-                      {!collapsed && <span className="ml-3">{item.title}</span>}
+                      {state !== "collapsed" && <span className="ml-3">{item.title}</span>}
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -127,12 +124,12 @@ export function AppSidebar() {
                   <DropdownMenuTrigger asChild>
                     <SidebarMenuButton tooltip="Language">
                       <Languages className="h-5 w-5 shrink-0" />
-                      {!collapsed && (
+                      {state !== "collapsed" && (
                         <span className={cn(
                           "transition-all duration-300"
                         )}>Language</span>
                       )}
-                      {!collapsed && <ChevronDown className="h-4 w-4 ml-auto text-muted-foreground" />}
+                      {state !== "collapsed" && <ChevronDown className="h-4 w-4 ml-auto text-muted-foreground" />}
                     </SidebarMenuButton>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end" className="w-56">
@@ -158,7 +155,7 @@ export function AppSidebar() {
                 >
                   <Moon className="h-5 w-5 shrink-0 dark:hidden" />
                   <Sun className="h-5 w-5 shrink-0 hidden dark:block" />
-                  {!collapsed && (
+                  {state !== "collapsed" && (
                     <span className="transition-all duration-300">
                       Toggle Theme
                     </span>
@@ -180,7 +177,7 @@ export function AppSidebar() {
                       AS
                     </AvatarFallback>
                   </Avatar>
-                  {!collapsed && (
+                  {state !== "collapsed" && (
                     <>
                       <div className="ml-3 text-left flex-1">
                         <p className="text-sm font-medium text-sidebar-foreground">AutoShow</p>
