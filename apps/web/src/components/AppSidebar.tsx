@@ -14,8 +14,8 @@ import {
   Globe,
   Palette
 } from "lucide-react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { useTranslations } from 'next-intl'
+import { Link, usePathname } from '@/i18n/navigation'
 import { useTheme } from "next-themes"
 import { useSidebar } from "@/components/ui/sidebar"
 import { cn } from "@/lib/utils"
@@ -41,23 +41,24 @@ import {
 } from "@/components/ui/dropdown-menu"
 
 export function AppSidebar() {
+  const t = useTranslations('AppSidebar')
   const pathname = usePathname()
   const { theme, setTheme } = useTheme()
   const { state, toggleSidebar } = useSidebar()
 
   const items = [
     {
-      title: "Home",
+      title: t('navigation.home'),
       url: "/",
       icon: Home,
     },
     {
-      title: "History",
+      title: t('navigation.history'),
       url: "/history",
       icon: History,
     },
     {
-      title: "Collections",
+      title: t('navigation.collections'),
       url: "/collections",
       icon: Package,
     },
@@ -127,19 +128,23 @@ export function AppSidebar() {
                       {state !== "collapsed" && (
                         <span className={cn(
                           "transition-all duration-300"
-                        )}>Language</span>
+                        )}>{t('language')}</span>
                       )}
                       {state !== "collapsed" && <ChevronDown className="h-4 w-4 ml-auto text-muted-foreground" />}
                     </SidebarMenuButton>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end" className="w-56">
-                    <DropdownMenuItem onClick={() => console.log('Switch to English')}>
-                      <Globe className="mr-2 h-4 w-4" />
-                      English
+                    <DropdownMenuItem asChild>
+                      <Link href={pathname} locale="en">
+                        <Globe className="mr-2 h-4 w-4" />
+                        English
+                      </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => console.log('Switch to Chinese')}>
-                      <Globe className="mr-2 h-4 w-4" />
-                      中文
+                    <DropdownMenuItem asChild>
+                      <Link href={pathname} locale="zh">
+                        <Globe className="mr-2 h-4 w-4" />
+                        中文
+                      </Link>
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
@@ -157,7 +162,7 @@ export function AppSidebar() {
                   <Sun className="h-5 w-5 shrink-0 hidden dark:block" />
                   {state !== "collapsed" && (
                     <span className="transition-all duration-300">
-                      Toggle Theme
+                      {t('theme')}
                     </span>
                   )}
                 </SidebarMenuButton>
@@ -191,15 +196,15 @@ export function AppSidebar() {
               <DropdownMenuContent align="end" className="w-56">
                 <DropdownMenuItem>
                   <User className="mr-2 h-4 w-4" />
-                  Profile
+                  {t('user.profile')}
                 </DropdownMenuItem>
                 <DropdownMenuItem>
                   <Palette className="mr-2 h-4 w-4" />
-                  Theme
+                  {t('user.theme')}
                 </DropdownMenuItem>
                 <DropdownMenuItem className="text-destructive">
                   <LogOut className="mr-2 h-4 w-4" />
-                  Log Out
+                  {t('user.logout')}
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

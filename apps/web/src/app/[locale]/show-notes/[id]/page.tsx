@@ -1,4 +1,4 @@
-import { ShowNote } from '../../../components/ShowNote'
+import { ShowNote } from '../../../../components/ShowNote'
 
 interface ShowNotePageProps {
   params: Promise<{

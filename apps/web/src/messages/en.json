@@ -1,0 +1,43 @@
+{
+  "AppSidebar": {
+    "navigation": {
+      "home": "Home",
+      "history": "History",
+      "collections": "Collections"
+    },
+    "language": "Language",
+    "theme": "Toggle Theme",
+    "user": {
+      "profile": "Profile",
+      "theme": "Theme",
+      "logout": "Log Out"
+    }
+  },
+  "HomePage": {
+    "title": "Import Media",
+    "description": "Add YouTube videos, podcasts, or local files to your media library",
+    "import": {
+      "title": "Import Content",
+      "description": "Enter a YouTube URL, podcast RSS feed, or upload local files",
+      "urlLabel": "URL or Link",
+      "urlPlaceholder": "https://www.youtube.com/watch?v=... or https://feeds.example.com/podcast.xml",
+      "button": "Import",
+      "processing": "Processing...",
+      "or": "Or",
+      "uploadTitle": "Drop files here or click to browse",
+      "uploadDescription": "Supports: MP4, MP3, WAV, MOV, AVI (Max 100MB each)"
+    },
+    "platforms": {
+      "youtube": "YouTube",
+      "podcasts": "Podcasts", 
+      "rss": "RSS Feeds"
+    },
+    "messages": {
+      "success": "Import successful",
+      "successDescription": "Content has been processed and is ready for transcription.",
+      "error": "Error",
+      "fileSelected": "File selected",
+      "selectFile": "Please select a file"
+    }
+  }
+}

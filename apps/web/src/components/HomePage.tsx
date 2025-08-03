@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { Upload, Youtube, Plus, Link, Podcast } from "lucide-react"
+import { useTranslations } from 'next-intl'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
@@ -11,6 +12,7 @@ import { useProcessTypeStep } from "@/hooks/use-form-steps"
 import { logger } from "@/lib/logger"
 
 export function HomePage() {
+  const t = useTranslations('HomePage')
   const { toast } = useToast()
   
   // Use the existing form steps hook
@@ -69,8 +71,8 @@ export function HomePage() {
       logger.log('[HomePage] Video processed successfully')
       
       toast({
-        title: "Import successful",
-        description: "Video has been processed and is ready for transcription.",
+        title: t('messages.success'),
+        description: t('messages.successDescription'),
       })
       
       // Navigate to transcription step
@@ -79,7 +81,7 @@ export function HomePage() {
       logger.error('[HomePage] Error processing video:', error)
       setError(error instanceof Error ? error.message : 'Failed to process video')
       toast({
-        title: "Error",
+        title: t('messages.error'),
         description: error instanceof Error ? error.message : 'Failed to process video',
         variant: "destructive",
       })
@@ -96,7 +98,7 @@ export function HomePage() {
     
     try {
       if (!selectedFile) {
-        throw new Error('Please select a file')
+        throw new Error(t('messages.selectFile'))
       }
 
       // Create FormData for file upload
@@ -127,8 +129,8 @@ export function HomePage() {
       logger.log('[HomePage] File processed successfully')
       
       toast({
-        title: "Import successful",
-        description: "File has been processed and is ready for transcription.",
+        title: t('messages.success'),
+        description: t('messages.successDescription'),
       })
       
       // Navigate to transcription step
@@ -137,7 +139,7 @@ export function HomePage() {
       logger.error('[HomePage] Error processing file:', error)
       setError(error instanceof Error ? error.message : 'Failed to process file')
       toast({
-        title: "Error",
+        title: t('messages.error'),
         description: error instanceof Error ? error.message : 'Failed to process file',
         variant: "destructive",
       })
@@ -160,7 +162,7 @@ export function HomePage() {
     if (!files || files.length === 0) return
 
     toast({
-      title: "File selected",
+      title: t('messages.fileSelected'),
       description: `Selected: ${files[0].name}`,
     })
   }
@@ -169,9 +171,9 @@ export function HomePage() {
     <div className="max-w-4xl mx-auto p-6 space-y-6">
       {/* Header */}
       <div className="text-center space-y-2">
-        <h1 className="text-3xl font-bold text-foreground">Import Media</h1>
+        <h1 className="text-3xl font-bold text-foreground">{t('title')}</h1>
         <p className="text-muted-foreground">
-          Add YouTube videos, podcasts, or local files to your media library
+          {t('description')}
         </p>
       </div>
 
@@ -180,20 +182,20 @@ export function HomePage() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Link className="h-5 w-5 text-primary" />
-            Import Content
+            {t('import.title')}
           </CardTitle>
           <CardDescription>
-            Enter a YouTube URL, podcast RSS feed, or upload local files
+            {t('import.description')}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           {/* URL Input */}
           <div className="space-y-2">
-            <Label htmlFor="content-url">URL or Link</Label>
+            <Label htmlFor="content-url">{t('import.urlLabel')}</Label>
             <div className="flex gap-2">
               <Input
                 id="content-url"
-                placeholder="https://www.youtube.com/watch?v=... or https://feeds.example.com/podcast.xml"
+                placeholder={t('import.urlPlaceholder')}
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
                 className="flex-1"
@@ -204,21 +206,21 @@ export function HomePage() {
                 className="min-w-24"
               >
                 <Plus className="h-4 w-4 mr-2" />
-                {isLoading ? 'Processing...' : 'Import'}
+                {isLoading ? t('import.processing') : t('import.button')}
               </Button>
             </div>
             <div className="flex items-center gap-4 text-xs text-muted-foreground">
               <div className="flex items-center gap-1">
                 <Youtube className="h-3 w-3" />
-                YouTube
+                {t('platforms.youtube')}
               </div>
               <div className="flex items-center gap-1">
                 <Podcast className="h-3 w-3" />
-                Podcasts
+                {t('platforms.podcasts')}
               </div>
               <div className="flex items-center gap-1">
                 <Link className="h-3 w-3" />
-                RSS Feeds
+                {t('platforms.rss')}
               </div>
             </div>
           </div>
@@ -229,7 +231,7 @@ export function HomePage() {
               <span className="w-full border-t" />
             </div>
             <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-background px-2 text-muted-foreground">Or</span>
+              <span className="bg-background px-2 text-muted-foreground">{t('import.or')}</span>
             </div>
           </div>
 
@@ -237,9 +239,9 @@ export function HomePage() {
           <div className="border-2 border-dashed border-border rounded-lg p-6 text-center hover:border-primary/50 transition-colors">
             <Upload className="h-10 w-10 text-muted-foreground mx-auto mb-3" />
             <div className="space-y-2">
-              <p className="text-base font-medium">Drop files here or click to browse</p>
+              <p className="text-base font-medium">{t('import.uploadTitle')}</p>
               <p className="text-sm text-muted-foreground">
-                Supports: MP4, MP3, WAV, MOV, AVI (Max 100MB each)
+                {t('import.uploadDescription')}
               </p>
             </div>
             <Input
@@ -259,7 +261,7 @@ export function HomePage() {
                   disabled={isLoading}
                   className="w-full max-w-xs"
                 >
-                  {isLoading ? 'Processing...' : (
+                  {isLoading ? t('import.processing') : (
                     <>
                       <Plus className="h-4 w-4 mr-2" />
                       Process File
