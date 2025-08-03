@@ -1,5 +1,17 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-# Validate commit message with commitlint
+# 获取commit消息
+commit_msg=$(cat "$1")
+
+# 基础commitlint验证
+echo "📝 Validating commit message format..."
 npx --no-install commitlint --edit "$1"
+
+# 检查是否为fixup或squash commit (跳过某些检查)
+if echo "$commit_msg" | grep -E "^(fixup|squash)!" > /dev/null; then
+    echo "⏭️ Detected fixup/squash commit, skipping additional checks"
+    exit 0
+fi
+
+echo "✅ Commit message validation passed!"
