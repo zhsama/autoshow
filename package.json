@@ -27,14 +27,32 @@
     "lint": "pnpm -r lint",
     "clean": "pnpm -r clean",
     "repo": "bash .github/repomix.sh",
-    "setup": "pnpm install && pnpm build"
+    "setup": "pnpm install && pnpm build",
+    "prepare": "husky"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
     "@types/node": "22.15.3",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.4",
+    "prettier": "^3.6.2",
     "repomix": "0.3.3",
     "supabase": "2.22.6",
     "tsx": "4.19.4",
     "typescript": "5.8.3"
+  },
+  "lint-staged": {
+    "apps/web/src/**/*.{js,jsx,ts,tsx}": [
+      "pnpm --filter web lint --fix",
+      "prettier --write"
+    ],
+    "packages/**/src/**/*.{js,jsx,ts,tsx}": [
+      "prettier --write"
+    ],
+    "*.{json,md,yml,yaml}": [
+      "prettier --write"
+    ]
   },
   "packageManager": "pnpm@10.13.1+sha512.37ebf1a5c7a30d5fabe0c5df44ee8da4c965ca0c5af3dbab28c3a1681b70a256218d05c81c9c0dcf767ef6b8551eb5b960042b9ed4300c59242336377e01cfad",
   "dependencies": {
