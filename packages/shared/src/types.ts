@@ -65,6 +65,18 @@ export const T_CONFIG = {
       { modelId: 'distil-whisper-large-v3-en', costPerMinuteCents: 0.033 },
     ]
   },
+  whisperx: {
+    serviceName: 'WhisperX',
+    value: 'whisperx',
+    label: 'WhisperX (Local)',
+    models: [
+      { modelId: 'large-v3', costPerMinuteCents: 0 },
+      { modelId: 'medium', costPerMinuteCents: 0 },
+      { modelId: 'small', costPerMinuteCents: 0 },
+      { modelId: 'base', costPerMinuteCents: 0 },
+      { modelId: 'tiny', costPerMinuteCents: 0 },
+    ]
+  },
 }
 export const L_CONFIG = {
   skip: {
@@ -129,6 +141,27 @@ export const L_CONFIG = {
       { modelName: 'LLaMA 3 8B', modelId: 'llama3-8b-8192', inputCostC: 5, outputCostC: 15 },
       { modelName: 'Gemma 2 9B', modelId: 'gemma2-9b-it', inputCostC: 5, outputCostC: 15 },
     ]
+  },
+  ollama: {
+    serviceName: 'Ollama (Local)',
+    value: 'ollama',
+    label: 'Ollama Local Models',
+    apiKeyPropName: null, // No API key needed for local models
+    models: [
+      { modelName: 'LLaMA 3.3 70B', modelId: 'llama3.3:70b', inputCostC: 0, outputCostC: 0 },
+      { modelName: 'LLaMA 3.2 3B', modelId: 'llama3.2:3b', inputCostC: 0, outputCostC: 0 },
+      { modelName: 'LLaMA 3.2 1B', modelId: 'llama3.2:1b', inputCostC: 0, outputCostC: 0 },
+      { modelName: 'Mistral 7B', modelId: 'mistral:7b', inputCostC: 0, outputCostC: 0 },
+      { modelName: 'Mixtral 8x7B', modelId: 'mixtral:8x7b', inputCostC: 0, outputCostC: 0 },
+      { modelName: 'Qwen 2.5 32B', modelId: 'qwen2.5:32b', inputCostC: 0, outputCostC: 0 },
+      { modelName: 'Qwen 2.5 14B', modelId: 'qwen2.5:14b', inputCostC: 0, outputCostC: 0 },
+      { modelName: 'Qwen 2.5 7B', modelId: 'qwen2.5:7b', inputCostC: 0, outputCostC: 0 },
+      { modelName: 'Phi-3 Mini', modelId: 'phi3:mini', inputCostC: 0, outputCostC: 0 },
+      { modelName: 'Gemma 2 9B', modelId: 'gemma2:9b', inputCostC: 0, outputCostC: 0 },
+      { modelName: 'Gemma 2 2B', modelId: 'gemma2:2b', inputCostC: 0, outputCostC: 0 },
+      { modelName: 'DeepSeek Coder V2', modelId: 'deepseek-coder-v2:16b', inputCostC: 0, outputCostC: 0 },
+      { modelName: 'CodeLlama 7B', modelId: 'codellama:7b', inputCostC: 0, outputCostC: 0 },
+    ]
   }
 }
 
@@ -186,6 +219,8 @@ export type ProcessingOptions = {
   groq?: boolean | string
   deepgram?: boolean | string
   assembly?: boolean | string
+  whisperx?: boolean | string
+  ollama?: boolean | string
   transcriptCost?: string
   llmCost?: string
   runLLM?: string
@@ -209,6 +244,7 @@ export type ChatGPTModelValue = (typeof L_CONFIG.chatgpt.models)[number]['modelI
 export type ClaudeModelValue = (typeof L_CONFIG.claude.models)[number]['modelId']
 export type GeminiModelValue = (typeof L_CONFIG.gemini.models)[number]['modelId']
 export type GroqModelValue = (typeof L_CONFIG.groq.models)[number]['modelId']
+export type OllamaModelValue = (typeof L_CONFIG.ollama.models)[number]['modelId']
 export interface DeepgramWord {
   word: string
   start: number

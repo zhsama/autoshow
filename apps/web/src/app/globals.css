@@ -25,6 +25,14 @@
     --color-primary-900: #dd546e;
     --color-primary-950: #92406e;
 
+    /* Material Design primary variants */
+    --color-primary-hover: #1565c0;
+    --color-primary-light: #e3f2fd;
+
+    /* Material Design secondary variants */
+    --color-secondary-hover: #00695c;
+    --color-secondary-light: #e0f2f1;
+
     /* base colors */
     --color-base-50: #f6fde6;
     --color-base-100: #ffffff;
@@ -62,8 +70,12 @@
         --popover-foreground: var(--color-base-950);
         --primary: var(--color-primary-700);
         --primary-foreground: var(--color-base-50);
+        --primary-hover: var(--color-primary-hover);
+        --primary-light: var(--color-primary-light);
         --secondary: var(--color-fuchsia-700);
         --secondary-foreground: var(--color-base-50);
+        --secondary-hover: var(--color-secondary-hover);
+        --secondary-light: var(--color-secondary-light);
         --muted: var(--color-base-100);
         --muted-foreground: var(--color-base-600);
         --accent: var(--color-base-200);
@@ -79,6 +91,17 @@
         --border: var(--color-base-300);
         --input: var(--color-base-100);
         --outline: var(--color-base-950);
+        --ring: var(--color-primary-500);
+
+        /* sidebar variables */
+        --sidebar-background: var(--background);
+        --sidebar-foreground: var(--foreground);
+        --sidebar-primary: var(--primary);
+        --sidebar-primary-foreground: var(--primary-foreground);
+        --sidebar-accent: var(--accent);
+        --sidebar-accent-foreground: var(--accent-foreground);
+        --sidebar-border: var(--border);
+        --sidebar-ring: var(--ring);
 
         --radius: 0.5rem;
     }
@@ -110,6 +133,7 @@
         --border: var(--color-base-800);
         --input: var(--color-base-800);
         --outline: var(--color-base-50);
+        --ring: var(--color-primary-300);
 
         @apply scheme-dark;
     }

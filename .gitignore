@@ -47,3 +47,8 @@ pnpm-debug.log*
 .cache
 .astro
 supabase
+
+.bmad*
+.claude
+.gemini
+.cursor

@@ -1,148 +1,215 @@
-# AutoShow Monorepo
+# AutoShow
 
 <div align="center">
   <img alt="autoshow logo" src="https://ajc.pics/autoshow/autoshow-cover-01.webp" width="300" />
 </div>
 
-AutoShow is a comprehensive AI-powered podcast and content processing platform built with Astro, SolidJS, and Fastify. It automates the processing of audio and video content from various sources, leveraging advanced transcription services and language models to generate formatted show notes and diverse content formats.
+AutoShow is a comprehensive AI-powered content processing platform built with **Next.js 15**, **React 19**, **Tailwind CSS 4**, and **shadcn/ui**. It automates the processing of audio and video content from various sources, leveraging advanced transcription services and language models to generate formatted show notes and diverse content formats.
 
-## 🏗️ Monorepo Structure
+## 🎯 New in V2: Local AI Support
 
-This project uses pnpm workspaces to manage multiple packages:
+🚀 **Major Update**: AutoShow now supports local AI processing with zero ongoing costs!
+
+- **WhisperX Integration**: Local transcription with speaker diarization
+- **Ollama Support**: Run LLMs locally (LLaMA, Mistral, Qwen, etc.)
+- **Enhanced Video Support**: Upload local video files directly
+- **Next.js 15 + React 19**: Modern web framework with Server Components
+- **shadcn/ui**: Beautiful, customizable UI components
+
+## 🏗️ Architecture
+
+AutoShow uses a modern monorepo structure with **pnpm workspaces**:
 
 ```
+apps/
+└── web/              # Next.js 15 + React 19 full-stack app with API routes
 packages/
-├── shared/          # Shared utilities, types, and configurations
-├── transcription/   # Transcription services (Deepgram, AssemblyAI, Whisper)
-├── llm/             # LLM integrations (OpenAI, Anthropic, Gemini, Groq, etc.)
-├── ui/              # Reusable UI components (SolidJS)
-├── api/             # Backend API server (Fastify)
-└── web/             # Frontend web application (Astro + SolidJS)
+├── shared/           # Shared utilities, types, and configurations
+├── transcription/    # Transcription services (Deepgram, AssemblyAI, Groq, WhisperX)
+└── llm/              # LLM integrations (OpenAI, Anthropic, Gemini, Ollama)
 ```
 
 ## 📋 Key Features
 
-- **Multiple Input Support**: YouTube videos, playlists, podcast RSS feeds, and local media files
-- **Advanced Transcription**: Deepgram, AssemblyAI, and OpenAI Whisper integration
-- **Multi-LLM Support**: OpenAI, Anthropic, Google Gemini, Groq, Cohere, Mistral, and more
-- **Customizable Output**: Generate summaries, chapters, social media posts, creative content, and educational materials
-- **Real-time Processing**: Live status updates and progress tracking
-- **S3 Integration**: Optional cloud storage for processed content
-- **Markdown Output**: Formatted content with metadata
+### Content Processing
+- **Multiple Input Types**: YouTube videos, local video/audio files
+- **Video Format Support**: MP4, MKV, AVI, MOV, WebM, MP3, WAV, M4A, AAC, OGG, FLAC
+- **Automatic Conversion**: FFmpeg-powered format conversion
+
+### Transcription Services
+- **WhisperX (Local)** 🆕: Enhanced local transcription with speaker diarization
+- **Groq**: Fast Whisper models via API
+- **Deepgram**: Professional transcription service
+- **AssemblyAI**: Advanced audio intelligence
+
+### LLM Processing
+- **Ollama (Local)** 🆕: Run models locally (LLaMA, Mistral, Qwen, Gemma)
+- **OpenAI**: GPT models (o1, o3, 4o, etc.)
+- **Anthropic**: Claude models (Opus, Sonnet, Haiku)
+- **Google**: Gemini models (2.5 Pro, 2.0 Flash, etc.)
+
+### Output Formats
+- Summaries (short, medium, long)
+- Chapter breakdowns with timestamps
+- Key takeaways and quotes
+- Social media posts (X, LinkedIn, Facebook)
+- Creative content (rap songs, country songs, etc.)
+- Blog posts and educational materials
 
 ## 🚀 Quick Start
 
-### Prerequisites
-
-- Node.js 18+ and pnpm
-- API keys for transcription and LLM services (see Configuration section)
-
-### Installation
+### Option 1: Local AI Setup (Recommended)
 
 ```bash
-# Clone the repository
+# Clone and install
 git clone https://github.com/yourusername/autoshow.git
 cd autoshow
-
-# Install dependencies
 pnpm install
 
-# Build all packages
-pnpm build
+# Run the local AI setup script
+./setup-local-ai.sh
 
 # Start development server
 pnpm dev
 ```
 
-Open [localhost:4321](http://localhost:4321/) to access the web interface.
-
-### Development Commands
+### Option 2: Cloud Services Only
 
 ```bash
-# Run all packages in development mode
+# Clone and install
+git clone https://github.com/yourusername/autoshow.git
+cd autoshow
+
+# Quick setup with dependency installer
+./install-dependencies.sh
+
+# OR manual setup:
+pnpm install
+
+# Set up environment variables (see Configuration)
+cp apps/web/.env.example apps/web/.env.local
+
+# Start development server
 pnpm dev
-
-# Run specific package
-pnpm --filter @autoshow/web dev
-pnpm --filter @autoshow/api dev
-
-# Build all packages
-pnpm build
-
-# Run tests
-pnpm test
 ```
 
-## 📦 Package Details
+## 🔧 System Dependencies
 
-### @autoshow/shared
-Common utilities, types, and configurations used across all packages.
+AutoShow requires the following system tools:
 
-### @autoshow/transcription
-Transcription service integrations:
-- **Deepgram** - Fast, accurate transcription
-- **AssemblyAI** - Advanced transcription with speaker detection
-- **OpenAI Whisper** - Local or API-based transcription
+- **yt-dlp**: For downloading videos from YouTube and other platforms
+- **ffmpeg**: For audio/video processing and format conversion
+- **Node.js 18+** and **pnpm**: For running the application
 
-### @autoshow/llm
-Language Model integrations for content generation:
-- **OpenAI** (GPT-4, GPT-3.5)
-- **Anthropic** (Claude 3 Opus, Sonnet, Haiku)
-- **Google** (Gemini 1.5 Pro, Flash)
-- **Groq** (Llama 3, Mixtral)
-- **Cohere** (Command R+)
-- **Mistral** (Large, Medium, Small)
-- **Fireworks**
-- **Together**
-- **Perplexity**
+### Quick Installation
 
-### @autoshow/ui
-Reusable SolidJS components for the user interface.
+Run the automated installer:
+```bash
+./install-dependencies.sh
+```
 
-### @autoshow/api
-Fastify-based API server handling:
-- Audio/video downloads
-- Transcription processing
-- Content generation
-- S3 storage integration
+### Manual Installation
 
-### @autoshow/web
-Astro-based web application providing:
-- User interface for content processing
-- Show notes viewing and management
-- Real-time processing status updates
+**macOS (using Homebrew):**
+```bash
+brew install yt-dlp ffmpeg
+npm install -g pnpm
+```
+
+**Linux (Ubuntu/Debian):**
+```bash
+# Install yt-dlp
+mkdir -p ~/.local/bin
+curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -o ~/.local/bin/yt-dlp
+chmod +x ~/.local/bin/yt-dlp
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
+
+# Install ffmpeg
+sudo apt update && sudo apt install ffmpeg
+
+# Install pnpm
+npm install -g pnpm
+```
+
+## 📖 Documentation
+
+- [Local AI Setup Guide](./LOCAL_AI_SETUP.md) - Complete guide for WhisperX and Ollama setup
+- [YouTube Issues Guide](./YOUTUBE_ISSUES.md) - Solutions for YouTube bot detection and cookie issues
+- [CLAUDE.md](./CLAUDE.md) - Development guidance and project architecture
 
 ## 🛠️ Configuration
 
 ### Environment Variables
 
-Create a `.env` file in the root directory:
+Create a `.env.local` file in the `apps/web` directory:
 
 ```bash
-# Transcription Services
-DEEPGRAM_API_KEY=your_deepgram_key
-ASSEMBLY_API_KEY=your_assembly_key
-OPENAI_API_KEY=your_openai_key  # For Whisper
-
-# LLM Services
-ANTHROPIC_API_KEY=your_anthropic_key
-GEMINI_API_KEY=your_gemini_key
-GROQ_API_KEY=your_groq_key
-COHERE_API_KEY=your_cohere_key
-MISTRAL_API_KEY=your_mistral_key
-FIREWORKS_API_KEY=your_fireworks_key
-TOGETHER_API_KEY=your_together_key
-PERPLEXITY_API_KEY=your_perplexity_key
-
-# S3 Storage (Optional)
-S3_ACCESS_KEY_ID=your_s3_access_key
-S3_SECRET_ACCESS_KEY=your_s3_secret_key
-S3_REGION=your_s3_region
+# Required for S3 storage
+AWS_ACCESS_KEY_ID=your_aws_access_key
+AWS_SECRET_ACCESS_KEY=your_aws_secret_key
+AWS_REGION=us-east-2
 S3_BUCKET_NAME=your_s3_bucket
 
-# Other
-VERCEL_URL=http://localhost:3000  # For local development
+# Required for Supabase
+SUPABASE_URL=your_supabase_url
+SUPABASE_ANON_KEY=your_supabase_anon_key
+
+# Optional: Cloud Transcription Services
+DEEPGRAM_API_KEY=your_deepgram_key
+ASSEMBLY_API_KEY=your_assembly_key
+GROQ_API_KEY=your_groq_key
+
+# Optional: Cloud LLM Services
+OPENAI_API_KEY=your_openai_key
+ANTHROPIC_API_KEY=your_anthropic_key
+GEMINI_API_KEY=your_gemini_key
+
+# Optional: Custom Ollama URL
+OLLAMA_BASE_URL=http://localhost:11434
 ```
+
+### Local AI Services (Zero Cost)
+
+For completely free operation, use local AI services:
+
+1. **WhisperX** for transcription (speaker diarization included)
+2. **Ollama** for LLM processing
+
+See [LOCAL_AI_SETUP.md](./LOCAL_AI_SETUP.md) for detailed setup instructions.
+
+## 📦 Package Details
+
+### Apps
+
+#### @autoshow/web
+Next.js 15 + React 19 web application featuring:
+- Modern UI with shadcn/ui components
+- Server Components and Server Actions
+- Zustand state management
+- File upload support for local videos
+- Real-time processing status
+
+### Packages
+
+#### @autoshow/shared
+Common utilities, types, and configurations:
+- Service configurations (T_CONFIG, L_CONFIG)
+- TypeScript types and interfaces
+- Shared server utilities
+
+#### @autoshow/transcription
+Transcription service integrations:
+- **WhisperX** 🆕 - Local transcription with speaker diarization
+- **Groq** 🆕 - Fast Whisper models via API
+- **Deepgram** - Professional transcription service
+- **AssemblyAI** - Advanced audio intelligence
+
+#### @autoshow/llm
+Language Model integrations:
+- **Ollama** 🆕 - Local LLM processing (LLaMA, Mistral, Qwen, etc.)
+- **OpenAI** - GPT models (o1, o3, 4o, etc.)
+- **Anthropic** - Claude models (Opus, Sonnet, Haiku)
+- **Google** - Gemini models (2.5 Pro, 2.0 Flash, etc.)
 
 ## 🎯 Content Generation Options
 
@@ -211,7 +278,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🙏 Acknowledgments
 
-- Built with [Astro](https://astro.build/), [SolidJS](https://www.solidjs.com/), and [Fastify](https://www.fastify.io/)
+- Built with [Next.js 15](https://nextjs.org/), [React 19](https://react.dev/), [Tailwind CSS 4](https://tailwindcss.com/), and [shadcn/ui](https://ui.shadcn.com/)
 - Transcription powered by [Deepgram](https://deepgram.com/), [AssemblyAI](https://www.assemblyai.com/), and [OpenAI Whisper](https://openai.com/research/whisper)
 - Content generation powered by various LLM providers
 
