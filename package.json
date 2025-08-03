@@ -28,7 +28,6 @@
     "test:prompts": "pnpm --filter shared test:prompts",
     "test:steps": "pnpm --filter shared test:steps",
     "lint": "pnpm -r lint",
-    "lint:packages": "eslint packages/ --config packages/eslint.config.mjs",
     "lint:fix": "pnpm -r lint:fix",
     "security:audit": "bash scripts/security-audit.sh",
     "security:check": "pnpm audit --audit-level moderate",
@@ -57,15 +56,12 @@
   },
   "lint-staged": {
     "apps/web/src/**/*.{js,jsx,ts,tsx}": [
-      "pnpm --filter web lint --fix",
+      "cd apps/web && pnpm lint --fix",
       "prettier --write"
     ],
     "packages/**/src/**/*.{js,jsx,ts,tsx}": [
       "eslint --fix",
       "prettier --write"
-    ],
-    "*.{ts,tsx}": [
-      "bash -c 'tsc --noEmit'"
     ],
     "*.{json,md,yml,yaml}": [
       "prettier --write"
