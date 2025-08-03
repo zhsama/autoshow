@@ -16,7 +16,7 @@
   ],
   "scripts": {
     "build": "pnpm -r build",
-    "build:check": "pnpm --filter web next build --dry-run",
+    "build:check": "cd apps/web && pnpm type-check",
     "dev": "pnpm --filter web dev",
     "start": "pnpm --filter web start",
     "preview": "pnpm --filter web preview",
