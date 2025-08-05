@@ -81,6 +81,12 @@
   --color-accent: oklch(91.5% 0.008 45);
   --color-accent-foreground: oklch(35.2% 0.025 45);
 
+  --color-sidebar: oklch(99.1% 0.002 220);
+  --color-sidebar-foreground: oklch(18.5% 0.015 220);
+  --color-sidebar-border: oklch(92.1% 0.012 220);
+  --color-sidebar-accent: oklch(94.5% 0.008 45);
+  --color-sidebar-accent-foreground: oklch(28.2% 0.025 45);
+
   /* Destructive (Legacy Support) */
   --color-destructive: oklch(58.2% 0.115 15);
   --color-destructive-foreground: oklch(99.1% 0.002 220);
@@ -90,13 +96,13 @@
   --radius-sm: 0.5rem;
   --radius-lg: 1rem;
   --radius-xl: 1.5rem;
-  
+
   /* Timing Functions */
   --duration-fast: 120ms;
   --duration-normal: 200ms;
   --duration-slow: 300ms;
   --duration-slower: 500ms;
-  
+
   /* Easing Functions */
   --ease-out: cubic-bezier(0, 0, 0.2, 1);
   --ease-in: cubic-bezier(0.4, 0, 1, 1);
@@ -185,7 +191,12 @@
   --color-accent: oklch(28.7% 0.015 45);
   --color-accent-foreground: oklch(85.4% 0.012 45);
 
-  /* Destructive (Legacy Support) Dark */
+  --color-sidebar: oklch(15.8% 0.012 220);
+  --color-sidebar-foreground: oklch(95.2% 0.008 220);
+  --color-sidebar-border: oklch(32.5% 0.025 220);
+  --color-sidebar-accent: oklch(32.5% 0.018 45);
+  --color-sidebar-accent-foreground: oklch(88.4% 0.012 45);
+
   --color-destructive: oklch(68.8% 0.155 15);
   --color-destructive-foreground: oklch(15.8% 0.012 220);
 }
@@ -204,7 +215,9 @@
   }
 
   html {
-    font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-family:
+      ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+      'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
     line-height: 1.5;
     -webkit-text-size-adjust: 100%;
     -moz-tab-size: 4;
@@ -215,9 +228,11 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
-    font-feature-settings: 'rlig' 1, 'calt' 1;
+    font-feature-settings:
+      'rlig' 1,
+      'calt' 1;
     font-variation-settings: 'wght' 400;
-    transition: 
+    transition:
       background-color var(--duration-normal) var(--ease-out),
       color var(--duration-normal) var(--ease-out);
     line-height: 1.6;
@@ -266,7 +281,12 @@
   }
 
   /* Improved typography scale */
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     color: var(--color-foreground);
     font-weight: 600;
     line-height: 1.25;
@@ -368,7 +388,8 @@
 
 /* Audio-Specific Professional Animations */
 @keyframes audio-pulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
     transform: scale(1);
   }
@@ -379,7 +400,8 @@
 }
 
 @keyframes waveform-dance {
-  0%, 100% {
+  0%,
+  100% {
     transform: scaleY(0.3);
   }
   25% {
@@ -412,7 +434,8 @@
 }
 
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
   }
   50% {
@@ -443,10 +466,15 @@
 }
 
 @keyframes gentle-bounce {
-  0%, 20%, 53%, 80%, 100% {
+  0%,
+  20%,
+  53%,
+  80%,
+  100% {
     transform: translate3d(0, 0, 0);
   }
-  40%, 43% {
+  40%,
+  43% {
     transform: translate3d(0, -8px, 0);
   }
   70% {
@@ -513,10 +541,12 @@
 }
 
 .animate-skeleton {
-  background: linear-gradient(90deg, 
-    var(--color-muted) 25%, 
-    var(--color-neutral-200) 50%, 
-    var(--color-muted) 75%);
+  background: linear-gradient(
+    90deg,
+    var(--color-muted) 25%,
+    var(--color-neutral-200) 50%,
+    var(--color-muted) 75%
+  );
   background-size: 200px 100%;
   animation: skeleton-loading 1.5s infinite;
 }
@@ -544,7 +574,27 @@
   animation: scale-in var(--duration-normal) var(--ease-out);
 }
 
-/* Notification Animations */
+.sidebar-button-press {
+  transition:
+    transform var(--duration-fast) var(--ease-out),
+    background-color var(--duration-fast) var(--ease-out),
+    box-shadow var(--duration-fast) var(--ease-out);
+}
+
+.sidebar-button-press:active {
+  transform: scale(0.95);
+  background-color: var(--color-sidebar-accent);
+  box-shadow: 0 1px 3px oklch(0% 0 0 / 0.1);
+}
+
+.sidebar-icon-bounce {
+  transition: transform var(--duration-fast) var(--ease-bounce);
+}
+
+.sidebar-icon-bounce:active {
+  transform: scale(1.05);
+}
+
 .notification-enter {
   animation: slide-down var(--duration-normal) var(--ease-bounce);
 }
@@ -579,10 +629,12 @@
 }
 
 .progress-indeterminate {
-  background: linear-gradient(90deg, 
-    transparent 0%, 
-    var(--color-primary) 50%, 
-    transparent 100%);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--color-primary) 50%,
+    transparent 100%
+  );
   background-size: 50% 100%;
   animation: progress-fill 1.5s var(--ease-in-out) infinite;
 }

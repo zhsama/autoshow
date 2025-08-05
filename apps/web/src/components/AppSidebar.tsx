@@ -1,24 +1,24 @@
-"use client"
+'use client'
 
-import { 
-  Home, 
-  History, 
-  Package, 
-  Moon, 
-  Sun, 
-  Languages, 
+import {
+  Home,
+  History,
+  Package,
+  Moon,
+  Sun,
+  Languages,
   ChevronLeft,
   ChevronDown,
   User,
   LogOut,
   Globe,
-  Palette
-} from "lucide-react"
+  Palette,
+} from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Link, usePathname } from '@/i18n/navigation'
-import { useTheme } from "next-themes"
-import { useSidebar } from "@/components/ui/sidebar"
-import { cn } from "@/lib/utils"
+import { useTheme } from 'next-themes'
+import { useSidebar } from '@/components/ui/sidebar'
+import { cn } from '@/lib/utils'
 import {
   Sidebar,
   SidebarContent,
@@ -30,15 +30,15 @@ import {
   SidebarMenuItem,
   SidebarHeader,
   SidebarFooter,
-} from "@/components/ui/sidebar"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Button } from "@/components/ui/button"
+} from '@/components/ui/sidebar'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from '@/components/ui/dropdown-menu'
 
 export function AppSidebar() {
   const t = useTranslations('AppSidebar')
@@ -49,46 +49,48 @@ export function AppSidebar() {
   const items = [
     {
       title: t('navigation.home'),
-      url: "/",
+      url: '/',
       icon: Home,
     },
     {
       title: t('navigation.history'),
-      url: "/history",
+      url: '/history',
       icon: History,
     },
     {
       title: t('navigation.collections'),
-      url: "/collections",
+      url: '/collections',
       icon: Package,
     },
   ]
 
   return (
-    <Sidebar
-      collapsible="icon"
-    >
+    <Sidebar collapsible="icon">
       <SidebarContent className="flex flex-col h-full">
         {/* Header with logo and toggle */}
         <SidebarHeader className="border-b border-sidebar-border">
           <div className="p-4">
             <div className="flex items-center justify-between">
               <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-sm">AS</span>
+                <span className="text-primary-foreground font-bold text-sm">
+                  AS
+                </span>
               </div>
               <Button
                 variant="ghost"
                 size="icon"
                 onClick={toggleSidebar}
                 className={cn(
-                  "h-8 w-8 transition-all duration-300",
-                  state === "collapsed" && "ml-0"
+                  'h-8 w-8 transition-all duration-300 active:scale-90 active:bg-sidebar-accent/60',
+                  state === 'collapsed' && 'ml-0'
                 )}
               >
-                <ChevronLeft className={cn(
-                  "h-4 w-4 transition-transform duration-300",
-                  state === "collapsed" && "rotate-180"
-                )} />
+                <ChevronLeft
+                  className={cn(
+                    'h-4 w-4 transition-transform duration-300 active:scale-110',
+                    state === 'collapsed' && 'rotate-180'
+                  )}
+                />
               </Button>
             </div>
           </div>
@@ -98,15 +100,26 @@ export function AppSidebar() {
         <SidebarGroup className="flex-1">
           <SidebarGroupLabel className="text-xs uppercase tracking-wider text-muted-foreground font-medium px-4 py-2">
             Main
-          </SidebarGroupLabel>  
+          </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {items.map((item) => (
+              {items.map(item => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild isActive={pathname === item.url} tooltip={item.title}>
-                    <Link href={item.url} className="mx-2 rounded-lg">
-                      <item.icon className="h-5 w-5 shrink-0" />
-                      {state !== "collapsed" && <span className="ml-3">{item.title}</span>}
+                  <SidebarMenuButton
+                    asChild
+                    isActive={pathname === item.url}
+                    tooltip={item.title}
+                  >
+                    <Link
+                      href={item.url}
+                      className="mx-2 rounded-lg transition-all duration-200 ease-out active:scale-95 active:bg-sidebar-accent/80"
+                    >
+                      <item.icon className="h-5 w-5 shrink-0 transition-transform duration-200 ease-out group-active/menu-item:scale-105" />
+                      {state !== 'collapsed' && (
+                        <span className="ml-3 transition-all duration-200 ease-out">
+                          {item.title}
+                        </span>
+                      )}
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -123,14 +136,19 @@ export function AppSidebar() {
               <SidebarMenuItem>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <SidebarMenuButton tooltip="Language">
-                      <Languages className="h-5 w-5 shrink-0" />
-                      {state !== "collapsed" && (
-                        <span className={cn(
-                          "transition-all duration-300"
-                        )}>{t('language')}</span>
+                    <SidebarMenuButton
+                      tooltip="Language"
+                      className="transition-all duration-200 ease-out active:scale-95 active:bg-sidebar-accent/80"
+                    >
+                      <Languages className="h-5 w-5 shrink-0 transition-transform duration-200 ease-out group-active/menu-item:scale-105" />
+                      {state !== 'collapsed' && (
+                        <span className={cn('transition-all duration-300')}>
+                          {t('language')}
+                        </span>
                       )}
-                      {state !== "collapsed" && <ChevronDown className="h-4 w-4 ml-auto text-muted-foreground" />}
+                      {state !== 'collapsed' && (
+                        <ChevronDown className="h-4 w-4 ml-auto text-muted-foreground transition-transform duration-200 ease-out group-active/menu-item:rotate-180" />
+                      )}
                     </SidebarMenuButton>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end" className="w-56">
@@ -155,12 +173,13 @@ export function AppSidebar() {
             <SidebarMenu>
               <SidebarMenuItem>
                 <SidebarMenuButton
-                  onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                  onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
                   tooltip="Toggle theme"
+                  className="transition-all duration-200 ease-out active:scale-95 active:bg-sidebar-accent/80"
                 >
-                  <Moon className="h-5 w-5 shrink-0 dark:hidden" />
-                  <Sun className="h-5 w-5 shrink-0 hidden dark:block" />
-                  {state !== "collapsed" && (
+                  <Moon className="h-5 w-5 shrink-0 dark:hidden transition-transform duration-200 ease-out group-active/menu-item:scale-105 group-active/menu-item:rotate-12" />
+                  <Sun className="h-5 w-5 shrink-0 hidden dark:block transition-transform duration-200 ease-out group-active/menu-item:scale-105 group-active/menu-item:rotate-12" />
+                  {state !== 'collapsed' && (
                     <span className="transition-all duration-300">
                       {t('theme')}
                     </span>
@@ -172,8 +191,8 @@ export function AppSidebar() {
             {/* User Profile */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button 
-                  variant="ghost" 
+                <Button
+                  variant="ghost"
                   className="w-full justify-start h-auto p-2 rounded-lg hover:bg-sidebar-accent"
                 >
                   <Avatar className="h-8 w-8">
@@ -182,11 +201,15 @@ export function AppSidebar() {
                       AS
                     </AvatarFallback>
                   </Avatar>
-                  {state !== "collapsed" && (
+                  {state !== 'collapsed' && (
                     <>
                       <div className="ml-3 text-left flex-1">
-                        <p className="text-sm font-medium text-sidebar-foreground">AutoShow</p>
-                        <p className="text-xs text-muted-foreground">admin@autoshow.com</p>
+                        <p className="text-sm font-medium text-sidebar-foreground">
+                          AutoShow
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                          admin@autoshow.com
+                        </p>
                       </div>
                       <ChevronDown className="h-4 w-4 text-muted-foreground" />
                     </>
