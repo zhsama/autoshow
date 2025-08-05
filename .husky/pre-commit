@@ -1,0 +1,2 @@
+# Run lint-staged for staged files using pnpm
+pnpm lint-staged

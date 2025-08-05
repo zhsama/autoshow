@@ -1,96 +1,119 @@
-import type { Config } from "tailwindcss"
+import type { Config } from 'tailwindcss'
 
 const config: Config = {
-  darkMode: "class",
   content: [
-    "./src/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    './src/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-    container: {
-      center: true,
-      padding: "2rem",
-      screens: {
-        "2xl": "1400px",
-      },
-    },
     extend: {
+      container: {
+        center: true,
+        padding: '2rem',
+        screens: {
+          '2xl': '1400px',
+        },
+      },
       colors: {
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
-        primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
-          hover: "hsl(var(--primary-hover))",
-          light: "hsl(var(--primary-light))",
+        background: 'var(--color-background)',
+        foreground: 'var(--color-foreground)',
+        card: 'var(--color-card)',
+        'card-foreground': 'var(--color-card-foreground)',
+        popover: 'var(--color-popover)',
+        'popover-foreground': 'var(--color-popover-foreground)',
+        primary: 'var(--color-primary)',
+        'primary-foreground': 'var(--color-primary-foreground)',
+        'primary-hover': 'var(--color-primary-hover)',
+        secondary: 'var(--color-secondary)',
+        'secondary-foreground': 'var(--color-secondary-foreground)',
+        'secondary-hover': 'var(--color-secondary-hover)',
+        muted: 'var(--color-muted)',
+        'muted-foreground': 'var(--color-muted-foreground)',
+        accent: 'var(--color-accent)',
+        'accent-foreground': 'var(--color-accent-foreground)',
+        destructive: 'var(--color-destructive)',
+        'destructive-foreground': 'var(--color-destructive-foreground)',
+        border: 'var(--color-border)',
+        input: 'var(--color-input)',
+        ring: 'var(--color-ring)',
+
+        // 音频特定颜色 - 暖橙主题
+        'audio-playing': 'var(--color-audio-playing)',
+        'audio-paused': 'var(--color-audio-paused)',
+        'audio-loading': 'var(--color-audio-loading)',
+        'audio-error': 'var(--color-audio-error)',
+        'audio-waveform': 'var(--color-audio-waveform)',
+        'audio-progress': 'var(--color-audio-progress)',
+
+        // 状态颜色
+        success: 'var(--color-success)',
+        'success-foreground': 'var(--color-success-foreground)',
+        warning: 'var(--color-warning)',
+        'warning-foreground': 'var(--color-warning-foreground)',
+        error: 'var(--color-error)',
+        'error-foreground': 'var(--color-error-foreground)',
+        info: 'var(--color-info)',
+        'info-foreground': 'var(--color-info-foreground)',
+
+        // 暖橙琥珀色彩系统 - 完整色阶
+        'warm-amber': {
+          50: '#fefbf3',
+          100: '#fef3c7',
+          200: '#fde68a',
+          300: '#fcd34d',
+          400: '#fbbf24',
+          500: '#f59e0b', // 主色调
+          600: '#d97706', // Primary 色
+          700: '#b45309',
+          800: '#92400e',
+          900: '#78350f',
         },
-        secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
-          hover: "hsl(var(--secondary-hover))",
-          light: "hsl(var(--secondary-light))",
-        },
-        destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
-        },
-        muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
-        },
-        accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
-        },
-        popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
-        },
-        card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
-        },
-        sidebar: {
-          DEFAULT: "hsl(var(--sidebar-background))",
-          foreground: "hsl(var(--sidebar-foreground))",
-          primary: "hsl(var(--sidebar-primary))",
-          "primary-foreground": "hsl(var(--sidebar-primary-foreground))",
-          accent: "hsl(var(--sidebar-accent))",
-          "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
-          border: "hsl(var(--sidebar-border))",
-          ring: "hsl(var(--sidebar-ring))",
-        },
-      },
-      borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
-      },
-      keyframes: {
-        "accordion-down": {
-          from: { height: "0" },
-          to: { height: "var(--radix-accordion-content-height)" },
-        },
-        "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "0" },
-        },
-      },
-      animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
+
+        // 渐进强度系统
+        'accent-subtle': 'var(--color-accent-subtle)',
+        'accent-moderate': 'var(--color-accent-moderate)',
+        'accent-intense': 'var(--color-accent-intense)',
       },
       boxShadow: {
-        "elevation-1": "0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)",
-        "elevation-2": "0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)",
-        "elevation-3": "0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)",
+        'glow-sm': '0 0 12px rgba(217, 119, 6, 0.3)',
+        'glow-md': '0 0 20px rgba(217, 119, 6, 0.4)',
+        'glow-lg': '0 0 32px rgba(217, 119, 6, 0.5)',
+        'shadow-glow-sm': '0 0 12px rgba(217, 119, 6, 0.3)',
+        'elevation-1': '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
+        'elevation-2': '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)',
+        // 暖橙主题阴影系统
+        'warm-glow': '0 0 20px rgba(245, 158, 11, 0.4)',
+        'warm-glow-sm': '0 0 8px rgba(245, 158, 11, 0.3)',
+        'warm-glow-lg': '0 0 32px rgba(245, 158, 11, 0.6)',
+        'amber-glow': '0 0 16px rgba(217, 119, 6, 0.5)',
+      },
+      animation: {
+        'audio-pulse': 'audio-pulse 2s ease-in-out infinite',
+        'waveform-bounce': 'waveform-bounce 0.8s ease-in-out infinite',
+        'fade-in': 'fade-in 0.3s ease-out',
+        'slide-up': 'slide-up 0.4s ease-out',
+      },
+      keyframes: {
+        'audio-pulse': {
+          '0%, 100%': { opacity: '1', transform: 'scale(1)' },
+          '50%': { opacity: '0.8', transform: 'scale(1.05)' },
+        },
+        'waveform-bounce': {
+          '0%, 100%': { transform: 'scaleY(1)' },
+          '50%': { transform: 'scaleY(1.5)' },
+        },
+        'fade-in': {
+          from: { opacity: '0', transform: 'translateY(10px)' },
+          to: { opacity: '1', transform: 'translateY(0)' },
+        },
+        'slide-up': {
+          from: { opacity: '0', transform: 'translateY(20px)' },
+          to: { opacity: '1', transform: 'translateY(0)' },
+        },
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), require("@tailwindcss/forms")],
+  plugins: [require('tailwindcss-animate'), require('@tailwindcss/forms')],
 }
 
 export default config
