@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AutoShow Component Playground</title>
+    <meta name="description" content="AutoShow 组件库 - 高性能组件展示系统" />
+    <script>
+      // 防止闪烁，在页面加载前应用主题
+      (function() {
+        const darkMode = localStorage.getItem('darkMode')
+        const isDark = darkMode ? JSON.parse(darkMode) : window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (isDark) {
+          document.documentElement.classList.add('dark')
+        }
+      })()
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
