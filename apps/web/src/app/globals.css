@@ -1,189 +1,331 @@
 @import 'tailwindcss';
 
-/* Tailwind v4 compatible custom properties */
+/* AutoShow OKLCH Professional Color System */
+/* Designed for students and professionals - minimal, eye-friendly, focused */
 @theme {
-  /* Base colors */
-  --color-background: #fefefe;
-  --color-foreground: #1c1917;
-  --color-card: #ffffff;
-  --color-card-foreground: #1c1917;
-  --color-popover: #ffffff;
-  --color-popover-foreground: #1c1917;
+  /* === FOUNDATION LAYER === */
+  /* Neutral Scale - Professional Blue-Gray with OKLCH precision */
+  --color-neutral-50: oklch(98.5% 0.003 220);
+  --color-neutral-100: oklch(96.2% 0.006 220);
+  --color-neutral-200: oklch(92.1% 0.012 220);
+  --color-neutral-300: oklch(86.3% 0.018 220);
+  --color-neutral-400: oklch(75.8% 0.025 220);
+  --color-neutral-500: oklch(64.2% 0.032 220);
+  --color-neutral-600: oklch(52.7% 0.038 220);
+  --color-neutral-700: oklch(41.5% 0.042 220);
+  --color-neutral-800: oklch(30.8% 0.045 220);
+  --color-neutral-900: oklch(21.2% 0.047 220);
 
-  /* Primary - Warm Amber */
-  --color-primary: #d97706;
-  --color-primary-foreground: #ffffff;
-  --color-primary-hover: #b45309;
+  /* Base Surface Colors */
+  --color-background: oklch(99.1% 0.002 220);
+  --color-foreground: oklch(18.5% 0.015 220);
+  --color-card: oklch(99.8% 0.001 220);
+  --color-card-foreground: oklch(18.5% 0.015 220);
+  --color-popover: oklch(99.8% 0.001 220);
+  --color-popover-foreground: oklch(18.5% 0.015 220);
 
-  /* Secondary */
-  --color-secondary: #fef3c7;
-  --color-secondary-foreground: #92400e;
-  --color-secondary-hover: #fde68a;
+  /* === BRAND LAYER === */
+  /* Primary - Professional Deep Blue */
+  --color-primary: oklch(45.8% 0.085 235);
+  --color-primary-foreground: oklch(99.1% 0.002 220);
+  --color-primary-hover: oklch(41.2% 0.095 235);
+  --color-primary-active: oklch(37.6% 0.105 235);
 
-  /* Accent */
-  --color-accent: #f59e0b;
-  --color-accent-foreground: #ffffff;
-  --color-accent-subtle: #fef3c7;
-  --color-accent-moderate: #f59e0b;
-  --color-accent-intense: #d97706;
+  /* Secondary - Warm Neutral */
+  --color-secondary: oklch(91.5% 0.008 45);
+  --color-secondary-foreground: oklch(35.2% 0.025 45);
+  --color-secondary-hover: oklch(88.7% 0.012 45);
 
-  /* System */
-  --color-muted: #fef3c7;
-  --color-muted-foreground: #a3a3a3;
-  --color-destructive: #dc2626;
-  --color-destructive-foreground: #ffffff;
-  --color-border: #f3f4f6;
-  --color-input: #ffffff;
-  --color-ring: #d97706;
+  /* === SEMANTIC LAYER === */
+  /* Success - Soft Professional Green */
+  --color-success: oklch(61.8% 0.095 145);
+  --color-success-foreground: oklch(99.1% 0.002 220);
+  --color-success-subtle: oklch(94.2% 0.025 145);
 
-  /* Audio specific */
-  --color-audio-playing: #16a34a;
-  --color-audio-paused: #f59e0b;
-  --color-audio-loading: #a855f7;
-  --color-audio-error: #dc2626;
-  --color-audio-waveform: #ea580c;
-  --color-audio-progress: #d97706;
+  /* Warning - Gentle Amber */
+  --color-warning: oklch(70.5% 0.108 65);
+  --color-warning-foreground: oklch(18.5% 0.015 220);
+  --color-warning-subtle: oklch(95.8% 0.028 65);
 
-  /* Status */
-  --color-success: #16a34a;
-  --color-success-foreground: #ffffff;
-  --color-warning: #f59e0b;
-  --color-warning-foreground: #ffffff;
-  --color-error: #dc2626;
-  --color-error-foreground: #ffffff;
-  --color-info: #0ea5e9;
-  --color-info-foreground: #ffffff;
+  /* Error - Muted Red */
+  --color-error: oklch(58.2% 0.115 15);
+  --color-error-foreground: oklch(99.1% 0.002 220);
+  --color-error-subtle: oklch(94.8% 0.032 15);
 
-  /* Other */
+  /* Info - Cool Blue */
+  --color-info: oklch(65.3% 0.088 210);
+  --color-info-foreground: oklch(99.1% 0.002 220);
+  --color-info-subtle: oklch(94.5% 0.025 210);
+
+  /* === AUDIO LAYER === */
+  /* Audio States - Contextual and Clear */
+  --color-audio-playing: oklch(62.5% 0.095 145);
+  --color-audio-paused: oklch(68.7% 0.108 65);
+  --color-audio-loading: oklch(58.4% 0.105 270);
+  --color-audio-processing: oklch(55.8% 0.085 235);
+  --color-audio-error: oklch(58.2% 0.115 15);
+  --color-audio-waveform: oklch(45.8% 0.085 235);
+  --color-audio-progress: oklch(45.8% 0.085 235);
+
+  /* === SYSTEM LAYER === */
+  /* Muted Elements */
+  --color-muted: oklch(96.2% 0.006 220);
+  --color-muted-foreground: oklch(64.2% 0.032 220);
+
+  /* Interactive Elements */
+  --color-border: oklch(92.1% 0.012 220);
+  --color-input: oklch(99.8% 0.001 220);
+  --color-ring: oklch(45.8% 0.085 235);
+
+  /* Accent - Subtle Highlight */
+  --color-accent: oklch(91.5% 0.008 45);
+  --color-accent-foreground: oklch(35.2% 0.025 45);
+
+  /* Destructive (Legacy Support) */
+  --color-destructive: oklch(58.2% 0.115 15);
+  --color-destructive-foreground: oklch(99.1% 0.002 220);
+
+  /* === DESIGN TOKENS === */
   --radius: 0.75rem;
-  --duration-fast: 150ms;
-  --duration-normal: 250ms;
-  --duration-slow: 350ms;
+  --radius-sm: 0.5rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  
+  /* Timing Functions */
+  --duration-fast: 120ms;
+  --duration-normal: 200ms;
+  --duration-slow: 300ms;
+  --duration-slower: 500ms;
+  
+  /* Easing Functions */
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
+/* === DARK THEME === */
+/* Inverted professional palette for low-light environments */
 .dark {
-  /* Base colors dark */
-  --color-background: #0c0a09;
-  --color-foreground: #fafaf9;
-  --color-card: #1c1917;
-  --color-card-foreground: #fafaf9;
-  --color-popover: #1c1917;
-  --color-popover-foreground: #fafaf9;
+  /* === FOUNDATION LAYER DARK === */
+  /* Neutral Scale - Inverted Professional Blue-Gray */
+  --color-neutral-50: oklch(21.2% 0.047 220);
+  --color-neutral-100: oklch(30.8% 0.045 220);
+  --color-neutral-200: oklch(41.5% 0.042 220);
+  --color-neutral-300: oklch(52.7% 0.038 220);
+  --color-neutral-400: oklch(64.2% 0.032 220);
+  --color-neutral-500: oklch(75.8% 0.025 220);
+  --color-neutral-600: oklch(86.3% 0.018 220);
+  --color-neutral-700: oklch(92.1% 0.012 220);
+  --color-neutral-800: oklch(96.2% 0.006 220);
+  --color-neutral-900: oklch(98.5% 0.003 220);
 
-  /* Primary dark */
-  --color-primary: #f59e0b;
-  --color-primary-foreground: #0c0a09;
-  --color-primary-hover: #fbbf24;
+  /* Base Surface Colors Dark */
+  --color-background: oklch(15.8% 0.012 220);
+  --color-foreground: oklch(95.2% 0.008 220);
+  --color-card: oklch(19.5% 0.015 220);
+  --color-card-foreground: oklch(95.2% 0.008 220);
+  --color-popover: oklch(19.5% 0.015 220);
+  --color-popover-foreground: oklch(95.2% 0.008 220);
 
-  /* Secondary dark */
-  --color-secondary: #292524;
-  --color-secondary-foreground: #fbbf24;
-  --color-secondary-hover: #3c3631;
+  /* === BRAND LAYER DARK === */
+  /* Primary - Brighter Professional Blue for Dark Mode */
+  --color-primary: oklch(68.5% 0.125 235);
+  --color-primary-foreground: oklch(15.8% 0.012 220);
+  --color-primary-hover: oklch(74.2% 0.135 235);
+  --color-primary-active: oklch(79.8% 0.145 235);
 
-  /* Accent dark */
-  --color-accent: #fbbf24;
-  --color-accent-foreground: #0c0a09;
-  --color-accent-subtle: #292524;
-  --color-accent-moderate: #f59e0b;
-  --color-accent-intense: #fbbf24;
+  /* Secondary - Warm Neutral Dark */
+  --color-secondary: oklch(28.7% 0.015 45);
+  --color-secondary-foreground: oklch(85.4% 0.012 45);
+  --color-secondary-hover: oklch(32.5% 0.018 45);
 
-  /* System dark */
-  --color-muted: #292524;
-  --color-muted-foreground: #a8a29e;
-  --color-destructive: #ef4444;
-  --color-destructive-foreground: #fafaf9;
-  --color-border: #3c3631;
-  --color-input: #1c1917;
-  --color-ring: #fbbf24;
+  /* === SEMANTIC LAYER DARK === */
+  /* Success - Bright Professional Green */
+  --color-success: oklch(72.8% 0.145 145);
+  --color-success-foreground: oklch(15.8% 0.012 220);
+  --color-success-subtle: oklch(25.8% 0.035 145);
 
-  /* Audio dark */
-  --color-audio-playing: #22c55e;
-  --color-audio-paused: #fbbf24;
-  --color-audio-loading: #c084fc;
-  --color-audio-error: #f87171;
-  --color-audio-waveform: #fb923c;
-  --color-audio-progress: #fbbf24;
+  /* Warning - Bright Amber */
+  --color-warning: oklch(78.5% 0.148 65);
+  --color-warning-foreground: oklch(15.8% 0.012 220);
+  --color-warning-subtle: oklch(28.2% 0.038 65);
 
-  /* Status dark */
-  --color-success: #22c55e;
-  --color-success-foreground: #0c0a09;
-  --color-warning: #fbbf24;
-  --color-warning-foreground: #0c0a09;
-  --color-error: #f87171;
-  --color-error-foreground: #0c0a09;
-  --color-info: #38bdf8;
-  --color-info-foreground: #0c0a09;
+  /* Error - Bright Red */
+  --color-error: oklch(68.8% 0.155 15);
+  --color-error-foreground: oklch(15.8% 0.012 220);
+  --color-error-subtle: oklch(25.5% 0.042 15);
+
+  /* Info - Bright Cool Blue */
+  --color-info: oklch(75.8% 0.128 210);
+  --color-info-foreground: oklch(15.8% 0.012 220);
+  --color-info-subtle: oklch(26.8% 0.035 210);
+
+  /* === AUDIO LAYER DARK === */
+  /* Audio States - Enhanced for Dark Mode */
+  --color-audio-playing: oklch(72.8% 0.145 145);
+  --color-audio-paused: oklch(78.5% 0.148 65);
+  --color-audio-loading: oklch(71.4% 0.145 270);
+  --color-audio-processing: oklch(68.5% 0.125 235);
+  --color-audio-error: oklch(68.8% 0.155 15);
+  --color-audio-waveform: oklch(68.5% 0.125 235);
+  --color-audio-progress: oklch(68.5% 0.125 235);
+
+  /* === SYSTEM LAYER DARK === */
+  /* Muted Elements Dark */
+  --color-muted: oklch(25.8% 0.018 220);
+  --color-muted-foreground: oklch(64.2% 0.032 220);
+
+  /* Interactive Elements Dark */
+  --color-border: oklch(32.5% 0.025 220);
+  --color-input: oklch(19.5% 0.015 220);
+  --color-ring: oklch(68.5% 0.125 235);
+
+  /* Accent - Subtle Highlight Dark */
+  --color-accent: oklch(28.7% 0.015 45);
+  --color-accent-foreground: oklch(85.4% 0.012 45);
+
+  /* Destructive (Legacy Support) Dark */
+  --color-destructive: oklch(68.8% 0.155 15);
+  --color-destructive-foreground: oklch(15.8% 0.012 220);
 }
 
+/* === BASE LAYER === */
+/* Foundation styles with professional polish */
 @layer base {
   * {
     border-color: var(--color-border);
+    box-sizing: border-box;
+  }
+
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    line-height: 1.5;
+    -webkit-text-size-adjust: 100%;
+    -moz-tab-size: 4;
+    tab-size: 4;
+    scroll-behavior: smooth;
   }
 
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
-    font-feature-settings:
-      'rlig' 1,
-      'calt' 1;
-    transition:
-      background-color var(--duration-normal) ease,
-      color var(--duration-normal) ease;
+    font-feature-settings: 'rlig' 1, 'calt' 1;
+    font-variation-settings: 'wght' 400;
+    transition: 
+      background-color var(--duration-normal) var(--ease-out),
+      color var(--duration-normal) var(--ease-out);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Enhanced focus styles */
+  /* Enhanced accessibility and focus styles */
   *:focus-visible {
     outline: 2px solid var(--color-ring);
     outline-offset: 2px;
+    border-radius: var(--radius-sm);
+    transition: outline-color var(--duration-fast) var(--ease-out);
   }
 
-  /* Custom scrollbar styles */
+  /* Selection styles */
+  *::selection {
+    background-color: var(--color-primary);
+    color: var(--color-primary-foreground);
+  }
+
+  /* Professional scrollbar styling */
   ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
   }
 
   ::-webkit-scrollbar-track {
     background: var(--color-muted);
+    border-radius: var(--radius);
   }
 
   ::-webkit-scrollbar-thumb {
     background: var(--color-muted-foreground);
-    border-radius: calc(var(--radius) / 2);
+    border-radius: var(--radius);
+    border: 2px solid var(--color-muted);
+    transition: background-color var(--duration-fast) var(--ease-out);
   }
 
   ::-webkit-scrollbar-thumb:hover {
     background: var(--color-primary);
   }
+
+  ::-webkit-scrollbar-corner {
+    background: var(--color-muted);
+  }
+
+  /* Improved typography scale */
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--color-foreground);
+    font-weight: 600;
+    line-height: 1.25;
+    margin-bottom: 0.5em;
+  }
+
+  p {
+    margin-bottom: 1em;
+    color: var(--color-muted-foreground);
+  }
+
+  /* Interactive elements base styles */
+  button {
+    font-family: inherit;
+    font-feature-settings: inherit;
+    font-variation-settings: inherit;
+    font-size: 100%;
+    font-weight: inherit;
+    line-height: inherit;
+    color: inherit;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Loading states */
+  .loading {
+    pointer-events: none;
+    opacity: 0.7;
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    :root {
+      --color-border: oklch(50% 0 220);
+      --color-ring: oklch(50% 0.2 220);
+    }
+  }
 }
 
-/* Audio-specific keyframe animations */
-@keyframes audio-pulse {
-  0%,
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.8;
-    transform: scale(1.05);
-  }
-}
+/* === PROFESSIONAL ANIMATIONS === */
+/* Subtle, purposeful animations for focus and productivity */
 
-@keyframes waveform-bounce {
-  0%,
-  100% {
-    transform: scaleY(1);
-  }
-  50% {
-    transform: scaleY(1.5);
-  }
-}
-
+/* Core UI Animations */
 @keyframes fade-in {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(8px);
   }
   to {
     opacity: 1;
@@ -194,7 +336,7 @@
 @keyframes slide-up {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(16px);
   }
   to {
     opacity: 1;
@@ -202,19 +344,245 @@
   }
 }
 
-/* Animation utility classes */
-.animate-audio-pulse {
-  animation: audio-pulse 2s ease-in-out infinite;
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.animate-waveform-bounce {
-  animation: waveform-bounce 0.8s ease-in-out infinite;
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
+/* Audio-Specific Professional Animations */
+@keyframes audio-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.02);
+  }
+}
+
+@keyframes waveform-dance {
+  0%, 100% {
+    transform: scaleY(0.3);
+  }
+  25% {
+    transform: scaleY(0.8);
+  }
+  50% {
+    transform: scaleY(0.6);
+  }
+  75% {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes progress-fill {
+  from {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+  to {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}
+
+/* Loading States */
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+/* Interaction Feedback */
+@keyframes button-press {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.98);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes gentle-bounce {
+  0%, 20%, 53%, 80%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  40%, 43% {
+    transform: translate3d(0, -8px, 0);
+  }
+  70% {
+    transform: translate3d(0, -4px, 0);
+  }
+  90% {
+    transform: translate3d(0, -2px, 0);
+  }
+}
+
+/* Focus and Attention */
+@keyframes focus-ring {
+  0% {
+    box-shadow: 0 0 0 0 var(--color-ring);
+  }
+  70% {
+    box-shadow: 0 0 0 4px transparent;
+  }
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
+
+/* === ANIMATION UTILITY CLASSES === */
+/* Professional, purposeful animation classes */
+
+/* Entrance Animations */
 .animate-fade-in {
-  animation: fade-in 0.3s ease-out;
+  animation: fade-in var(--duration-normal) var(--ease-out);
 }
 
 .animate-slide-up {
-  animation: slide-up 0.4s ease-out;
+  animation: slide-up var(--duration-normal) var(--ease-out);
+}
+
+.animate-slide-down {
+  animation: slide-down var(--duration-normal) var(--ease-out);
+}
+
+.animate-scale-in {
+  animation: scale-in var(--duration-normal) var(--ease-out);
+}
+
+/* Audio Interface Animations */
+.animate-audio-pulse {
+  animation: audio-pulse 2.5s var(--ease-in-out) infinite;
+}
+
+.animate-waveform-dance {
+  animation: waveform-dance 1.2s var(--ease-in-out) infinite;
+}
+
+.animate-progress-fill {
+  animation: progress-fill var(--duration-slow) var(--ease-out);
+}
+
+/* Loading States */
+.animate-spin {
+  animation: spinner 1s linear infinite;
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-skeleton {
+  background: linear-gradient(90deg, 
+    var(--color-muted) 25%, 
+    var(--color-neutral-200) 50%, 
+    var(--color-muted) 75%);
+  background-size: 200px 100%;
+  animation: skeleton-loading 1.5s infinite;
+}
+
+/* Interaction Feedback */
+.animate-button-press {
+  animation: button-press var(--duration-fast) var(--ease-out);
+}
+
+.animate-bounce {
+  animation: gentle-bounce var(--duration-slower) var(--ease-out);
+}
+
+.animate-focus-ring {
+  animation: focus-ring 0.6s var(--ease-out);
+}
+
+/* === COMPONENT-SPECIFIC ANIMATIONS === */
+/* Card and Panel Animations */
+.card-enter {
+  animation: slide-up var(--duration-normal) var(--ease-out);
+}
+
+.panel-enter {
+  animation: scale-in var(--duration-normal) var(--ease-out);
+}
+
+/* Notification Animations */
+.notification-enter {
+  animation: slide-down var(--duration-normal) var(--ease-bounce);
+}
+
+/* Audio Player Animations */
+.audio-controls {
+  transition: all var(--duration-fast) var(--ease-out);
+}
+
+.audio-controls:hover {
+  transform: translateY(-1px);
+}
+
+.audio-controls:active {
+  transform: translateY(0);
+}
+
+/* File Upload Animations */
+.upload-zone {
+  transition: all var(--duration-fast) var(--ease-out);
+}
+
+.upload-zone.drag-over {
+  transform: scale(1.02);
+  background-color: var(--color-primary);
+  opacity: 0.1;
+}
+
+/* Progress Indicators */
+.progress-bar {
+  transition: width var(--duration-normal) var(--ease-out);
+}
+
+.progress-indeterminate {
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    var(--color-primary) 50%, 
+    transparent 100%);
+  background-size: 50% 100%;
+  animation: progress-fill 1.5s var(--ease-in-out) infinite;
 }
