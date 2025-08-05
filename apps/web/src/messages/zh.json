@@ -1,4 +1,32 @@
 {
+  "site": {
+    "name": "AutoShow",
+    "tagline": "AI驱动的节目笔记生成器",
+    "description": "使用先进的AI技术将音视频内容转换为专业的节目笔记。支持多语言、自定义模板和无缝集成。"
+  },
+  "seo": {
+    "home": {
+      "title": "AutoShow - AI智能生成节目笔记",
+      "description": "使用先进的AI技术将音视频内容转换为专业的节目笔记。支持多语言、自定义模板和无缝集成。"
+    },
+    "collections": {
+      "title": "收藏夹 - 整理您的内容",
+      "description": "使用AutoShow整理和管理您的音频内容收藏。创建自定义分类，高效浏览您生成的节目笔记。"
+    },
+    "history": {
+      "title": "处理历史 - 跟踪您的进度",
+      "description": "查看您的完整处理历史记录，在一个地方管理所有生成的节目笔记。轻松跟踪进度并访问以前的结果。"
+    },
+    "showNotes": {
+      "title": "生成的节目笔记",
+      "titleSuffix": "节目笔记",
+      "description": "AI生成的专业节目笔记，包含时间戳、关键要点和为您的音视频文件构建的结构化内容。"
+    },
+    "docs": {
+      "title": "文档 - AutoShow API指南",
+      "description": "完整的AutoShow API指南、集成示例和自动内容处理最佳实践。"
+    }
+  },
   "AppSidebar": {
     "navigation": {
       "home": "首页",

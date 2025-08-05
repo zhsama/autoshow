@@ -131,11 +131,11 @@ export function AudioPlayerPanel({
               </Button>
 
               {audioFile.isPlaying ? (
-                <AudioPauseButton size="audio-mini">
+                <AudioPauseButton>
                   <Pause className="h-4 w-4" />
                 </AudioPauseButton>
               ) : (
-                <AudioPlayButton size="audio-mini">
+                <AudioPlayButton>
                   <Play className="h-4 w-4" />
                 </AudioPlayButton>
               )}
@@ -257,11 +257,11 @@ export function AudioPlayerPanel({
             </Button>
 
             {audioFile.isPlaying ? (
-              <AudioPauseButton size="audio-control">
+              <AudioPauseButton>
                 <Pause className="h-6 w-6" />
               </AudioPauseButton>
             ) : (
-              <AudioPlayButton size="audio-control">
+              <AudioPlayButton>
                 <Play className="h-6 w-6" />
               </AudioPlayButton>
             )}
@@ -360,11 +360,11 @@ export function CompactAudioPlayer({ className }: { className?: string }) {
               </Button>
 
               {audioFile.isPlaying ? (
-                <AudioPauseButton size="audio-mini">
+                <AudioPauseButton>
                   <Pause className="h-3 w-3" />
                 </AudioPauseButton>
               ) : (
-                <AudioPlayButton size="audio-mini">
+                <AudioPlayButton>
                   <Play className="h-3 w-3" />
                 </AudioPlayButton>
               )}

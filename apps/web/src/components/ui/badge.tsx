@@ -72,34 +72,41 @@ export interface BadgeProps
   icon?: React.ReactNode
 }
 
-function Badge({
-  className,
-  variant,
-  size,
-  rounded,
-  pulse = false,
-  icon,
-  children,
-  ...props
-}: BadgeProps) {
-  return (
-    <div
-      className={cn(
-        badgeVariants({ variant, size, rounded }),
-        pulse && 'animate-pulse',
-        className
-      )}
-      {...props}
-    >
-      {icon && (
-        <span className="mr-1 h-3 w-3 flex items-center justify-center">
-          {icon}
-        </span>
-      )}
-      {children}
-    </div>
-  )
-}
+const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
+  (
+    {
+      className,
+      variant,
+      size,
+      rounded,
+      pulse = false,
+      icon,
+      children,
+      ...props
+    },
+    ref
+  ) => {
+    return (
+      <div
+        ref={ref}
+        className={cn(
+          badgeVariants({ variant, size, rounded }),
+          pulse && 'animate-pulse',
+          className
+        )}
+        {...props}
+      >
+        {icon && (
+          <span className="mr-1 h-3 w-3 flex items-center justify-center">
+            {icon}
+          </span>
+        )}
+        {children}
+      </div>
+    )
+  }
+)
+Badge.displayName = 'Badge'
 
 // Audio-specific badge components for common audio states
 export const AudioStatusBadge = React.forwardRef<

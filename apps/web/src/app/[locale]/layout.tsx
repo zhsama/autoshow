@@ -8,6 +8,8 @@ import { TooltipProvider } from '@/components/ui/tooltip'
 import { SidebarProvider } from '@/components/ui/sidebar'
 import { AppSidebar } from '@/components/AppSidebar'
 import { FormStoreProvider } from '@/providers/form-store-provider'
+import { SEOProvider } from '@/components/seo/SEOProvider'
+import { generatePageMetadata } from '@/lib/seo/metadata'
 import '../globals.css'
 
 type Props = {
@@ -17,6 +19,11 @@ type Props = {
 
 export function generateStaticParams() {
   return routing.locales.map(locale => ({ locale }))
+}
+
+export async function generateMetadata({ params }: Props) {
+  const { locale } = await params
+  return generatePageMetadata({ locale, page: 'home' })
 }
 
 export default async function LocaleLayout({ children, params }: Props) {
@@ -30,21 +37,27 @@ export default async function LocaleLayout({ children, params }: Props) {
   const messages = await getMessages()
 
   return (
-    <NextIntlClientProvider messages={messages}>
-      <FormStoreProvider>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <SidebarProvider defaultOpen={true}>
-            <div className="min-h-screen flex w-full bg-background">
-              <AppSidebar />
-              <main className="flex-1 flex flex-col overflow-auto">
-                {children}
-              </main>
-            </div>
-          </SidebarProvider>
-        </TooltipProvider>
-      </FormStoreProvider>
-    </NextIntlClientProvider>
+    <html lang={locale}>
+      <body>
+        <SEOProvider locale={locale} page="home">
+          <NextIntlClientProvider messages={messages}>
+            <FormStoreProvider>
+              <TooltipProvider>
+                <Toaster />
+                <Sonner />
+                <SidebarProvider defaultOpen={true}>
+                  <div className="min-h-screen flex w-full bg-background">
+                    <AppSidebar />
+                    <main className="flex-1 flex flex-col overflow-auto">
+                      {children}
+                    </main>
+                  </div>
+                </SidebarProvider>
+              </TooltipProvider>
+            </FormStoreProvider>
+          </NextIntlClientProvider>
+        </SEOProvider>
+      </body>
+    </html>
   )
 }

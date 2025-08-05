@@ -1,4 +1,32 @@
 {
+  "site": {
+    "name": "AutoShow",
+    "tagline": "AI-Powered Show Notes Generator",
+    "description": "Transform audio and video content into professional show notes using advanced AI. Support for multiple languages, custom templates, and seamless integration."
+  },
+  "seo": {
+    "home": {
+      "title": "AutoShow - Generate Show Notes with AI",
+      "description": "Transform audio and video content into professional show notes using advanced AI. Support for multiple languages, custom templates, and seamless integration."
+    },
+    "collections": {
+      "title": "Collections - Organize Your Content",
+      "description": "Organize and manage your audio content collections with AutoShow. Create custom categories and efficiently browse your generated show notes."
+    },
+    "history": {
+      "title": "Processing History - Track Your Progress",
+      "description": "View your complete processing history and manage all your generated show notes in one place. Track progress and access previous results easily."
+    },
+    "showNotes": {
+      "title": "Generated Show Notes",
+      "titleSuffix": "Show Notes",
+      "description": "AI-generated professional show notes with timestamps, key points, and structured content for your audio and video files."
+    },
+    "docs": {
+      "title": "Documentation - AutoShow API Guide",
+      "description": "Complete guide to AutoShow API, integration examples, and best practices for automated content processing."
+    }
+  },
   "AppSidebar": {
     "navigation": {
       "home": "Home",
@@ -29,7 +57,7 @@
     },
     "platforms": {
       "youtube": "YouTube",
-      "podcasts": "Podcasts", 
+      "podcasts": "Podcasts",
       "rss": "RSS Feeds"
     },
     "messages": {

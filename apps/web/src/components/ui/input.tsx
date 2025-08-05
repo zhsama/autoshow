@@ -42,7 +42,7 @@ const inputVariants = cva(
 )
 
 export interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement>,
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'>,
     VariantProps<typeof inputVariants> {
   /**
    * Icon to display on the left side of the input
