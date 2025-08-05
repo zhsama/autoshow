@@ -54,3 +54,9 @@ supabase
 .cursor
 
 temp*
+
+# Storybook
+storybook-static/
+
+# TypeScript incremental compilation
+*.tsbuildinfo
