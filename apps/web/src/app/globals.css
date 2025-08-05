@@ -638,3 +638,51 @@
   background-size: 50% 100%;
   animation: progress-fill 1.5s var(--ease-in-out) infinite;
 }
+
+/* === THEME TRANSITIONS === */
+/* View Transitions API support for smooth theme switching */
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.5s;
+}
+
+::view-transition-old(root) {
+  animation-name: theme-fade-out;
+}
+
+::view-transition-new(root) {
+  animation-name: theme-fade-in;
+}
+
+@keyframes theme-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes theme-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Enhanced theme transition class */
+.theme-transition {
+  transition: all var(--duration-fast) var(--ease-out);
+}
+
+.theme-transition:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-soft-md);
+}
+
+.theme-transition:active {
+  transform: translateY(0) scale(0.98);
+}

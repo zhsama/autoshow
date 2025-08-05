@@ -1,7 +1,7 @@
-"use client"
+'use client'
 
-import * as React from "react"
-import { ThemeProvider as NextThemesProvider } from "next-themes"
+import * as React from 'react'
+import { ThemeProvider as NextThemesProvider } from 'next-themes'
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   return (
@@ -9,8 +9,10 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       attribute="class"
       defaultTheme="system"
       enableSystem
-      disableTransitionOnChange
       storageKey="autoshow-theme"
+      themes={['light', 'dark', 'system']}
+      enableColorScheme={false}
+      forcedTheme={undefined}
     >
       {children}
     </NextThemesProvider>

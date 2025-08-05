@@ -6,6 +6,7 @@ import {
   Package,
   Moon,
   Sun,
+  Monitor,
   Languages,
   ChevronLeft,
   ChevronDown,
@@ -172,19 +173,39 @@ export function AppSidebar() {
             {/* Theme Toggle */}
             <SidebarMenu>
               <SidebarMenuItem>
-                <SidebarMenuButton
-                  onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                  tooltip="Toggle theme"
-                  className="transition-all duration-200 ease-out active:scale-95 active:bg-sidebar-accent/80"
-                >
-                  <Moon className="h-5 w-5 shrink-0 dark:hidden transition-transform duration-200 ease-out group-active/menu-item:scale-105 group-active/menu-item:rotate-12" />
-                  <Sun className="h-5 w-5 shrink-0 hidden dark:block transition-transform duration-200 ease-out group-active/menu-item:scale-105 group-active/menu-item:rotate-12" />
-                  {state !== 'collapsed' && (
-                    <span className="transition-all duration-300">
-                      {t('theme')}
-                    </span>
-                  )}
-                </SidebarMenuButton>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <SidebarMenuButton
+                      tooltip="Toggle theme"
+                      className="transition-all duration-200 ease-out active:scale-95 active:bg-sidebar-accent/80"
+                    >
+                      <Moon className="h-5 w-5 shrink-0 dark:hidden transition-transform duration-200 ease-out group-active/menu-item:scale-105 group-active/menu-item:rotate-12" />
+                      <Sun className="h-5 w-5 shrink-0 hidden dark:block transition-transform duration-200 ease-out group-active/menu-item:scale-105 group-active/menu-item:rotate-12" />
+                      {state !== 'collapsed' && (
+                        <span className="transition-all duration-300">
+                          {t('theme')}
+                        </span>
+                      )}
+                      {state !== 'collapsed' && (
+                        <ChevronDown className="h-4 w-4 ml-auto text-muted-foreground transition-transform duration-200 ease-out group-active/menu-item:rotate-180" />
+                      )}
+                    </SidebarMenuButton>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-56">
+                    <DropdownMenuItem onClick={() => setTheme('light')}>
+                      <Sun className="mr-2 h-4 w-4" />
+                      Light
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setTheme('dark')}>
+                      <Moon className="mr-2 h-4 w-4" />
+                      Dark
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setTheme('system')}>
+                      <Monitor className="mr-2 h-4 w-4" />
+                      System
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </SidebarMenuItem>
             </SidebarMenu>
 

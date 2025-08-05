@@ -7,7 +7,7 @@ import { Toaster as Sonner } from '@/components/ui/sonner'
 import { TooltipProvider } from '@/components/ui/tooltip'
 import { SidebarProvider } from '@/components/ui/sidebar'
 import { AppSidebar } from '@/components/AppSidebar'
-import { ThemeProvider } from '@/components/theme-provider'
+import { FormStoreProvider } from '@/providers/form-store-provider'
 import '../globals.css'
 
 type Props = {
@@ -31,7 +31,7 @@ export default async function LocaleLayout({ children, params }: Props) {
 
   return (
     <NextIntlClientProvider messages={messages}>
-      <ThemeProvider>
+      <FormStoreProvider>
         <TooltipProvider>
           <Toaster />
           <Sonner />
@@ -44,7 +44,7 @@ export default async function LocaleLayout({ children, params }: Props) {
             </div>
           </SidebarProvider>
         </TooltipProvider>
-      </ThemeProvider>
+      </FormStoreProvider>
     </NextIntlClientProvider>
   )
 }
