@@ -4,3 +4,5 @@ export * from './process'
 export * from './transcription'
 export * from './llm'
 export * from './ui'
+
+export * from './immer-utils'

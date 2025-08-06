@@ -12,6 +12,7 @@ import {
 import { walletAddressAtom } from '../wallet'
 import { transcriptionCostsAtom } from '../transcription'
 import { isLoadingAtom, errorAtom, currentStepAtom } from '../ui'
+import { metadataImmerAtom, transcriptionCostsImmerAtom } from '../immer-utils'
 
 export function useProcessTypeStep() {
   const [processType, setProcessType] = useAtom(processTypeAtom)
@@ -27,6 +28,40 @@ export function useProcessTypeStep() {
   const [error, setError] = useAtom(errorAtom)
   const [, setCurrentStep] = useAtom(currentStepAtom)
   const [walletAddress] = useAtom(walletAddressAtom)
+
+  const [, setMetadataImmer] = useAtom(metadataImmerAtom)
+  const [, setTranscriptionCostsImmer] = useAtom(transcriptionCostsImmerAtom)
+
+  const updateMetadataFromFile = (fileData: {
+    title?: string
+    description?: string
+    publishDate?: string
+  }) => {
+    setMetadataImmer(draft => {
+      if (fileData.title) draft.title = fileData.title
+      if (fileData.description) draft.description = fileData.description
+      if (fileData.publishDate) draft.publishDate = fileData.publishDate
+      draft.walletAddress = walletAddress
+    })
+  }
+
+  const addTranscriptionCost = (
+    service: string,
+    modelId: string,
+    cost: number
+  ) => {
+    setTranscriptionCostsImmer(draft => {
+      if (!draft[service]) {
+        draft[service] = []
+      }
+      const existing = draft[service].find(item => item.modelId === modelId)
+      if (!existing) {
+        draft[service].push({ modelId, cost })
+      } else {
+        existing.cost = cost // 更新现有成本
+      }
+    })
+  }
 
   return {
     processType,
@@ -47,5 +82,7 @@ export function useProcessTypeStep() {
     setError,
     setCurrentStep,
     setShowNoteId,
+    updateMetadataFromFile,
+    addTranscriptionCost,
   }
 }
