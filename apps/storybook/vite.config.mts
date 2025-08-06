@@ -7,11 +7,11 @@ export default defineConfig({
   resolve: {
     alias: {
       // AutoShow项目路径映射
-      '@': path.resolve(__dirname, '../apps/web/src'),
-      '@/components': path.resolve(__dirname, '../apps/web/src/components'),
-      '@/lib': path.resolve(__dirname, '../apps/web/src/lib'),
-      '@/hooks': path.resolve(__dirname, '../apps/web/src/hooks'),
-      '@/stores': path.resolve(__dirname, '../apps/web/src/stores'),
+      '@': path.resolve(__dirname, '../../apps/web/src'),
+      '@/components': path.resolve(__dirname, '../../apps/web/src/components'),
+      '@/lib': path.resolve(__dirname, '../../apps/web/src/lib'),
+      '@/hooks': path.resolve(__dirname, '../../apps/web/src/hooks'),
+      '@/stores': path.resolve(__dirname, '../../apps/web/src/stores'),
       'src': path.resolve(__dirname, './src'),
       
       // Next.js API模拟

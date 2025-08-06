@@ -4,7 +4,7 @@ const config: Config = {
   content: [
     './index.html',
     './src/**/*.{js,ts,jsx,tsx}',
-    '../apps/web/src/components/**/*.{js,ts,jsx,tsx}',
+    '../../apps/web/src/components/**/*.{js,ts,jsx,tsx}',
   ],
   darkMode: 'class',
   theme: {

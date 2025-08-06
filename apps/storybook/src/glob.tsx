@@ -1,7 +1,7 @@
 import type { ComponentModule, ComponentRoute, DocumentComponent, DocumentPageMeta } from '../typings'
 
 // 自动发现所有.demo.tsx文件
-const modules = import.meta.glob('../../../apps/web/src/components/**/*.demo.tsx', {
+const modules = import.meta.glob('../../apps/web/src/components/**/*.demo.tsx', {
   eager: true
 }) as Record<string, ComponentModule>
 
@@ -12,7 +12,7 @@ export const routeKeys: string[] = []
 // 处理发现的组件
 Object.entries(modules).forEach(([path, module]) => {
   // 从路径中提取组件名称
-  // 例如: ../../../apps/web/src/components/ui/button.demo.tsx -> button
+  // 例如: ../../apps/web/src/components/ui/button.demo.tsx -> button
   const match = path.match(/\/([^\/]+)\.demo\.tsx$/)
   if (!match) return
   
