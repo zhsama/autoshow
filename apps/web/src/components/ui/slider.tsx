@@ -49,24 +49,27 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
       updateValue(e)
     }
 
-    const updateValue = (e: React.MouseEvent | MouseEvent) => {
-      if (!sliderRef.current) return
+    const updateValue = React.useCallback(
+      (e: React.MouseEvent | MouseEvent) => {
+        if (!sliderRef.current) return
 
-      const rect = sliderRef.current.getBoundingClientRect()
-      const percentage = (e.clientX - rect.left) / rect.width
-      const rawValue = min + percentage * (max - min)
-      const steppedValue = Math.round(rawValue / step) * step
-      const clampedValue = Math.min(Math.max(steppedValue, min), max)
+        const rect = sliderRef.current.getBoundingClientRect()
+        const percentage = (e.clientX - rect.left) / rect.width
+        const rawValue = min + percentage * (max - min)
+        const steppedValue = Math.round(rawValue / step) * step
+        const clampedValue = Math.min(Math.max(steppedValue, min), max)
 
-      const newValue = [clampedValue]
+        const newValue = [clampedValue]
 
-      if (value === undefined) {
-        setInternalValue(newValue)
-      }
+        if (value === undefined) {
+          setInternalValue(newValue)
+        }
 
-      onChange?.(newValue)
-      onValueChange?.(newValue)
-    }
+        onChange?.(newValue)
+        onValueChange?.(newValue)
+      },
+      [min, max, step, value, onChange, onValueChange, setInternalValue]
+    )
 
     React.useEffect(() => {
       const handleMouseMove = (e: MouseEvent) => {
@@ -88,7 +91,7 @@ const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
         document.removeEventListener('mousemove', handleMouseMove)
         document.removeEventListener('mouseup', handleMouseUp)
       }
-    }, [])
+    }, [updateValue])
 
     return (
       <div

@@ -1,6 +1,4 @@
 import { useAtom } from 'jotai'
-import { useImmerAtom } from 'jotai-immer'
-import type { Draft } from 'immer'
 import type { ShowNoteMetadata, TranscriptionCosts } from '@autoshow/shared'
 import {
   metadataImmerAtom,
@@ -158,15 +156,16 @@ export function useBatchUpdate() {
   const resetComplexState = () => {
     batchUpdate({
       metadata: draft => {
-        Object.keys(draft).forEach(
-          key => delete draft[key as keyof typeof draft]
-        )
+        // 清空所有属性
+        Object.assign(draft, {})
       },
       transcriptionCosts: draft => {
-        Object.keys(draft).forEach(key => delete draft[key])
+        // 清空所有属性
+        Object.assign(draft, {})
       },
       llmCosts: draft => {
-        Object.keys(draft).forEach(key => delete draft[key])
+        // 清空所有属性
+        Object.assign(draft, {})
       },
     })
   }

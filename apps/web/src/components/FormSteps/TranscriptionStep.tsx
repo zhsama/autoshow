@@ -2,10 +2,22 @@
 
 import { useTranscriptionStep } from '@/hooks/use-form-steps'
 import { Button } from '@/components/ui/button'
-import { CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import {
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import { Checkbox } from '@/components/ui/checkbox'
 import { logger } from '@/lib/logger'
 import { T_CONFIG, PROMPT_CHOICES } from '@autoshow/shared'
@@ -18,7 +30,6 @@ export function TranscriptionStep() {
     selectedPrompts,
     finalPath,
     s3Url,
-    showNoteId,
     isLoading,
     setTranscriptionService,
     setTranscriptionModel,
@@ -27,18 +38,17 @@ export function TranscriptionStep() {
     setTranscriptionModelUsed,
     setTranscriptionCostUsed,
     setSelectedPrompts,
-    setLlmCosts,
     setPromptText,
     setIsLoading,
     setError,
     setCurrentStep,
   } = useTranscriptionStep()
-  
+
   const handleTranscribe = async () => {
     logger.log('[TranscriptionStep] Starting transcription')
     setIsLoading(true)
     setError(null)
-    
+
     try {
       const response = await fetch('/api/run-transcription', {
         method: 'POST',
@@ -51,16 +61,16 @@ export function TranscriptionStep() {
           apiKey: transcriptionApiKey,
         }),
       })
-      
+
       if (!response.ok) {
         throw new Error('Failed to transcribe audio')
       }
-      
+
       const data = await response.json()
       setTranscriptContent(data.transcript)
       setTranscriptionModelUsed(data.transcriptionModelUsed)
       setTranscriptionCostUsed(data.transcriptionCostUsed)
-      
+
       // Generate prompt text based on selected prompts
       const promptText = selectedPrompts
         .map(promptKey => {
@@ -69,17 +79,19 @@ export function TranscriptionStep() {
         })
         .join(', ')
       setPromptText(promptText)
-      
+
       logger.log('[TranscriptionStep] Transcription completed')
       setCurrentStep(3)
     } catch (error) {
       logger.error('[TranscriptionStep] Error during transcription:', error)
-      setError(error instanceof Error ? error.message : 'Failed to transcribe audio')
+      setError(
+        error instanceof Error ? error.message : 'Failed to transcribe audio'
+      )
     } finally {
       setIsLoading(false)
     }
   }
-  
+
   const handlePromptToggle = (promptValue: string) => {
     const current = selectedPrompts
     const updated = current.includes(promptValue)
@@ -87,9 +99,10 @@ export function TranscriptionStep() {
       : [...current, promptValue]
     setSelectedPrompts(updated)
   }
-  
-  const selectedService = T_CONFIG[transcriptionService as keyof typeof T_CONFIG]
-  
+
+  const selectedService =
+    T_CONFIG[transcriptionService as keyof typeof T_CONFIG]
+
   return (
     <>
       <CardHeader>
@@ -117,7 +130,7 @@ export function TranscriptionStep() {
             </SelectContent>
           </Select>
         </div>
-        
+
         {selectedService && (
           <div className="space-y-2">
             <Label htmlFor="transcription-model">Model</Label>
@@ -129,31 +142,32 @@ export function TranscriptionStep() {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                {selectedService.models.map((model) => (
+                {selectedService.models.map(model => (
                   <SelectItem key={model.modelId} value={model.modelId}>
-                    {model.modelId} - ${(model.costPerMinuteCents / 100).toFixed(2)}/min
+                    {model.modelId} - $
+                    {(model.costPerMinuteCents / 100).toFixed(2)}/min
                   </SelectItem>
                 ))}
               </SelectContent>
             </Select>
           </div>
         )}
-        
+
         <div className="space-y-2">
           <Label htmlFor="api-key">API Key</Label>
           <Input
             id="api-key"
             type="password"
             value={transcriptionApiKey}
-            onChange={(e) => setTranscriptionApiKey(e.target.value)}
+            onChange={e => setTranscriptionApiKey(e.target.value)}
             placeholder="Enter your API key"
           />
         </div>
-        
+
         <div className="space-y-2">
           <Label>Output Formats</Label>
           <div className="grid grid-cols-2 gap-3 max-h-60 overflow-y-auto">
-            {PROMPT_CHOICES.map((prompt) => (
+            {PROMPT_CHOICES.map(prompt => (
               <div key={prompt.value} className="flex items-center space-x-2">
                 <Checkbox
                   id={prompt.value}
@@ -177,7 +191,9 @@ export function TranscriptionStep() {
         </Button>
         <Button
           onClick={handleTranscribe}
-          disabled={isLoading || !transcriptionApiKey || selectedPrompts.length === 0}
+          disabled={
+            isLoading || !transcriptionApiKey || selectedPrompts.length === 0
+          }
         >
           {isLoading ? 'Transcribing...' : 'Transcribe & Continue'}
         </Button>

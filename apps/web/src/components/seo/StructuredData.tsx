@@ -4,9 +4,7 @@ import {
   type StructuredDataOptions,
 } from '@/lib/seo/structured-data'
 
-interface StructuredDataProps extends StructuredDataOptions {}
-
-export function StructuredData(props: StructuredDataProps) {
+export function StructuredData(props: StructuredDataOptions) {
   const schema = generateStructuredData(props)
 
   if (!schema || Object.keys(schema).length === 0) {

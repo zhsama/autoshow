@@ -139,7 +139,8 @@ export function Header({
                       Transcription Complete
                     </p>
                     <p className="text-xs text-muted-foreground">
-                      "Meeting_2024.mp3" has been successfully transcribed
+                      &quot;Meeting_2024.mp3&quot; has been successfully
+                      transcribed
                     </p>
                     <span className="text-xs text-muted-foreground">
                       2 minutes ago
@@ -149,7 +150,7 @@ export function Header({
                   <DropdownMenuItem className="flex-col items-start p-4 space-y-1">
                     <p className="font-medium text-sm">Processing Started</p>
                     <p className="text-xs text-muted-foreground">
-                      "Podcast_Episode_5.wav" is being processed
+                      &quot;Podcast_Episode_5.wav&quot; is being processed
                     </p>
                     <span className="text-xs text-muted-foreground">
                       5 minutes ago
@@ -159,7 +160,8 @@ export function Header({
                   <DropdownMenuItem className="flex-col items-start p-4 space-y-1">
                     <p className="font-medium text-sm">Upload Failed</p>
                     <p className="text-xs text-muted-foreground">
-                      "Large_file.mp4" upload failed. Please try again.
+                      &quot;Large_file.mp4&quot; upload failed. Please try
+                      again.
                     </p>
                     <span className="text-xs text-muted-foreground">
                       10 minutes ago
@@ -222,6 +224,7 @@ export function CompactHeader({ className, ...props }: HeaderProps) {
         'sticky top-0 z-40 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60',
         className
       )}
+      {...props}
     >
       <div className="container flex h-12 items-center justify-between px-4">
         <div className="flex items-center gap-2">

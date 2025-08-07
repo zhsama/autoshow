@@ -44,7 +44,7 @@ import {
 export function AppSidebar() {
   const t = useTranslations('AppSidebar')
   const pathname = usePathname()
-  const { theme, setTheme } = useTheme()
+  const { setTheme } = useTheme()
   const { state, toggleSidebar } = useSidebar()
 
   const items = [

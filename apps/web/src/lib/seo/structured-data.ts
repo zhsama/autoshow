@@ -1,7 +1,61 @@
+interface HowToStepData {
+  name: string
+  description: string
+  image?: string
+  url?: string
+}
+
+interface FAQData {
+  question: string
+  answer: string
+}
+
+interface BreadcrumbData {
+  name: string
+  url: string
+}
+
+interface ArticleData {
+  title?: string
+  description?: string
+  publishedAt?: string
+  updatedAt?: string
+  image?: string
+  category?: string
+  keywords?: string[]
+  wordCount?: number
+  url?: string
+}
+
+interface HowToData {
+  title?: string
+  description?: string
+  slug?: string
+  duration?: string
+  steps?: HowToStepData[]
+}
+
+interface FAQPageData {
+  faqs?: FAQData[]
+}
+
+interface BreadcrumbListData {
+  breadcrumbs?: BreadcrumbData[]
+}
+
+type StructuredDataContent =
+  | HowToData
+  | FAQPageData
+  | BreadcrumbListData
+  | ArticleData
+  | Record<string, unknown>
+
+export type { StructuredDataContent }
+
 export interface StructuredDataOptions {
   type: 'software' | 'howto' | 'faq' | 'organization' | 'article' | 'breadcrumb'
   locale: string
-  data?: any
+  data?: StructuredDataContent
 }
 
 export function generateStructuredData({
@@ -102,17 +156,17 @@ export function generateStructuredData({
         '@context': 'https://schema.org',
         '@type': 'HowTo',
         name:
-          data?.title ||
+          (data as HowToData)?.title ||
           (locale === 'zh'
             ? '如何使用AutoShow生成节目笔记'
             : 'How to Generate Show Notes with AutoShow'),
         description:
-          data?.description ||
+          (data as HowToData)?.description ||
           (locale === 'zh'
             ? '使用AutoShow AI工具从音视频文件自动生成专业节目笔记的完整指南'
             : 'Complete guide to automatically generate professional show notes from audio/video files using AutoShow AI'),
-        image: `${siteUrl}/tutorials/${data?.slug || 'how-to-use-autoshow'}.jpg`,
-        totalTime: data?.duration || 'PT10M',
+        image: `${siteUrl}/tutorials/${(data as HowToData)?.slug || 'how-to-use-autoshow'}.jpg`,
+        totalTime: (data as HowToData)?.duration || 'PT10M',
         estimatedCost: {
           '@type': 'MonetaryAmount',
           currency: 'USD',
@@ -133,14 +187,16 @@ export function generateStructuredData({
             url: `${siteUrl}/${locale}`,
           },
         ],
-        step: data?.steps?.map((step: any, index: number) => ({
-          '@type': 'HowToStep',
-          position: index + 1,
-          name: step.name,
-          text: step.description,
-          image: step.image,
-          url: step.url,
-        })) || [
+        step: (data as HowToData)?.steps?.map(
+          (step: HowToStepData, index: number) => ({
+            '@type': 'HowToStep',
+            position: index + 1,
+            name: step.name,
+            text: step.description,
+            image: step.image,
+            url: step.url,
+          })
+        ) || [
           {
             '@type': 'HowToStep',
             position: 1,
@@ -189,7 +245,7 @@ export function generateStructuredData({
       return {
         '@context': 'https://schema.org',
         '@type': 'FAQPage',
-        mainEntity: data?.faqs?.map((faq: any) => ({
+        mainEntity: (data as FAQPageData)?.faqs?.map((faq: FAQData) => ({
           '@type': 'Question',
           name: faq.question,
           acceptedAnswer: {
@@ -290,8 +346,8 @@ export function generateStructuredData({
       return {
         '@context': 'https://schema.org',
         '@type': 'Article',
-        headline: data?.title,
-        description: data?.description,
+        headline: (data as ArticleData)?.title,
+        description: (data as ArticleData)?.description,
         author: {
           '@type': 'Organization',
           name: 'AutoShow',
@@ -307,21 +363,24 @@ export function generateStructuredData({
             height: 200,
           },
         },
-        datePublished: data?.publishedAt || new Date().toISOString(),
-        dateModified: data?.updatedAt || new Date().toISOString(),
-        image: data?.image || `${siteUrl}/og/${locale}/article.png`,
-        articleSection: data?.category || 'Show Notes',
-        keywords: data?.keywords || [
+        datePublished:
+          (data as ArticleData)?.publishedAt || new Date().toISOString(),
+        dateModified:
+          (data as ArticleData)?.updatedAt || new Date().toISOString(),
+        image:
+          (data as ArticleData)?.image || `${siteUrl}/og/${locale}/article.png`,
+        articleSection: (data as ArticleData)?.category || 'Show Notes',
+        keywords: (data as ArticleData)?.keywords || [
           'AI',
           'transcription',
           'show notes',
           'audio processing',
         ],
-        wordCount: data?.wordCount || 1000,
+        wordCount: (data as ArticleData)?.wordCount || 1000,
         inLanguage: locale,
         mainEntityOfPage: {
           '@type': 'WebPage',
-          '@id': data?.url || `${siteUrl}/${locale}`,
+          '@id': (data as ArticleData)?.url || `${siteUrl}/${locale}`,
         },
       }
 
@@ -330,12 +389,14 @@ export function generateStructuredData({
         '@context': 'https://schema.org',
         '@type': 'BreadcrumbList',
         itemListElement:
-          data?.breadcrumbs?.map((item: any, index: number) => ({
-            '@type': 'ListItem',
-            position: index + 1,
-            name: item.name,
-            item: item.url,
-          })) || [],
+          (data as BreadcrumbListData)?.breadcrumbs?.map(
+            (item: BreadcrumbData, index: number) => ({
+              '@type': 'ListItem',
+              position: index + 1,
+              name: item.name,
+              item: item.url,
+            })
+          ) || [],
       }
 
     default:

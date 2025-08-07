@@ -1,6 +1,9 @@
 import type { ReactNode } from 'react'
 import { StructuredData } from './StructuredData'
-import type { StructuredDataOptions } from '@/lib/seo/structured-data'
+import type {
+  StructuredDataOptions,
+  StructuredDataContent,
+} from '@/lib/seo/structured-data'
 
 interface SEOProviderProps {
   children: ReactNode
@@ -8,7 +11,7 @@ interface SEOProviderProps {
   page: string
   structuredData?: Array<{
     type: StructuredDataOptions['type']
-    data?: any
+    data?: StructuredDataContent
   }>
   breadcrumbs?: Array<{
     name: string
@@ -31,6 +34,10 @@ export function SEOProvider({
   breadcrumbs,
   showNote,
 }: SEOProviderProps) {
+  // 获取页面特定的SEO配置
+  const pageConfig = getPageSEOConfig(page)
+  const allStructuredData = [...pageConfig.structuredData, ...structuredData]
+
   return (
     <>
       {/* 默认的组织和软件应用结构化数据 */}
@@ -69,7 +76,7 @@ export function SEOProvider({
       )}
 
       {/* 页面特定的结构化数据 */}
-      {structuredData.map((schema, index) => (
+      {allStructuredData.map((schema, index) => (
         <StructuredData
           key={`${schema.type}-${index}`}
           type={schema.type}

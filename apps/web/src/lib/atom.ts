@@ -1,17 +1,12 @@
 import type { Atom } from 'jotai'
 import { useAtomValue } from 'jotai'
 import { selectAtom } from 'jotai/utils'
-import { useCallback } from 'react'
 
 export const createAtomSelector = <T>(atom: Atom<T>) => {
-  const hook = <R>(selector: (a: T) => R, deps: any[] = []) =>
-    useAtomValue(
-      selectAtom(
-        atom,
-        useCallback(a => selector(a as T), deps)
-      )
-    )
+  const useAtomSelector = <R>(selector: (a: T) => R) => {
+    return useAtomValue(selectAtom(atom, selector))
+  }
 
-  hook.__atom = atom
-  return hook
+  useAtomSelector.__atom = atom
+  return useAtomSelector
 }

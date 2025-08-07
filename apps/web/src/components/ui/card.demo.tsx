@@ -23,7 +23,6 @@ import {
   TrendingUp,
   Star,
   Music,
-  Calendar,
 } from 'lucide-react'
 
 // Basic Card Variants

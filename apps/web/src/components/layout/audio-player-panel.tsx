@@ -31,7 +31,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { Progress } from '@/components/ui/progress'
@@ -79,7 +78,7 @@ export function AudioPlayerPanel({
   isCollapsed = false,
   onToggleCollapse,
 }: AudioPlayerPanelProps) {
-  const [audioFile, setAudioFile] = React.useState<AudioFile>(mockAudioFile)
+  const [audioFile] = React.useState<AudioFile>(mockAudioFile)
   const [volume, setVolume] = React.useState([75])
   const [isMuted, setIsMuted] = React.useState(false)
 

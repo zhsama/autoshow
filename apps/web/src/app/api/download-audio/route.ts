@@ -4,14 +4,9 @@ import {
   storageService,
   execPromise,
   readFile,
-  access,
-  rename,
   execFilePromise,
-  env,
-  mkdirSync,
   existsSync,
   unlink,
-  resolve,
   basename,
   l,
   err,
@@ -34,7 +29,7 @@ async function findYtDlp(): Promise<string> {
     try {
       await execFilePromise(ytDlpPath, ['--version'])
       return ytDlpPath
-    } catch (error) {
+    } catch {
       continue
     }
   }
@@ -367,7 +362,7 @@ export async function POST(request: NextRequest) {
     const key = basename(outputPath)
     const fileBuffer = await readFile(outputPath)
 
-    const audioUrl = await storageService.uploadFile(
+    const _audioUrl = await storageService.uploadFile(
       `audio/${key}`,
       fileBuffer,
       'audio/wav'

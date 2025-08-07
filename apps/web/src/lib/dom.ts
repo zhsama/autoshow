@@ -1,9 +1,9 @@
 export const transitionViewIfSupported = (callback: () => void) => {
   if (typeof document !== 'undefined' && 'startViewTransition' in document) {
-    const doc = document as any
-    doc.startViewTransition(() => {
-      callback()
-    })
+    // 使用类型断言处理实验性API
+    ;(
+      document as { startViewTransition?: (callback: () => void) => void }
+    ).startViewTransition?.(callback)
   } else {
     callback()
   }

@@ -2,10 +2,22 @@
 
 import { useLLMStep } from '@/hooks/use-form-steps'
 import { Button } from '@/components/ui/button'
-import { CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import {
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import { logger } from '@/lib/logger'
 import { L_CONFIG, type LLMServiceKey } from '@autoshow/shared'
 import { createShowNote } from '@/app/actions/show-notes'
@@ -19,7 +31,6 @@ export function LLMServiceStep({ onNewShowNote }: LLMServiceStepProps) {
     llmService,
     llmModel,
     llmApiKey,
-    llmCosts,
     frontMatter,
     promptText,
     transcript,
@@ -35,12 +46,12 @@ export function LLMServiceStep({ onNewShowNote }: LLMServiceStepProps) {
     setIsLoading,
     setError,
   } = useLLMStep()
-  
+
   const handleGenerateShowNotes = async () => {
     logger.log('[LLMServiceStep] Starting LLM generation')
     setIsLoading(true)
     setError(null)
-    
+
     try {
       const response = await fetch('/api/run-llm', {
         method: 'POST',
@@ -61,13 +72,13 @@ export function LLMServiceStep({ onNewShowNote }: LLMServiceStepProps) {
           },
         }),
       })
-      
+
       if (!response.ok) {
         throw new Error('Failed to generate show notes')
       }
-      
+
       const data = await response.json()
-      
+
       // Create show note using Server Action
       const result = await createShowNote({
         id: showNoteId,
@@ -88,7 +99,7 @@ export function LLMServiceStep({ onNewShowNote }: LLMServiceStepProps) {
         finalCost: (data.llmCost || 0) + (transcriptionCostUsed || 0),
         ...metadata,
       })
-      
+
       if (result.success) {
         logger.log('[LLMServiceStep] Show notes generated successfully')
         onNewShowNote()
@@ -97,16 +108,19 @@ export function LLMServiceStep({ onNewShowNote }: LLMServiceStepProps) {
       }
     } catch (error) {
       logger.error('[LLMServiceStep] Error generating show notes:', error)
-      setError(error instanceof Error ? error.message : 'Failed to generate show notes')
+      setError(
+        error instanceof Error ? error.message : 'Failed to generate show notes'
+      )
     } finally {
       setIsLoading(false)
     }
   }
-  
-  const selectedService = llmService && llmService !== 'skip' 
-    ? L_CONFIG[llmService as keyof typeof L_CONFIG]
-    : null
-  
+
+  const selectedService =
+    llmService && llmService !== 'skip'
+      ? L_CONFIG[llmService as keyof typeof L_CONFIG]
+      : null
+
   return (
     <>
       <CardHeader>
@@ -120,7 +134,7 @@ export function LLMServiceStep({ onNewShowNote }: LLMServiceStepProps) {
           <Label htmlFor="llm-service">LLM Service</Label>
           <Select
             value={llmService}
-            onValueChange={(value) => setLlmService(value as LLMServiceKey)}
+            onValueChange={value => setLlmService(value as LLMServiceKey)}
           >
             <SelectTrigger id="llm-service">
               <SelectValue />
@@ -134,47 +148,52 @@ export function LLMServiceStep({ onNewShowNote }: LLMServiceStepProps) {
             </SelectContent>
           </Select>
         </div>
-        
+
         {selectedService && selectedService.models.length > 0 && (
           <>
             <div className="space-y-2">
               <Label htmlFor="llm-model">Model</Label>
-              <Select
-                value={llmModel}
-                onValueChange={setLlmModel}
-              >
+              <Select value={llmModel} onValueChange={setLlmModel}>
                 <SelectTrigger id="llm-model">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  {selectedService.models.map((model) => (
+                  {selectedService.models.map(model => (
                     <SelectItem key={model.modelId} value={model.modelId}>
-                      {model.modelName} - ${((model.inputCostC + model.outputCostC) / 10000).toFixed(4)}/1K tokens
+                      {model.modelName} - $
+                      {((model.inputCostC + model.outputCostC) / 10000).toFixed(
+                        4
+                      )}
+                      /1K tokens
                     </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
             </div>
-            
+
             <div className="space-y-2">
               <Label htmlFor="llm-api-key">API Key</Label>
               <Input
                 id="llm-api-key"
                 type="password"
                 value={llmApiKey}
-                onChange={(e) => setLlmApiKey(e.target.value)}
+                onChange={e => setLlmApiKey(e.target.value)}
                 placeholder="Enter your API key"
               />
             </div>
           </>
         )}
-        
+
         <div className="space-y-2">
           <h4 className="text-sm font-medium">Processing Summary</h4>
           <div className="text-sm text-muted-foreground space-y-1">
-            <p>Transcription: {transcriptionService} - {transcriptionModelUsed}</p>
+            <p>
+              Transcription: {transcriptionService} - {transcriptionModelUsed}
+            </p>
             <p>Selected Prompts: {promptText}</p>
-            {transcript && <p>Transcript Length: {transcript.split(' ').length} words</p>}
+            {transcript && (
+              <p>Transcript Length: {transcript.split(' ').length} words</p>
+            )}
           </div>
         </div>
       </CardContent>
@@ -185,9 +204,10 @@ export function LLMServiceStep({ onNewShowNote }: LLMServiceStepProps) {
         <Button
           onClick={handleGenerateShowNotes}
           disabled={
-            isLoading || 
-            llmService === ('skip' as LLMServiceKey) || 
-            (llmService !== ('skip' as LLMServiceKey) && (!llmApiKey || llmApiKey.trim() === ''))
+            isLoading ||
+            llmService === ('skip' as LLMServiceKey) ||
+            (llmService !== ('skip' as LLMServiceKey) &&
+              (!llmApiKey || llmApiKey.trim() === ''))
           }
         >
           {isLoading ? 'Generating...' : 'Generate Show Notes'}

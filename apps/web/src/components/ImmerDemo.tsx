@@ -14,7 +14,7 @@ import {
   useLlmCostsImmer,
   useBatchUpdate,
 } from '../atoms/hooks/immer-hooks'
-import { metadataAtom, transcriptionCostsAtom } from '../atoms'
+import { metadataAtom } from '../atoms'
 
 /**
  * 元数据编辑组件 - 演示复杂对象的immer更新模式
@@ -89,14 +89,12 @@ export function CostManager() {
     costs: transcriptionCosts,
     addServiceCost,
     updateServiceCost,
-    removeServiceCost,
     resetCosts: resetTranscriptionCosts,
   } = useTranscriptionCostsImmer()
 
   const {
     costs: llmCosts,
     addCostToService,
-    setServiceCosts,
     resetCosts: resetLlmCosts,
   } = useLlmCostsImmer()
 
@@ -241,7 +239,7 @@ export function ComparisonDemo() {
   const [metadata, setMetadata] = useAtom(metadataAtom)
 
   // Immer方式
-  const [metadataImmer, setMetadataImmer] = useImmerAtom(metadataAtom)
+  const [, setMetadataImmer] = useImmerAtom(metadataAtom)
 
   const handleTraditionalUpdate = () => {
     setMetadata(prev => ({

@@ -16,7 +16,7 @@ export const createImmerAtom = <T>(initialValue: T) => {
 export const batchUpdateAtom = atom(
   null,
   (
-    get,
+    _get,
     set,
     updates: {
       metadata?: (draft: Draft<Partial<ShowNoteMetadata>>) => void
@@ -39,7 +39,7 @@ export const batchUpdateAtom = atom(
 )
 
 export const createImmerResetAtom = <T>(
-  targetAtom: WritableAtom<T, any, void>,
+  targetAtom: WritableAtom<T, [T | ((draft: Draft<T>) => void)], void>,
   initialValue: T
 ) => {
   return atom(null, (_get, set) => {

@@ -73,7 +73,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 }
 
 // 辅助函数：获取Show Notes数据（将来实现）
-async function getShowNotesForSitemap() {
+async function _getShowNotesForSitemap() {
   // TODO: 实现从数据库或API获取show notes
   // const showNotes = await fetch('/api/show-notes').then(res => res.json())
   // return showNotes.map(note => ({
