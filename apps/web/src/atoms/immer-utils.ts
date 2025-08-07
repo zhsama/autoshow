@@ -1,11 +1,8 @@
 import { withImmer, atomWithImmer } from 'jotai-immer'
 import { atom } from 'jotai'
+import type { WritableAtom } from 'jotai'
 import type { Draft } from 'immer'
-import type {
-  ShowNoteMetadata,
-  TranscriptionCosts,
-  LLMServiceKey,
-} from '@autoshow/shared'
+import type { ShowNoteMetadata, TranscriptionCosts } from '@autoshow/shared'
 import { metadataAtom, transcriptionCostsAtom, llmCostsAtom } from './index'
 
 export const metadataImmerAtom = withImmer(metadataAtom)
@@ -41,7 +38,10 @@ export const batchUpdateAtom = atom(
   }
 )
 
-export const createImmerResetAtom = <T>(targetAtom: any, initialValue: T) => {
+export const createImmerResetAtom = <T>(
+  targetAtom: WritableAtom<T, any, void>,
+  initialValue: T
+) => {
   return atom(null, (_get, set) => {
     set(targetAtom, () => initialValue)
   })
