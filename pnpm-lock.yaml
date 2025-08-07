@@ -195,6 +195,9 @@ importers:
       '@tanstack/react-query':
         specifier: ^5.56.2
         version: 5.83.1(react@19.1.0)
+      '@types/mime-types':
+        specifier: ^3.0.1
+        version: 3.0.1
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -219,6 +222,9 @@ importers:
       lucide-react:
         specifier: ^0.533.0
         version: 0.533.0(react@19.1.0)
+      mime-types:
+        specifier: ^3.0.1
+        version: 3.0.1
       next:
         specifier: 15.4.3
         version: 15.4.3(@babel/core@7.28.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -3606,6 +3612,12 @@ packages:
     resolution:
       {
         integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==,
+      }
+
+  '@types/mime-types@3.0.1':
+    resolution:
+      {
+        integrity: sha512-xRMsfuQbnRq1Ef+C+RKaENOxXX87Ygl38W1vDfPHRku02TgQr+Qd8iivLtAMcR0KF5/29xlnFihkTlbqFrGOVQ==,
       }
 
   '@types/node-fetch@2.6.12':
@@ -11179,6 +11191,8 @@ snapshots:
   '@types/json-schema@7.0.15': {}
 
   '@types/json5@0.0.29': {}
+
+  '@types/mime-types@3.0.1': {}
 
   '@types/node-fetch@2.6.12':
     dependencies:
