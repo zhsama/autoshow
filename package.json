@@ -1,9 +1,10 @@
 {
   "name": "autoshow-monorepo",
-  "private": true,
   "type": "module",
-  "author": "Anthony Campolo",
+  "private": true,
+  "packageManager": "pnpm@10.13.1+sha512.37ebf1a5c7a30d5fabe0c5df44ee8da4c965ca0c5af3dbab28c3a1681b70a256218d05c81c9c0dcf767ef6b8551eb5b960042b9ed4300c59242336377e01cfad",
   "description": "An example workflow for automatically generating customizable show notes for audio and video files.",
+  "author": "Anthony Campolo",
   "keywords": [
     "ChatGPT",
     "Claude",
@@ -37,7 +38,17 @@
     "prepare": "husky",
     "hooks:test": "echo 'Testing hooks...' && git add . && git commit -m 'test: hook validation' --dry-run"
   },
+  "dependencies": {
+    "@radix-ui/react-alert-dialog": "^1.1.14",
+    "@radix-ui/react-slot": "^1.2.3",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.533.0",
+    "tailwind-merge": "^3.3.1",
+    "zustand": "^5.0.6"
+  },
   "devDependencies": {
+    "@antfu/eslint-config": "^5.2.0",
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
     "@eslint/js": "^9.32.0",
@@ -60,21 +71,10 @@
       "prettier --write"
     ],
     "packages/**/src/**/*.{js,jsx,ts,tsx}": [
-      "eslint --fix",
       "prettier --write"
     ],
     "*.{json,md,yml,yaml}": [
       "prettier --write"
     ]
-  },
-  "packageManager": "pnpm@10.13.1+sha512.37ebf1a5c7a30d5fabe0c5df44ee8da4c965ca0c5af3dbab28c3a1681b70a256218d05c81c9c0dcf767ef6b8551eb5b960042b9ed4300c59242336377e01cfad",
-  "dependencies": {
-    "@radix-ui/react-alert-dialog": "^1.1.14",
-    "@radix-ui/react-slot": "^1.2.3",
-    "class-variance-authority": "^0.7.1",
-    "clsx": "^2.1.1",
-    "lucide-react": "^0.533.0",
-    "tailwind-merge": "^3.3.1",
-    "zustand": "^5.0.6"
   }
 }

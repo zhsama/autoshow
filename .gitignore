@@ -54,7 +54,7 @@ supabase
 .cursor
 
 temp*
-data/*
+apps/web/data/
 
 # Storybook
 storybook-static/
