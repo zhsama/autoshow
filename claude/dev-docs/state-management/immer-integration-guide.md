@@ -12,10 +12,10 @@
 
 ```typescript
 import {
+  batchUpdateAtom, // 批量更新工具
+  llmCostsImmerAtom, // LLM成本的immer版本
   metadataImmerAtom, // 原metadata atom的immer版本
   transcriptionCostsImmerAtom, // 转录成本的immer版本
-  llmCostsImmerAtom, // LLM成本的immer版本
-  batchUpdateAtom, // 批量更新工具
 } from '@/atoms'
 ```
 
@@ -23,10 +23,10 @@ import {
 
 ```typescript
 import {
+  useBatchUpdate,
+  useLlmCostsImmer,
   useMetadataImmer,
   useTranscriptionCostsImmer,
-  useLlmCostsImmer,
-  useBatchUpdate,
 } from '@/atoms/hooks/immer-hooks'
 ```
 

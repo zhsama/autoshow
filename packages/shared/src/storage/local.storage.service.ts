@@ -1,10 +1,10 @@
 // packages/shared/src/storage/local.storage.service.ts
 
-import { promises as fs } from 'fs'
-import path from 'path'
-import { StorageService } from './storage.interface.js'
 import type { ShowNoteType } from '../types.js'
-import { env, l, err } from '../utils.js'
+import type { StorageService } from './storage.interface.js'
+import { promises as fs } from 'node:fs'
+import path from 'node:path'
+import { env, err, l } from '../utils.js'
 
 const pre = '[local.storage]'
 
@@ -18,7 +18,7 @@ export class LocalStorageService implements StorageService {
 
   constructor() {
     this.storageDir = path.resolve(process.cwd(), 'data')
-    this.baseUrl = env['NEXT_PUBLIC_APP_URL'] || 'http://localhost:3000'
+    this.baseUrl = env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
 
     // 确保存储目录存在
     this.ensureDirectoryExists().catch(error => {
@@ -100,7 +100,7 @@ export class LocalStorageService implements StorageService {
     l(`${pre} Creating show note with ID: ${id}`)
 
     const showNote: ShowNoteType = {
-      id: parseInt(id),
+      id: Number.parseInt(id),
       showLink: metadata.showLink,
       channel: metadata.channel,
       channelURL: metadata.channelURL,
@@ -189,7 +189,7 @@ export class LocalStorageService implements StorageService {
       const showNote: ShowNoteType = {
         ...metadata,
         transcript: transcription,
-        llmOutput: llmOutput,
+        llmOutput,
       }
 
       l(`${pre} Show note fetched successfully: ${id}`)

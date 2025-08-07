@@ -39,9 +39,9 @@ module.exports = {
 **test/setup.ts**
 
 ```typescript
-import { beforeAll, afterAll, beforeEach, afterEach } from '@jest/globals'
-import { testDb } from './helpers/test-database'
+import { afterAll, afterEach, beforeAll, beforeEach } from '@jest/globals'
 import { mockServices } from './helpers/mock-services'
+import { testDb } from './helpers/test-database'
 
 beforeAll(async () => {
   console.log('🚀 设置测试环境...')
@@ -204,11 +204,11 @@ describe('用户注册 API', () => {
 **test/auth/login.test.ts**
 
 ```typescript
-import request from 'supertest'
 import bcrypt from 'bcrypt'
+import request from 'supertest'
 import { app } from '../../src/app'
-import { User } from '../../src/models/User'
 import { Session } from '../../src/models/Session'
+import { User } from '../../src/models/User'
 
 describe('用户登录 API', () => {
   let testUser: any
@@ -748,8 +748,8 @@ describe('权限控制测试', () => {
 **test/performance/load-test.test.ts**
 
 ```typescript
+import { performance } from 'node:perf_hooks'
 import request from 'supertest'
-import { performance } from 'perf_hooks'
 import { app } from '../../src/app'
 import { User } from '../../src/models/User'
 
@@ -796,7 +796,7 @@ describe('性能测试', () => {
     const concurrentUsers = 50
     const startTime = performance.now()
 
-    const promises = Array(concurrentUsers)
+    const promises = Array.from({ length: concurrentUsers })
       .fill(null)
       .map((_, index) =>
         request(app).post('/api/auth/login').send({
@@ -828,7 +828,7 @@ describe('性能测试', () => {
     const initialMemory = process.memoryUsage()
 
     // 进行100次操作
-    const promises = Array(100)
+    const promises = Array.from({ length: 100 })
       .fill(null)
       .map(() =>
         request(app).post('/api/auth/login').send({
@@ -890,7 +890,7 @@ class TestDatabase {
     // 插入测试数据
     await this.pool.query(`
       INSERT INTO users (username, email, password, role, created_at)
-      VALUES 
+      VALUES
         ('admin', 'admin@test.com', '$2b$12$hash', 'admin', NOW()),
         ('user', 'user@test.com', '$2b$12$hash', 'user', NOW())
     `)
@@ -976,7 +976,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'
-          cache: 'pnpm'
+          cache: pnpm
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2
@@ -1005,7 +1005,7 @@ jobs:
         uses: zaproxy/action-baseline@v0.7.0
         with:
           target: 'http://localhost:3000'
-          rules_file_name: '.zap/baseline.conf'
+          rules_file_name: .zap/baseline.conf
 
       - name: Snyk Security Scan
         uses: snyk/actions/node@master

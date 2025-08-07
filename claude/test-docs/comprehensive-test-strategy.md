@@ -240,7 +240,7 @@ describe('认证性能', () => {
 ```typescript
 describe('并发处理', () => {
   test('并发登录处理', async () => {
-    const concurrentRequests = Array(100)
+    const concurrentRequests = Array.from({ length: 100 })
       .fill(null)
       .map(() => request(app).post('/api/login').send(validCredentials))
 
@@ -289,7 +289,7 @@ module.exports = {
 #### 测试环境配置 (`test/setup.ts`)
 
 ```typescript
-import { beforeAll, afterAll, beforeEach } from '@jest/globals'
+import { afterAll, beforeAll, beforeEach } from '@jest/globals'
 import { testDb } from './test-database'
 
 beforeAll(async () => {

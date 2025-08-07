@@ -1,18 +1,18 @@
 {
   "compilerOptions": {
+    "composite": true,
     "target": "ES2022",
     "module": "ES2022",
     "moduleResolution": "bundler",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
-    "allowJs": true,
-    "composite": true,
     "paths": {
       "@autoshow/*": ["./packages/*/src"]
-    }
+    },
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true
   },
   "references": [
     { "path": "./packages/shared" },

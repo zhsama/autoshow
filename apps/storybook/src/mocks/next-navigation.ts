@@ -1,9 +1,9 @@
-import { useNavigate, useLocation, useSearchParams } from 'react-router-dom'
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 
 export function useRouter() {
   const navigate = useNavigate()
   const location = useLocation()
-  
+
   return {
     push: (url: string) => navigate(url),
     replace: (url: string) => navigate(url, { replace: true }),
@@ -12,7 +12,7 @@ export function useRouter() {
     refresh: () => window.location.reload(),
     pathname: location.pathname,
     query: Object.fromEntries(new URLSearchParams(location.search)),
-    asPath: location.pathname + location.search
+    asPath: location.pathname + location.search,
   }
 }
 

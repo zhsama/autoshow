@@ -173,7 +173,7 @@ export const prompts = {
     - Give it a basic song structure with verses, choruses, and a bridge.
     - Give the song three potential titles.\n`,
     example: `## Song
-    Lyrics to the song.\n`
+    Lyrics to the song.\n`,
   },
   rockSong: {
     instruction: `- Write a high-energy, anthemic rock song with powerful imagery and impactful, multi-layered lyrics.
@@ -181,7 +181,7 @@ export const prompts = {
     - Structure the song with verses, choruses, and a bridge.
     - Provide the song with three potential titles.\n`,
     example: `## Song
-    Lyrics to the song.\n`
+    Lyrics to the song.\n`,
   },
   countrySong: {
     instruction: `- Write a heartfelt, storytelling country song with simple yet emotionally charged lyrics.
@@ -189,6 +189,6 @@ export const prompts = {
     - Structure the song with verses, choruses, and a bridge.
     - Offer the song three potential titles.\n`,
     example: `## Song
-    Lyrics to the song.\n`
+    Lyrics to the song.\n`,
   },
 }

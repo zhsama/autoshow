@@ -1,15 +1,15 @@
 // packages/shared/src/storage/s3.storage.service.ts
 
+import type { ShowNoteType } from '../types.js'
+import type { StorageService } from './storage.interface.js'
 import {
-  S3Client,
-  PutObjectCommand,
   GetObjectCommand,
   ListObjectsV2Command,
+  PutObjectCommand,
+  S3Client,
 } from '@aws-sdk/client-s3'
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
-import { StorageService } from './storage.interface.js'
-import type { ShowNoteType } from '../types.js'
-import { env, l, err } from '../utils.js'
+import { env, err, l } from '../utils.js'
 
 const pre = '[s3.storage]'
 
@@ -22,12 +22,12 @@ export class S3StorageService implements StorageService {
   private bucket: string
 
   constructor() {
-    const region = env['AWS_REGION'] || 'us-east-2'
-    this.bucket = env['S3_BUCKET_NAME'] || 'autoshow-test'
+    const region = env.AWS_REGION || 'us-east-2'
+    this.bucket = env.S3_BUCKET_NAME || 'autoshow-test'
 
     // 修复：正确配置AWS凭证
-    const accessKeyId = env['AWS_ACCESS_KEY_ID']
-    const secretAccessKey = env['AWS_SECRET_ACCESS_KEY']
+    const accessKeyId = env.AWS_ACCESS_KEY_ID
+    const secretAccessKey = env.AWS_SECRET_ACCESS_KEY
 
     if (!accessKeyId || !secretAccessKey) {
       throw new Error(
@@ -103,7 +103,7 @@ export class S3StorageService implements StorageService {
     l(`${pre} Creating show note with ID: ${id}`)
 
     const showNote: ShowNoteType = {
-      id: parseInt(id),
+      id: Number.parseInt(id),
       showLink: metadata.showLink,
       channel: metadata.channel,
       channelURL: metadata.channelURL,
@@ -257,7 +257,7 @@ export class S3StorageService implements StorageService {
       const showNote: ShowNoteType = {
         ...metadata,
         transcript: transcription,
-        llmOutput: llmOutput,
+        llmOutput,
       }
 
       l(`${pre} Show note fetched successfully: ${id}`)

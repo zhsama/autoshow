@@ -1,7 +1,7 @@
-import * as ScrollArea from '@radix-ui/react-scroll-area'
 import type { FC } from 'react'
+import * as ScrollArea from '@radix-ui/react-scroll-area'
+import { Moon, Sun } from 'lucide-react'
 import { Link, useLocation } from 'react-router-dom'
-import { Sun, Moon } from 'lucide-react'
 import { getComponentsByCategory } from '../../glob'
 import { useDarkMode } from '../../hooks/use-dark'
 
@@ -33,7 +33,7 @@ export const Sidebar: FC = () => {
                 <ul className="space-y-1">
                   {components.map((component) => {
                     const isActive = pathname === component.path
-                    
+
                     return (
                       <li key={component.componentName}>
                         <Link
@@ -72,7 +72,7 @@ export const Sidebar: FC = () => {
 
 const DarkModeToggle: FC = () => {
   const { isDark, toggle } = useDarkMode()
-  
+
   return (
     <button
       onClick={toggle}
@@ -80,11 +80,13 @@ const DarkModeToggle: FC = () => {
       aria-label="Toggle Dark Mode"
     >
       <span>切换主题</span>
-      {isDark ? (
-        <Moon className="h-4 w-4" />
-      ) : (
-        <Sun className="h-4 w-4" />
-      )}
+      {isDark
+        ? (
+            <Moon className="h-4 w-4" />
+          )
+        : (
+            <Sun className="h-4 w-4" />
+          )}
     </button>
   )
 }

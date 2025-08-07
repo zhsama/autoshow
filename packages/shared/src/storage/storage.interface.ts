@@ -15,21 +15,25 @@ export interface StorageService {
    * @param contentType MIME类型
    * @returns 文件的公开访问URL
    */
-  uploadFile(key: string, body: Buffer, contentType: string): Promise<string>
+  uploadFile: (
+    key: string,
+    body: Buffer,
+    contentType: string
+  ) => Promise<string>
 
   /**
    * 从存储获取文件
    * @param key 文件唯一标识符
    * @returns 文件内容
    */
-  getFile(key: string): Promise<Buffer>
+  getFile: (key: string) => Promise<Buffer>
 
   /**
    * 生成文件的公开访问URL
    * @param key 文件唯一标识符
    * @returns 公开访问URL
    */
-  getPublicUrl(key: string): Promise<string>
+  getPublicUrl: (key: string) => Promise<string>
 
   // Show Notes管理
   /**
@@ -37,9 +41,9 @@ export interface StorageService {
    * @param metadata Show Note元数据
    * @returns 创建的Show Note及其ID
    */
-  createShowNote(
+  createShowNote: (
     metadata: Partial<ShowNoteType>
-  ): Promise<{ id: string; showNote: ShowNoteType }>
+  ) => Promise<{ id: string; showNote: ShowNoteType }>
 
   /**
    * 更新Show Note
@@ -47,42 +51,42 @@ export interface StorageService {
    * @param updates 更新的字段
    * @returns 更新后的Show Note
    */
-  updateShowNote(
+  updateShowNote: (
     id: string,
     updates: Partial<ShowNoteType>
-  ): Promise<ShowNoteType>
+  ) => Promise<ShowNoteType>
 
   /**
    * 获取单个Show Note
    * @param id Show Note ID
    * @returns Show Note或null
    */
-  getShowNote(id: string): Promise<ShowNoteType | null>
+  getShowNote: (id: string) => Promise<ShowNoteType | null>
 
   /**
    * 获取所有Show Notes
    * @returns Show Notes列表
    */
-  getAllShowNotes(): Promise<ShowNoteType[]>
+  getAllShowNotes: () => Promise<ShowNoteType[]>
 
   /**
    * 保存转录文本
    * @param id Show Note ID
    * @param transcription 转录内容
    */
-  saveTranscription(id: string, transcription: string): Promise<void>
+  saveTranscription: (id: string, transcription: string) => Promise<void>
 
   /**
    * 保存LLM输出
    * @param id Show Note ID
    * @param llmOutput LLM生成的内容
    */
-  saveLLMOutput(id: string, llmOutput: string): Promise<void>
+  saveLLMOutput: (id: string, llmOutput: string) => Promise<void>
 
   /**
    * 获取音频文件的签名URL（兼容现有API）
    * @param filename 文件名
    * @returns 文件访问URL
    */
-  getAudioSignedUrl(filename: string): Promise<string>
+  getAudioSignedUrl: (filename: string) => Promise<string>
 }

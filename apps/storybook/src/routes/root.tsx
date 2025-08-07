@@ -1,7 +1,7 @@
 import { Outlet, ScrollRestoration } from 'react-router-dom'
 import { Sidebar } from '../components/Sidebar'
 
-export const Root = () => {
+export function Root() {
   return (
     <div className="flex h-screen bg-white dark:bg-neutral-900">
       <Sidebar />

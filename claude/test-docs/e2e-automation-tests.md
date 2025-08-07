@@ -85,7 +85,7 @@ export default defineConfig({
 **e2e/pages/BasePage.ts**
 
 ```typescript
-import { Page, Locator, expect } from '@playwright/test'
+import { expect, Locator, Page } from '@playwright/test'
 
 export class BasePage {
   readonly page: Page
@@ -140,7 +140,7 @@ export class BasePage {
 **e2e/pages/LoginPage.ts**
 
 ```typescript
-import { Page, Locator, expect } from '@playwright/test'
+import { expect, Locator, Page } from '@playwright/test'
 import { BasePage } from './BasePage'
 
 export class LoginPage extends BasePage {
@@ -212,7 +212,7 @@ export class LoginPage extends BasePage {
 **e2e/pages/RegisterPage.ts**
 
 ```typescript
-import { Page, Locator, expect } from '@playwright/test'
+import { expect, Locator, Page } from '@playwright/test'
 import { BasePage } from './BasePage'
 
 export class RegisterPage extends BasePage {
@@ -295,7 +295,7 @@ export class RegisterPage extends BasePage {
 **e2e/pages/DashboardPage.ts**
 
 ```typescript
-import { Page, Locator, expect } from '@playwright/test'
+import { expect, Locator, Page } from '@playwright/test'
 import { BasePage } from './BasePage'
 
 export class DashboardPage extends BasePage {
@@ -354,10 +354,10 @@ export class DashboardPage extends BasePage {
 **e2e/tests/auth.spec.ts**
 
 ```typescript
-import { test, expect } from '@playwright/test'
+import { expect, test } from '@playwright/test'
+import { DashboardPage } from '../pages/DashboardPage'
 import { LoginPage } from '../pages/LoginPage'
 import { RegisterPage } from '../pages/RegisterPage'
-import { DashboardPage } from '../pages/DashboardPage'
 
 test.describe('用户认证流程', () => {
   test.beforeEach(async ({ page }) => {
@@ -490,9 +490,9 @@ test.describe('用户认证流程', () => {
 **e2e/tests/authorization.spec.ts**
 
 ```typescript
-import { test, expect } from '@playwright/test'
-import { LoginPage } from '../pages/LoginPage'
+import { expect, test } from '@playwright/test'
 import { DashboardPage } from '../pages/DashboardPage'
+import { LoginPage } from '../pages/LoginPage'
 
 test.describe('权限控制测试', () => {
   test('管理员权限访问', async ({ page }) => {
@@ -566,7 +566,7 @@ test.describe('权限控制测试', () => {
 **e2e/tests/ui-components.spec.ts**
 
 ```typescript
-import { test, expect } from '@playwright/test'
+import { expect, test } from '@playwright/test'
 
 test.describe('UI组件测试', () => {
   test('响应式导航菜单', async ({ page }) => {
@@ -669,7 +669,7 @@ test.describe('UI组件测试', () => {
 **e2e/tests/performance.spec.ts**
 
 ```typescript
-import { test, expect } from '@playwright/test'
+import { expect, test } from '@playwright/test'
 
 test.describe('性能测试', () => {
   test('页面加载性能', async ({ page }) => {
@@ -756,7 +756,7 @@ test.describe('性能测试', () => {
 **e2e/tests/cross-browser.spec.ts**
 
 ```typescript
-import { test, expect, devices } from '@playwright/test'
+import { devices, expect, test } from '@playwright/test'
 
 const browsers = ['chromium', 'firefox', 'webkit']
 
@@ -963,7 +963,7 @@ class CustomReporter implements Reporter {
       })),
     }
 
-    require('fs').writeFileSync(
+    require('node:fs').writeFileSync(
       'test-results/e2e-report.json',
       JSON.stringify(report, null, 2)
     )
@@ -1001,7 +1001,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'
-          cache: 'pnpm'
+          cache: pnpm
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2

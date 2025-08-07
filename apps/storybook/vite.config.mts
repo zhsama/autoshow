@@ -1,6 +1,6 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
 import path from 'node:path'
+import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite'
 
 export default defineConfig({
   plugins: [react()],
@@ -13,14 +13,14 @@ export default defineConfig({
       '@/hooks': path.resolve(__dirname, '../../apps/web/src/hooks'),
       '@/stores': path.resolve(__dirname, '../../apps/web/src/stores'),
       'src': path.resolve(__dirname, './src'),
-      
+
       // Next.js API模拟
       'next/image': path.resolve(__dirname, './src/mocks/next-image'),
       'next/link': path.resolve(__dirname, './src/mocks/next-link'),
       'next/navigation': path.resolve(__dirname, './src/mocks/next-navigation'),
       'next/dynamic': path.resolve(__dirname, './src/mocks/next-dynamic'),
       'next/router': path.resolve(__dirname, './src/mocks/next-router'),
-    }
+    },
   },
   define: {
     // 环境变量模拟
@@ -34,21 +34,21 @@ export default defineConfig({
       'jotai',
       'lucide-react',
       '@radix-ui/react-scroll-area',
-      '@radix-ui/react-slot'
-    ]
+      '@radix-ui/react-slot',
+    ],
   },
   server: {
     port: 6006,
     host: true,
-    open: true
+    open: true,
   },
   build: {
     outDir: 'dist',
     sourcemap: true,
     rollupOptions: {
       input: {
-        main: path.resolve(__dirname, 'index.html')
-      }
-    }
-  }
+        main: path.resolve(__dirname, 'index.html'),
+      },
+    },
+  },
 })

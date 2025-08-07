@@ -1,9 +1,9 @@
 // packages/shared/src/storage/index.ts
 
-import { StorageService } from './storage.interface.js'
+import type { StorageService } from './storage.interface.js'
+import { env, err, l } from '../utils.js'
 import { LocalStorageService } from './local.storage.service.js'
 import { S3StorageService } from './s3.storage.service.js'
-import { env, l, err } from '../utils.js'
 
 const pre = '[storage.factory]'
 
@@ -11,8 +11,8 @@ const pre = '[storage.factory]'
  * 检查S3凭证是否可用
  */
 function hasS3Credentials(): boolean {
-  const accessKeyId = env['AWS_ACCESS_KEY_ID']
-  const secretAccessKey = env['AWS_SECRET_ACCESS_KEY']
+  const accessKeyId = env.AWS_ACCESS_KEY_ID
+  const secretAccessKey = env.AWS_SECRET_ACCESS_KEY
   return !!(accessKeyId && secretAccessKey)
 }
 
@@ -41,7 +41,7 @@ async function testS3Connection(): Promise<boolean> {
  * 根据配置和可用性自动选择最佳存储实现
  */
 async function createStorageService(): Promise<StorageService> {
-  const storageType = env['STORAGE_TYPE'] || 'auto'
+  const storageType = env.STORAGE_TYPE || 'auto'
 
   l(`${pre} Initializing storage service with type: ${storageType}`)
 
@@ -86,7 +86,7 @@ async function createStorageService(): Promise<StorageService> {
  * 同步版本的存储服务工厂（用于不支持async的环境）
  */
 function createStorageServiceSync(): StorageService {
-  const storageType = env['STORAGE_TYPE'] || 'auto'
+  const storageType = env.STORAGE_TYPE || 'auto'
 
   switch (storageType) {
     case 's3':
@@ -123,7 +123,7 @@ export const storageService = createStorageServiceSync()
 // 也导出工厂函数供需要的地方使用
 export { createStorageService, createStorageServiceSync }
 
-// 导出所有类型和接口
-export type { StorageService } from './storage.interface.js'
 export { LocalStorageService } from './local.storage.service.js'
 export { S3StorageService } from './s3.storage.service.js'
+// 导出所有类型和接口
+export type { StorageService } from './storage.interface.js'

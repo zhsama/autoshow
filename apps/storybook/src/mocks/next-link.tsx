@@ -16,14 +16,14 @@ interface LinkProps {
   [key: string]: any
 }
 
-export default function Link({ 
-  href, 
-  children, 
-  replace, 
-  className, 
-  style, 
+export default function Link({
+  href,
+  children,
+  replace,
+  className,
+  style,
   onClick,
-  ...props 
+  ...props
 }: LinkProps) {
   // 处理外部链接
   if (href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('tel:')) {

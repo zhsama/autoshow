@@ -32,23 +32,27 @@ packages/
 ## 📋 Key Features
 
 ### Content Processing
+
 - **Multiple Input Types**: YouTube videos, local video/audio files
 - **Video Format Support**: MP4, MKV, AVI, MOV, WebM, MP3, WAV, M4A, AAC, OGG, FLAC
 - **Automatic Conversion**: FFmpeg-powered format conversion
 
 ### Transcription Services
+
 - **WhisperX (Local)** 🆕: Enhanced local transcription with speaker diarization
 - **Groq**: Fast Whisper models via API
 - **Deepgram**: Professional transcription service
 - **AssemblyAI**: Advanced audio intelligence
 
 ### LLM Processing
+
 - **Ollama (Local)** 🆕: Run models locally (LLaMA, Mistral, Qwen, Gemma)
 - **OpenAI**: GPT models (o1, o3, 4o, etc.)
 - **Anthropic**: Claude models (Opus, Sonnet, Haiku)
 - **Google**: Gemini models (2.5 Pro, 2.0 Flash, etc.)
 
 ### Output Formats
+
 - Summaries (short, medium, long)
 - Chapter breakdowns with timestamps
 - Key takeaways and quotes
@@ -104,6 +108,7 @@ AutoShow requires the following system tools:
 ### Quick Installation
 
 Run the automated installer:
+
 ```bash
 ./install-dependencies.sh
 ```
@@ -111,12 +116,14 @@ Run the automated installer:
 ### Manual Installation
 
 **macOS (using Homebrew):**
+
 ```bash
 brew install yt-dlp ffmpeg
 npm install -g pnpm
 ```
 
 **Linux (Ubuntu/Debian):**
+
 ```bash
 # Install yt-dlp
 mkdir -p ~/.local/bin
@@ -182,7 +189,9 @@ See [LOCAL_AI_SETUP.md](./LOCAL_AI_SETUP.md) for detailed setup instructions.
 ### Apps
 
 #### @autoshow/web
+
 Next.js 15 + React 19 web application featuring:
+
 - Modern UI with shadcn/ui components
 - Server Components and Server Actions
 - Zustand state management
@@ -192,20 +201,26 @@ Next.js 15 + React 19 web application featuring:
 ### Packages
 
 #### @autoshow/shared
+
 Common utilities, types, and configurations:
+
 - Service configurations (T_CONFIG, L_CONFIG)
 - TypeScript types and interfaces
 - Shared server utilities
 
 #### @autoshow/transcription
+
 Transcription service integrations:
+
 - **WhisperX** 🆕 - Local transcription with speaker diarization
 - **Groq** 🆕 - Fast Whisper models via API
 - **Deepgram** - Professional transcription service
 - **AssemblyAI** - Advanced audio intelligence
 
 #### @autoshow/llm
+
 Language Model integrations:
+
 - **Ollama** 🆕 - Local LLM processing (LLaMA, Mistral, Qwen, etc.)
 - **OpenAI** - GPT models (o1, o3, 4o, etc.)
 - **Anthropic** - Claude models (Opus, Sonnet, Haiku)
@@ -216,22 +231,26 @@ Language Model integrations:
 AutoShow can generate diverse content formats including:
 
 ### Summaries and Chapters
+
 - Concise summaries
 - Detailed chapter descriptions
 - Bullet-point summaries
 - Chapter titles with timestamps
 
 ### Social Media Posts
+
 - X (Twitter)
 - Facebook
 - LinkedIn
 
 ### Creative Content
+
 - Rap songs
 - Rock songs
 - Country songs
 
 ### Educational Content
+
 - Key takeaways
 - Comprehension questions
 - Frequently asked questions (FAQs)

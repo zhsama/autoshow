@@ -1,10 +1,16 @@
 // src/services/whisperx.ts
 
-import { execPromise, readFile, existsSync, l, err } from "@autoshow/shared/server"
-import { T_CONFIG } from '@autoshow/shared/server'
+import {
+  err,
+  execPromise,
+  existsSync,
+  l,
+  readFile,
+  T_CONFIG,
+} from '@autoshow/shared/server'
 import { formatTimestamp } from './transcription.js'
 
-const pre = "[transcription.whisperx]"
+const pre = '[transcription.whisperx]'
 
 export interface WhisperXSegment {
   start: number
@@ -31,35 +37,41 @@ export interface WhisperXResult {
 
 export function formatWhisperXTranscript(result: WhisperXResult): string {
   l(`${pre}:formatWhisperXTranscript Formatting transcript from WhisperX`)
-  
+
   const segments = result.segments || []
-  l(`${pre}:formatWhisperXTranscript Found ${segments.length} segments to format`)
-  
+  l(
+    `${pre}:formatWhisperXTranscript Found ${segments.length} segments to format`
+  )
+
   let txtContent = ''
   let currentSpeaker = ''
-  
+
   segments.forEach((segment: WhisperXSegment, index: number) => {
-    l(`${pre}:formatWhisperXTranscript Processing segment ${index+1}/${segments.length}`)
-    
+    l(
+      `${pre}:formatWhisperXTranscript Processing segment ${index + 1}/${segments.length}`
+    )
+
     const timestamp = formatTimestamp(segment.start)
-    
+
     // Add speaker diarization if available
     if (segment.speaker && segment.speaker !== currentSpeaker) {
       currentSpeaker = segment.speaker
       txtContent += `\n[Speaker ${currentSpeaker}]\n`
     }
-    
+
     txtContent += `[${timestamp}] ${segment.text}\n`
   })
-  
+
   txtContent += '\n'
-  
-  l(`${pre}:formatWhisperXTranscript Formatting complete, content length: ${txtContent.length}`)
+
+  l(
+    `${pre}:formatWhisperXTranscript Formatting complete, content length: ${txtContent.length}`
+  )
   return txtContent
 }
 
 export async function callWhisperX(
-  audioSource: string, 
+  audioSource: string,
   whisperxModel: string | null,
   enableDiarization: boolean = true
 ): Promise<{
@@ -68,47 +80,63 @@ export async function callWhisperX(
   costPerMinuteCents: number
 }> {
   const methodLogPrefix = `${pre}:callWhisperX`
-  l(`${methodLogPrefix} Starting WhisperX transcription with model: ${whisperxModel}`)
-  
+  l(
+    `${methodLogPrefix} Starting WhisperX transcription with model: ${whisperxModel}`
+  )
+
   if (!whisperxModel) {
     err(`${methodLogPrefix} WhisperX model must be specified`)
     throw new Error('WhisperX model must be specified')
   }
-  
-  const modelInfo = T_CONFIG.whisperx.models.find(m => m.modelId.toLowerCase() === whisperxModel.toLowerCase())
+
+  const modelInfo = T_CONFIG.whisperx.models.find(
+    m => m.modelId.toLowerCase() === whisperxModel.toLowerCase()
+  )
   if (!modelInfo) {
-    err(`${methodLogPrefix} Model information for model ${whisperxModel} is not defined`)
-    throw new Error(`Model information for model ${whisperxModel} is not defined.`)
+    err(
+      `${methodLogPrefix} Model information for model ${whisperxModel} is not defined`
+    )
+    throw new Error(
+      `Model information for model ${whisperxModel} is not defined.`
+    )
   }
-  
+
   const { modelId, costPerMinuteCents } = modelInfo
-  l(`${methodLogPrefix} Using WhisperX model: ${modelId} with cost: ¢${costPerMinuteCents} per minute (local processing)`)
-  
+  l(
+    `${methodLogPrefix} Using WhisperX model: ${modelId} with cost: ¢${costPerMinuteCents} per minute (local processing)`
+  )
+
   // Check if WhisperX is installed and available
   try {
     const { stdout: version } = await execPromise('whisperx --version')
     l(`${methodLogPrefix} WhisperX version: ${version.trim()}`)
   } catch (error) {
     err(`${methodLogPrefix} WhisperX is not installed or not available in PATH`)
-    throw new Error('WhisperX is not installed. Please install it with: pip install whisperx')
+    throw new Error(
+      'WhisperX is not installed. Please install it with: pip install whisperx'
+    )
   }
-  
+
   let audioPath = audioSource
-  
+
   // If source is URL, download it first
   if (audioSource.startsWith('http')) {
     l(`${methodLogPrefix} Downloading audio from URL: ${audioSource}`)
     const tempPath = `/tmp/whisperx_temp_${Date.now()}.wav`
-    
+
     try {
       const response = await fetch(audioSource)
       if (!response.ok) {
-        throw new Error(`Failed to fetch audio from URL: ${response.status} ${response.statusText}`)
+        throw new Error(
+          `Failed to fetch audio from URL: ${response.status} ${response.statusText}`
+        )
       }
       const arrayBuffer = await response.arrayBuffer()
       const buffer = Buffer.from(arrayBuffer)
       await execPromise(`mkdir -p /tmp`)
-      await execPromise(`echo "${buffer.toString('base64')}" | base64 -d > "${tempPath}"`)
+      await execPromise(
+        `echo "${buffer.toString('base64')}" | base64 -d > "${tempPath}"`
+      )
       audioPath = tempPath
       l(`${methodLogPrefix} Successfully downloaded audio to: ${tempPath}`)
     } catch (error) {
@@ -120,27 +148,33 @@ export async function callWhisperX(
     if (!audioPath.endsWith('.wav')) {
       audioPath = `${audioPath}.wav`
     }
-    
+
     if (!existsSync(audioPath)) {
       err(`${methodLogPrefix} Audio file not found: ${audioPath}`)
       throw new Error(`Audio file not found: ${audioPath}`)
     }
   }
-  
+
   l(`${methodLogPrefix} Processing audio file: ${audioPath}`)
-  
+
   // Build WhisperX command
   const outputPath = `/tmp/whisperx_output_${Date.now()}.json`
   const whisperxArgs = [
     audioPath,
-    '--model', modelId,
-    '--output_format', 'json',
-    '--output_dir', '/tmp',
-    '--language', 'en', // Can be made configurable
-    '--compute_type', 'float16', // Optimize for GPU if available
-    '--batch_size', '16',
+    '--model',
+    modelId,
+    '--output_format',
+    'json',
+    '--output_dir',
+    '/tmp',
+    '--language',
+    'en', // Can be made configurable
+    '--compute_type',
+    'float16', // Optimize for GPU if available
+    '--batch_size',
+    '16',
   ]
-  
+
   // Add diarization if enabled
   if (enableDiarization) {
     whisperxArgs.push('--diarize')
@@ -148,43 +182,52 @@ export async function callWhisperX(
     whisperxArgs.push('--max_speakers', '10')
     l(`${methodLogPrefix} Speaker diarization enabled`)
   }
-  
+
   // Add word-level timestamps
   whisperxArgs.push('--align')
-  
-  l(`${methodLogPrefix} Executing WhisperX with args: whisperx ${whisperxArgs.join(' ')}`)
-  
+
+  l(
+    `${methodLogPrefix} Executing WhisperX with args: whisperx ${whisperxArgs.join(' ')}`
+  )
+
   try {
     // Run WhisperX
-    const { stdout, stderr } = await execPromise(`whisperx ${whisperxArgs.join(' ')}`, {
-      maxBuffer: 10 * 1024 * 1024 // 10MB buffer for large outputs
-    })
-    
+    const { stdout, stderr } = await execPromise(
+      `whisperx ${whisperxArgs.join(' ')}`,
+      {
+        maxBuffer: 10 * 1024 * 1024, // 10MB buffer for large outputs
+      }
+    )
+
     if (stderr && !stderr.includes('UserWarning')) {
       l(`${methodLogPrefix} WhisperX stderr (non-critical): ${stderr}`)
     }
-    
+
     l(`${methodLogPrefix} WhisperX processing completed`)
-    
+
     // Find the output JSON file
-    const { stdout: outputFiles } = await execPromise(`ls -1t /tmp/*.json | head -1`)
+    const { stdout: outputFiles } = await execPromise(
+      `ls -1t /tmp/*.json | head -1`
+    )
     const resultFile = outputFiles.trim()
-    
+
     if (!resultFile || !existsSync(resultFile)) {
       throw new Error('WhisperX output file not found')
     }
-    
+
     l(`${methodLogPrefix} Reading WhisperX output from: ${resultFile}`)
-    
+
     // Read and parse the result
     const resultData = await readFile(resultFile, 'utf8')
     const whisperxResult: WhisperXResult = JSON.parse(resultData)
-    
-    l(`${methodLogPrefix} Successfully parsed WhisperX output with ${whisperxResult.segments.length} segments`)
-    
+
+    l(
+      `${methodLogPrefix} Successfully parsed WhisperX output with ${whisperxResult.segments.length} segments`
+    )
+
     // Format the transcript
     const txtContent = formatWhisperXTranscript(whisperxResult)
-    
+
     // Cleanup temporary files
     try {
       await execPromise(`rm -f "${resultFile}"`)
@@ -192,20 +235,23 @@ export async function callWhisperX(
         await execPromise(`rm -f "${audioPath}"`)
       }
     } catch (cleanupError) {
-      l(`${methodLogPrefix} Warning: Failed to cleanup temporary files: ${cleanupError}`)
+      l(
+        `${methodLogPrefix} Warning: Failed to cleanup temporary files: ${cleanupError}`
+      )
     }
-    
-    l(`${methodLogPrefix} Successfully formatted transcript, length: ${txtContent.length}`)
-    
+
+    l(
+      `${methodLogPrefix} Successfully formatted transcript, length: ${txtContent.length}`
+    )
+
     return {
       transcript: txtContent,
       modelId,
-      costPerMinuteCents
+      costPerMinuteCents,
     }
-    
   } catch (error) {
     err(`${methodLogPrefix} WhisperX processing failed:`, error)
-    
+
     // Cleanup on error
     try {
       if (audioSource.startsWith('http') && audioPath.startsWith('/tmp/')) {
@@ -214,8 +260,10 @@ export async function callWhisperX(
     } catch (cleanupError) {
       // Ignore cleanup errors
     }
-    
-    throw new Error(`WhisperX processing failed: ${error instanceof Error ? error.message : String(error)}`)
+
+    throw new Error(
+      `WhisperX processing failed: ${error instanceof Error ? error.message : String(error)}`
+    )
   }
 }
 
@@ -230,21 +278,29 @@ export async function callWhisperXPython(
   costPerMinuteCents: number
 }> {
   const methodLogPrefix = `${pre}:callWhisperXPython`
-  l(`${methodLogPrefix} Starting WhisperX Python API transcription with model: ${whisperxModel}`)
-  
+  l(
+    `${methodLogPrefix} Starting WhisperX Python API transcription with model: ${whisperxModel}`
+  )
+
   if (!whisperxModel) {
     err(`${methodLogPrefix} WhisperX model must be specified`)
     throw new Error('WhisperX model must be specified')
   }
-  
-  const modelInfo = T_CONFIG.whisperx.models.find(m => m.modelId.toLowerCase() === whisperxModel.toLowerCase())
+
+  const modelInfo = T_CONFIG.whisperx.models.find(
+    m => m.modelId.toLowerCase() === whisperxModel.toLowerCase()
+  )
   if (!modelInfo) {
-    err(`${methodLogPrefix} Model information for model ${whisperxModel} is not defined`)
-    throw new Error(`Model information for model ${whisperxModel} is not defined.`)
+    err(
+      `${methodLogPrefix} Model information for model ${whisperxModel} is not defined`
+    )
+    throw new Error(
+      `Model information for model ${whisperxModel} is not defined.`
+    )
   }
-  
+
   const { modelId, costPerMinuteCents } = modelInfo
-  
+
   // Python script to run WhisperX
   const pythonScript = `
 import whisperx
@@ -280,23 +336,23 @@ print(json.dumps(result))
 
   const tempScriptPath = `/tmp/whisperx_script_${Date.now()}.py`
   await execPromise(`echo '${pythonScript}' > "${tempScriptPath}"`)
-  
+
   try {
     const { stdout } = await execPromise(
       `python3 "${tempScriptPath}" "${audioSource}" "${modelId}" "${enableDiarization}"`,
       { maxBuffer: 10 * 1024 * 1024 }
     )
-    
+
     const result: WhisperXResult = JSON.parse(stdout)
     const txtContent = formatWhisperXTranscript(result)
-    
+
     // Cleanup
     await execPromise(`rm -f "${tempScriptPath}"`)
-    
+
     return {
       transcript: txtContent,
       modelId,
-      costPerMinuteCents
+      costPerMinuteCents,
     }
   } catch (error) {
     // Cleanup on error
@@ -305,7 +361,7 @@ print(json.dumps(result))
     } catch (cleanupError) {
       // Ignore
     }
-    
+
     throw error
   }
 }

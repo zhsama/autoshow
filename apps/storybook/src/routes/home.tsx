@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { getComponentsByCategory } from '../glob'
 
-export const HomePage = () => {
+export function HomePage() {
   const componentsByCategory = getComponentsByCategory()
   const totalComponents = Object.values(componentsByCategory).flat().length
 
@@ -44,12 +44,14 @@ export const HomePage = () => {
                 {formatCategoryName(category)}
               </h2>
               <p className="mt-1 text-slate-600 dark:text-slate-400">
-                {components.length} 个组件
+                {components.length}
+                {' '}
+                个组件
               </p>
             </div>
 
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {components.map((component) => (
+              {components.map(component => (
                 <Link
                   key={component.componentName}
                   to={component.path}
@@ -120,9 +122,9 @@ function formatCategoryName(category: string): string {
     layout: '布局组件',
     data: '数据组件',
     feedback: '反馈组件',
-    navigation: '导航组件'
+    navigation: '导航组件',
   }
-  
+
   return categoryMap[category] || category.charAt(0).toUpperCase() + category.slice(1)
 }
 

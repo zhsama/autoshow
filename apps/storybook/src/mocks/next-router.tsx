@@ -1,9 +1,9 @@
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 export function useRouter() {
   const navigate = useNavigate()
   const location = useLocation()
-  
+
   return {
     push: (url: string) => navigate(url),
     replace: (url: string) => navigate(url, { replace: true }),
@@ -16,12 +16,12 @@ export function useRouter() {
     events: {
       on: () => {},
       off: () => {},
-      emit: () => {}
-    }
+      emit: () => {},
+    },
   }
 }
 
-export const withRouter = (Component: React.ComponentType<any>) => {
+export function withRouter(Component: React.ComponentType<any>) {
   return function WithRouterComponent(props: any) {
     const router = useRouter()
     return <Component {...props} router={router} />

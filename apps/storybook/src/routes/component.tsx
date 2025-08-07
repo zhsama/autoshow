@@ -1,9 +1,9 @@
 import { useParams } from 'react-router-dom'
 import { getComponentInfo } from '../glob'
 
-export const ComponentPage = () => {
+export function ComponentPage() {
   const { componentName } = useParams<{ componentName: string }>()
-  
+
   if (!componentName) {
     return (
       <div className="flex h-64 items-center justify-center">
@@ -13,13 +13,15 @@ export const ComponentPage = () => {
   }
 
   const componentInfo = getComponentInfo(componentName)
-  
+
   if (!componentInfo) {
     return (
       <div className="flex h-64 items-center justify-center">
         <div className="text-center">
           <h2 className="text-lg font-semibold text-slate-900 dark:text-white">
-            组件 "{componentName}" 未找到
+            组件 "
+            {componentName}
+            " 未找到
           </h2>
           <p className="mt-1 text-slate-500 dark:text-slate-400">
             请确保已创建对应的 .demo.tsx 文件
@@ -86,7 +88,9 @@ export const ComponentPage = () => {
                 <div className="space-y-1">
                   {Component.meta.examples.map((example, index) => (
                     <p key={index} className="text-sm text-slate-600 dark:text-slate-400">
-                      • {example}
+                      •
+                      {' '}
+                      {example}
                     </p>
                   ))}
                 </div>

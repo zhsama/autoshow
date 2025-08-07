@@ -1,8 +1,8 @@
 import { createHashRouter, createRoutesFromElements, Route } from 'react-router-dom'
-import { Root } from './routes/root'
-import { HomePage } from './routes/home'
-import { ComponentPage } from './routes/component'
 import { routeKeys } from './glob'
+import { ComponentPage } from './routes/component'
+import { HomePage } from './routes/home'
+import { Root } from './routes/root'
 
 // 创建路由配置
 export const router = createHashRouter(
@@ -10,20 +10,20 @@ export const router = createHashRouter(
     <Route path="/" element={<Root />}>
       {/* 首页 */}
       <Route index element={<HomePage />} />
-      
+
       {/* 动态组件路由 */}
-      {routeKeys.map((componentName) => (
+      {routeKeys.map(componentName => (
         <Route
           key={componentName}
           path={`/${componentName}`}
           element={<ComponentPage />}
         />
       ))}
-      
+
       {/* 404 页面 */}
       <Route
         path="*"
-        element={
+        element={(
           <div className="flex h-64 items-center justify-center">
             <div className="text-center">
               <h2 className="text-2xl font-semibold text-slate-900 dark:text-white">
@@ -34,10 +34,10 @@ export const router = createHashRouter(
               </p>
             </div>
           </div>
-        }
+        )}
       />
-    </Route>
-  )
+    </Route>,
+  ),
 )
 
 export { routeKeys }

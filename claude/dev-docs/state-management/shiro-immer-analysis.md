@@ -1,8 +1,8 @@
 # Shiro 项目中 immer 使用深度分析
 
-> **技术调研报告** - 基于 Shiro 前端项目 v1.2.5 的 immer 集成模式分析  
-> **项目背景**: 为 AutoShow 项目状态管理优化提供参考  
-> **分析时间**: 2025-01-05  
+> **技术调研报告** - 基于 Shiro 前端项目 v1.2.5 的 immer 集成模式分析
+> **项目背景**: 为 AutoShow 项目状态管理优化提供参考
+> **分析时间**: 2025-01-05
 > **版本**: v1.0
 
 ## 📋 执行概要
@@ -97,7 +97,7 @@ case EventTypes.POST_UPDATE: {
 
 ```typescript
 // 📁 src/atoms/activity.ts
-export const deleteActivityPresence = (sessionId: string) => {
+export function deleteActivityPresence(sessionId: string) {
   jotaiStore.set(activityPresenceAtom, prev => {
     return produce(prev, draft => {
       delete draft[sessionId] // 安全删除对象属性
@@ -110,7 +110,7 @@ export const deleteActivityPresence = (sessionId: string) => {
 
 ```typescript
 // 📁 src/components/modules/dashboard/writing/BaseWritingProvider.tsx
-export const useBaseWritingAtom = (key: keyof BaseModelType) => {
+export function useBaseWritingAtom(key: keyof BaseModelType) {
   const ctxAtom = useBaseWritingContext()
   return useAtom(
     useMemo(
@@ -147,7 +147,7 @@ API 调用前的乐观更新，提升用户体验，特别是评论、点赞等�
 
 ```typescript
 // 📁 src/queries/hooks/comment.ts
-export const useDeleteCommentMutation = () => {
+export function useDeleteCommentMutation() {
   return useMutation({
     onMutate: async ({ id }) => {
       queryClient.setQueryData<InfiniteData<PaginateResult<CommentModel>>>(
@@ -182,7 +182,9 @@ queryClient.setQueryData<InfiniteData<PaginateResult<CommentModel>>>(
         })
       )
 
-      if (!draftComment) return draft
+      if (!draftComment) {
+        return draft
+      }
       ;(draftComment as any as CommentModel).pin = nextPin // 更新特定属性
       return draft
     })
@@ -229,7 +231,7 @@ Shiro 项目遵循 **"复杂度驱动"** 的使用策略：
 
 ```typescript
 // 复杂嵌套结构更新
-const updateNestedData = () => {
+function updateNestedData() {
   setData(
     produce(data, draft => {
       draft.pages[0].items[index].status = 'updated'
@@ -238,7 +240,7 @@ const updateNestedData = () => {
 }
 
 // 对象属性删除
-const removeProperty = () => {
+function removeProperty() {
   setState(
     produce(state, draft => {
       delete draft[key]
@@ -247,7 +249,7 @@ const removeProperty = () => {
 }
 
 // 数组复杂操作（插入、移动、条件过滤）
-const updateArray = () => {
+function updateArray() {
   setList(
     produce(list, draft => {
       draft.unshift(newItem)
@@ -261,12 +263,12 @@ const updateArray = () => {
 
 ```typescript
 // 简单对象更新
-const updateSimple = () => {
+function updateSimple() {
   setActivityAtom(prev => ({ ...prev, process }))
 }
 
 // 简单数组操作
-const addItem = () => {
+function addItem() {
   setItems(prev => [...prev, newItem])
 }
 ```
@@ -279,7 +281,7 @@ const addItem = () => {
 import type { Draft } from 'immer'
 
 // 确保类型安全的嵌套更新
-let draftComment: Draft<CommentModel | null> = null
+const draftComment: Draft<CommentModel | null> = null
 ```
 
 #### 泛型集成
@@ -302,7 +304,7 @@ queryClient.setQueryData<InfiniteData<PaginateResult<T>>>(
 
 ```typescript
 // 细粒度订阅，减少重渲染
-export const useFieldAtom = (key: string) => {
+export function useFieldAtom(key: string) {
   return useAtom(
     useMemo(
       () =>
@@ -357,7 +359,7 @@ const optimisticUpdate = {
 
 ```typescript
 // 实时插入新数据到正确位置
-const handleRealtimeUpdate = data => {
+function handleRealtimeUpdate(data) {
   queryClient.setQueryData(
     key,
     produce(draft => {
@@ -407,7 +409,7 @@ setCount(prev => prev + 1)
 import type { Draft } from 'immer'
 
 // 处理可能为 null 的嵌套结构
-const updateSafely = (draft: Draft<ComplexType | null>) => {
+function updateSafely(draft: Draft<ComplexType | null>) {
   if (!draft) return
   draft.nested.property = newValue
 }
@@ -417,10 +419,10 @@ const updateSafely = (draft: Draft<ComplexType | null>) => {
 
 ```typescript
 // 保持完整的类型推断
-const updateGeneric = <T extends Record<string, any>>(
+function updateGeneric<T extends Record<string, any>>(
   data: T,
   updater: (draft: Draft<T>) => void
-) => {
+) {
   return produce(data, updater)
 }
 ```
@@ -572,7 +574,7 @@ Shiro 项目展示了 immer 在现代 React 应用中的最佳实践：
 
 ---
 
-> **文档版本**: v1.0  
-> **更新时间**: 2025-01-05  
-> **维护者**: Claude Code SuperClaude Framework  
+> **文档版本**: v1.0
+> **更新时间**: 2025-01-05
+> **维护者**: Claude Code SuperClaude Framework
 > **技术栈**: Shiro v1.2.5, immer ^10.1.1, React 18.3.1

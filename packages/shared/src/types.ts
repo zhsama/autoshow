@@ -44,7 +44,7 @@ export const T_CONFIG = {
       { modelId: 'nova-2', costPerMinuteCents: 0.43 },
       { modelId: 'base', costPerMinuteCents: 1.25 },
       { modelId: 'enhanced', costPerMinuteCents: 1.45 },
-    ]
+    ],
   },
   assembly: {
     serviceName: 'AssemblyAI',
@@ -53,7 +53,7 @@ export const T_CONFIG = {
     models: [
       { modelId: 'best', costPerMinuteCents: 0.62 },
       { modelId: 'nano', costPerMinuteCents: 0.2 },
-    ]
+    ],
   },
   groq: {
     serviceName: 'Groq',
@@ -63,7 +63,7 @@ export const T_CONFIG = {
       { modelId: 'whisper-large-v3', costPerMinuteCents: 0.185 },
       { modelId: 'whisper-large-v3-turbo', costPerMinuteCents: 0.067 },
       { modelId: 'distil-whisper-large-v3-en', costPerMinuteCents: 0.033 },
-    ]
+    ],
   },
   whisperx: {
     serviceName: 'WhisperX',
@@ -75,7 +75,7 @@ export const T_CONFIG = {
       { modelId: 'small', costPerMinuteCents: 0 },
       { modelId: 'base', costPerMinuteCents: 0 },
       { modelId: 'tiny', costPerMinuteCents: 0 },
-    ]
+    ],
   },
 }
 export const L_CONFIG = {
@@ -83,7 +83,7 @@ export const L_CONFIG = {
     serviceName: 'Skip LLM Processing',
     value: null,
     label: 'Skip LLM Processing',
-    models: []
+    models: [],
   },
   chatgpt: {
     serviceName: 'OpenAI ChatGPT',
@@ -91,17 +91,67 @@ export const L_CONFIG = {
     label: 'ChatGPT',
     apiKeyPropName: 'openaiApiKey',
     models: [
-      { modelName: 'GPT o1', modelId: 'o1', inputCostC: 750, outputCostC: 3000 },
-      { modelName: 'GPT o3', modelId: 'o3', inputCostC: 500, outputCostC: 2000 },
-      { modelName: 'GPT 4o', modelId: 'gpt-4o', inputCostC: 125, outputCostC: 500 },
-      { modelName: 'GPT 4.1', modelId: 'gpt-4.1', inputCostC: 100, outputCostC: 400 },
-      { modelName: 'GPT o4 MINI', modelId: 'o4-mini', inputCostC: 55, outputCostC: 220 },
-      { modelName: 'GPT o3 MINI', modelId: 'o3-mini', inputCostC: 55, outputCostC: 220 },
-      { modelName: 'GPT o1 MINI', modelId: 'o1-mini', inputCostC: 55, outputCostC: 220 },
-      { modelName: 'GPT 4.1 MINI', modelId: 'gpt-4.1-mini', inputCostC: 20, outputCostC: 80 },
-      { modelName: 'GPT 4o MINI', modelId: 'gpt-4o-mini', inputCostC: 7.5, outputCostC: 30 },
-      { modelName: 'GPT 4.1 NANO', modelId: 'gpt-4.1-nano', inputCostC: 5, outputCostC: 20 },
-    ]
+      {
+        modelName: 'GPT o1',
+        modelId: 'o1',
+        inputCostC: 750,
+        outputCostC: 3000,
+      },
+      {
+        modelName: 'GPT o3',
+        modelId: 'o3',
+        inputCostC: 500,
+        outputCostC: 2000,
+      },
+      {
+        modelName: 'GPT 4o',
+        modelId: 'gpt-4o',
+        inputCostC: 125,
+        outputCostC: 500,
+      },
+      {
+        modelName: 'GPT 4.1',
+        modelId: 'gpt-4.1',
+        inputCostC: 100,
+        outputCostC: 400,
+      },
+      {
+        modelName: 'GPT o4 MINI',
+        modelId: 'o4-mini',
+        inputCostC: 55,
+        outputCostC: 220,
+      },
+      {
+        modelName: 'GPT o3 MINI',
+        modelId: 'o3-mini',
+        inputCostC: 55,
+        outputCostC: 220,
+      },
+      {
+        modelName: 'GPT o1 MINI',
+        modelId: 'o1-mini',
+        inputCostC: 55,
+        outputCostC: 220,
+      },
+      {
+        modelName: 'GPT 4.1 MINI',
+        modelId: 'gpt-4.1-mini',
+        inputCostC: 20,
+        outputCostC: 80,
+      },
+      {
+        modelName: 'GPT 4o MINI',
+        modelId: 'gpt-4o-mini',
+        inputCostC: 7.5,
+        outputCostC: 30,
+      },
+      {
+        modelName: 'GPT 4.1 NANO',
+        modelId: 'gpt-4.1-nano',
+        inputCostC: 5,
+        outputCostC: 20,
+      },
+    ],
   },
   claude: {
     serviceName: 'Anthropic Claude',
@@ -109,10 +159,25 @@ export const L_CONFIG = {
     label: 'Claude',
     apiKeyPropName: 'anthropicApiKey',
     models: [
-      { modelName: 'Claude 3 Opus', modelId: 'claude-3-opus-latest', inputCostC: 1500, outputCostC: 7500 },
-      { modelName: 'Claude 3.7 Sonnet', modelId: 'claude-3-7-sonnet-latest', inputCostC: 300, outputCostC: 1500 },
-      { modelName: 'Claude 3.5 Haiku', modelId: 'claude-3-5-haiku-latest', inputCostC: 80, outputCostC: 400 },
-    ]
+      {
+        modelName: 'Claude 3 Opus',
+        modelId: 'claude-3-opus-latest',
+        inputCostC: 1500,
+        outputCostC: 7500,
+      },
+      {
+        modelName: 'Claude 3.7 Sonnet',
+        modelId: 'claude-3-7-sonnet-latest',
+        inputCostC: 300,
+        outputCostC: 1500,
+      },
+      {
+        modelName: 'Claude 3.5 Haiku',
+        modelId: 'claude-3-5-haiku-latest',
+        inputCostC: 80,
+        outputCostC: 400,
+      },
+    ],
   },
   gemini: {
     serviceName: 'Google Gemini',
@@ -120,14 +185,49 @@ export const L_CONFIG = {
     label: 'Gemini',
     apiKeyPropName: 'geminiApiKey',
     models: [
-      { modelName: 'Gemini 2.5 Pro Preview', modelId: 'gemini-2.5-pro-preview-03-25', inputCostC: 250, outputCostC: 1500 },
-      { modelName: 'Gemini 1.5 Pro', modelId: 'gemini-1.5-pro', inputCostC: 250, outputCostC: 1000 },
-      { modelName: 'Gemini 2.5 Flash Preview', modelId: 'gemini-2.5-flash-preview-04-17', inputCostC: 100, outputCostC: 350 },
-      { modelName: 'Gemini 2.0 Flash', modelId: 'gemini-2.0-flash', inputCostC: 70, outputCostC: 40 },
-      { modelName: 'Gemini 1.5 Flash', modelId: 'gemini-1.5-flash', inputCostC: 15, outputCostC: 60 },
-      { modelName: 'Gemini 2.0 Flash-Lite', modelId: 'gemini-2.0-flash-lite', inputCostC: 7.5, outputCostC: 30 },
-      { modelName: 'Gemini 1.5 Flash-8B', modelId: 'gemini-1.5-flash-8b', inputCostC: 7.5, outputCostC: 30 },
-    ]
+      {
+        modelName: 'Gemini 2.5 Pro Preview',
+        modelId: 'gemini-2.5-pro-preview-03-25',
+        inputCostC: 250,
+        outputCostC: 1500,
+      },
+      {
+        modelName: 'Gemini 1.5 Pro',
+        modelId: 'gemini-1.5-pro',
+        inputCostC: 250,
+        outputCostC: 1000,
+      },
+      {
+        modelName: 'Gemini 2.5 Flash Preview',
+        modelId: 'gemini-2.5-flash-preview-04-17',
+        inputCostC: 100,
+        outputCostC: 350,
+      },
+      {
+        modelName: 'Gemini 2.0 Flash',
+        modelId: 'gemini-2.0-flash',
+        inputCostC: 70,
+        outputCostC: 40,
+      },
+      {
+        modelName: 'Gemini 1.5 Flash',
+        modelId: 'gemini-1.5-flash',
+        inputCostC: 15,
+        outputCostC: 60,
+      },
+      {
+        modelName: 'Gemini 2.0 Flash-Lite',
+        modelId: 'gemini-2.0-flash-lite',
+        inputCostC: 7.5,
+        outputCostC: 30,
+      },
+      {
+        modelName: 'Gemini 1.5 Flash-8B',
+        modelId: 'gemini-1.5-flash-8b',
+        inputCostC: 7.5,
+        outputCostC: 30,
+      },
+    ],
   },
   groq: {
     serviceName: 'Groq LLMs',
@@ -135,12 +235,37 @@ export const L_CONFIG = {
     label: 'Groq',
     apiKeyPropName: 'groqApiKey',
     models: [
-      { modelName: 'LLaMA 3.3 70B Versatile', modelId: 'llama-3.3-70b-versatile', inputCostC: 100, outputCostC: 300 },
-      { modelName: 'LLaMA 3.1 8B Instant', modelId: 'llama-3.1-8b-instant', inputCostC: 10, outputCostC: 30 },
-      { modelName: 'LLaMA 3 70B', modelId: 'llama3-70b-8192', inputCostC: 70, outputCostC: 90 },
-      { modelName: 'LLaMA 3 8B', modelId: 'llama3-8b-8192', inputCostC: 5, outputCostC: 15 },
-      { modelName: 'Gemma 2 9B', modelId: 'gemma2-9b-it', inputCostC: 5, outputCostC: 15 },
-    ]
+      {
+        modelName: 'LLaMA 3.3 70B Versatile',
+        modelId: 'llama-3.3-70b-versatile',
+        inputCostC: 100,
+        outputCostC: 300,
+      },
+      {
+        modelName: 'LLaMA 3.1 8B Instant',
+        modelId: 'llama-3.1-8b-instant',
+        inputCostC: 10,
+        outputCostC: 30,
+      },
+      {
+        modelName: 'LLaMA 3 70B',
+        modelId: 'llama3-70b-8192',
+        inputCostC: 70,
+        outputCostC: 90,
+      },
+      {
+        modelName: 'LLaMA 3 8B',
+        modelId: 'llama3-8b-8192',
+        inputCostC: 5,
+        outputCostC: 15,
+      },
+      {
+        modelName: 'Gemma 2 9B',
+        modelId: 'gemma2-9b-it',
+        inputCostC: 5,
+        outputCostC: 15,
+      },
+    ],
   },
   ollama: {
     serviceName: 'Ollama (Local)',
@@ -148,21 +273,86 @@ export const L_CONFIG = {
     label: 'Ollama Local Models',
     apiKeyPropName: null, // No API key needed for local models
     models: [
-      { modelName: 'LLaMA 3.3 70B', modelId: 'llama3.3:70b', inputCostC: 0, outputCostC: 0 },
-      { modelName: 'LLaMA 3.2 3B', modelId: 'llama3.2:3b', inputCostC: 0, outputCostC: 0 },
-      { modelName: 'LLaMA 3.2 1B', modelId: 'llama3.2:1b', inputCostC: 0, outputCostC: 0 },
-      { modelName: 'Mistral 7B', modelId: 'mistral:7b', inputCostC: 0, outputCostC: 0 },
-      { modelName: 'Mixtral 8x7B', modelId: 'mixtral:8x7b', inputCostC: 0, outputCostC: 0 },
-      { modelName: 'Qwen 2.5 32B', modelId: 'qwen2.5:32b', inputCostC: 0, outputCostC: 0 },
-      { modelName: 'Qwen 2.5 14B', modelId: 'qwen2.5:14b', inputCostC: 0, outputCostC: 0 },
-      { modelName: 'Qwen 2.5 7B', modelId: 'qwen2.5:7b', inputCostC: 0, outputCostC: 0 },
-      { modelName: 'Phi-3 Mini', modelId: 'phi3:mini', inputCostC: 0, outputCostC: 0 },
-      { modelName: 'Gemma 2 9B', modelId: 'gemma2:9b', inputCostC: 0, outputCostC: 0 },
-      { modelName: 'Gemma 2 2B', modelId: 'gemma2:2b', inputCostC: 0, outputCostC: 0 },
-      { modelName: 'DeepSeek Coder V2', modelId: 'deepseek-coder-v2:16b', inputCostC: 0, outputCostC: 0 },
-      { modelName: 'CodeLlama 7B', modelId: 'codellama:7b', inputCostC: 0, outputCostC: 0 },
-    ]
-  }
+      {
+        modelName: 'LLaMA 3.3 70B',
+        modelId: 'llama3.3:70b',
+        inputCostC: 0,
+        outputCostC: 0,
+      },
+      {
+        modelName: 'LLaMA 3.2 3B',
+        modelId: 'llama3.2:3b',
+        inputCostC: 0,
+        outputCostC: 0,
+      },
+      {
+        modelName: 'LLaMA 3.2 1B',
+        modelId: 'llama3.2:1b',
+        inputCostC: 0,
+        outputCostC: 0,
+      },
+      {
+        modelName: 'Mistral 7B',
+        modelId: 'mistral:7b',
+        inputCostC: 0,
+        outputCostC: 0,
+      },
+      {
+        modelName: 'Mixtral 8x7B',
+        modelId: 'mixtral:8x7b',
+        inputCostC: 0,
+        outputCostC: 0,
+      },
+      {
+        modelName: 'Qwen 2.5 32B',
+        modelId: 'qwen2.5:32b',
+        inputCostC: 0,
+        outputCostC: 0,
+      },
+      {
+        modelName: 'Qwen 2.5 14B',
+        modelId: 'qwen2.5:14b',
+        inputCostC: 0,
+        outputCostC: 0,
+      },
+      {
+        modelName: 'Qwen 2.5 7B',
+        modelId: 'qwen2.5:7b',
+        inputCostC: 0,
+        outputCostC: 0,
+      },
+      {
+        modelName: 'Phi-3 Mini',
+        modelId: 'phi3:mini',
+        inputCostC: 0,
+        outputCostC: 0,
+      },
+      {
+        modelName: 'Gemma 2 9B',
+        modelId: 'gemma2:9b',
+        inputCostC: 0,
+        outputCostC: 0,
+      },
+      {
+        modelName: 'Gemma 2 2B',
+        modelId: 'gemma2:2b',
+        inputCostC: 0,
+        outputCostC: 0,
+      },
+      {
+        modelName: 'DeepSeek Coder V2',
+        modelId: 'deepseek-coder-v2:16b',
+        inputCostC: 0,
+        outputCostC: 0,
+      },
+      {
+        modelName: 'CodeLlama 7B',
+        modelId: 'codellama:7b',
+        inputCostC: 0,
+        outputCostC: 0,
+      },
+    ],
+  },
 }
 
 export interface DeepgramSentence {
@@ -202,7 +392,7 @@ export interface ShowNoteType {
   finalCost?: number
   content?: string
 }
-export type ShowNoteMetadata = {
+export interface ShowNoteMetadata {
   showLink?: string
   channel?: string
   channelURL?: string
@@ -213,7 +403,7 @@ export type ShowNoteMetadata = {
   walletAddress?: string
   mnemonic?: string
 }
-export type ProcessingOptions = {
+export interface ProcessingOptions {
   video?: string
   file?: string
   groq?: boolean | string
@@ -240,11 +430,15 @@ export type ProcessingOptions = {
   geminiApiKey?: string
   [key: string]: any
 }
-export type ChatGPTModelValue = (typeof L_CONFIG.chatgpt.models)[number]['modelId']
-export type ClaudeModelValue = (typeof L_CONFIG.claude.models)[number]['modelId']
-export type GeminiModelValue = (typeof L_CONFIG.gemini.models)[number]['modelId']
+export type ChatGPTModelValue =
+  (typeof L_CONFIG.chatgpt.models)[number]['modelId']
+export type ClaudeModelValue =
+  (typeof L_CONFIG.claude.models)[number]['modelId']
+export type GeminiModelValue =
+  (typeof L_CONFIG.gemini.models)[number]['modelId']
 export type GroqModelValue = (typeof L_CONFIG.groq.models)[number]['modelId']
-export type OllamaModelValue = (typeof L_CONFIG.ollama.models)[number]['modelId']
+export type OllamaModelValue =
+  (typeof L_CONFIG.ollama.models)[number]['modelId']
 export interface DeepgramWord {
   word: string
   start: number
@@ -253,39 +447,39 @@ export interface DeepgramWord {
   speaker?: number
   speaker_confidence?: number
 }
-export type TranscriptionCosts = {
+export interface TranscriptionCosts {
   [svc: string]: {
     modelId: string
     cost: number
   }[]
 }
-export type LLMUsage = {
+export interface LLMUsage {
   stopReason: string
   input?: number
   output?: number
   total?: number
 }
-export type LLMResult = {
+export interface LLMResult {
   content: string
   usage?: LLMUsage
 }
 export interface SiteConfig {
-	author: string
-	title: string
-	description: string
-	lang: string
-	ogLocale: string
-	date: {
-		locale: string | string[] | undefined
-		options: Intl.DateTimeFormatOptions
-	}
-	sortPostsByUpdatedDate: boolean
+  author: string
+  title: string
+  description: string
+  lang: string
+  ogLocale: string
+  date: {
+    locale: string | string[] | undefined
+    options: Intl.DateTimeFormatOptions
+  }
+  sortPostsByUpdatedDate: boolean
 }
 export interface SiteMeta {
-	title: string
-	description?: string
-	ogImage?: string
-	articleDate?: string
+  title: string
+  description?: string
+  ogImage?: string
+  articleDate?: string
 }
 export interface AlertProps {
   message: string
@@ -304,26 +498,26 @@ export interface ResultType {
 }
 export type ProcessTypeEnum = 'video' | 'file'
 export type LLMServiceKey = keyof typeof L_CONFIG
-export type GenerateMarkdownBody = {
+export interface GenerateMarkdownBody {
   type?: string
   url?: string
   filePath?: string
 }
-export type DownloadAudioBody = {
+export interface DownloadAudioBody {
   input?: string
   filename?: string
   options?: ProcessingOptions
 }
-export type RunTranscriptionBody = {
+export interface RunTranscriptionBody {
   finalPath?: string
   s3Url?: string
   transcriptServices?: string
   options?: ProcessingOptions
 }
-export type SelectPromptBody = {
+export interface SelectPromptBody {
   options?: ProcessingOptions
 }
-export type RunLLMBody = {
+export interface RunLLMBody {
   filePath?: string
   llmServices?: string
   options?: ProcessingOptions

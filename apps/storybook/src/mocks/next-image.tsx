@@ -18,16 +18,16 @@ interface ImageProps {
   [key: string]: any
 }
 
-export default function Image({ 
-  src, 
-  alt, 
-  width, 
-  height, 
-  className, 
+export default function Image({
+  src,
+  alt,
+  width,
+  height,
+  className,
   style,
   onLoad,
   onError,
-  ...props 
+  ...props
 }: ImageProps) {
   return (
     <img

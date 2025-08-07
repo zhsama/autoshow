@@ -1,18 +1,33 @@
 // src/utils.ts
 
-import { promisify } from 'node:util'
-import { fileURLToPath } from 'node:url'
 import { Buffer } from 'node:buffer'
-import { argv, env, exit } from 'node:process'
-import { existsSync, writeFileSync, readFileSync, mkdirSync } from 'node:fs'
 import { exec, execFile, spawn } from 'node:child_process'
-import { readFile, readdir, writeFile, access, unlink, rename } from 'node:fs/promises'
-import { basename, extname, join, dirname, isAbsolute, resolve, relative } from 'node:path'
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
+import {
+  access,
+  readdir,
+  readFile,
+  rename,
+  unlink,
+  writeFile,
+} from 'node:fs/promises'
+import {
+  basename,
+  dirname,
+  extname,
+  isAbsolute,
+  join,
+  relative,
+  resolve,
+} from 'node:path'
+import { argv, env, exit } from 'node:process'
+import { fileURLToPath } from 'node:url'
+import { promisify } from 'node:util'
+
+import chalk from 'chalk'
 
 export const execPromise = promisify(exec)
 export const execFilePromise = promisify(execFile)
-
-import chalk from 'chalk'
 
 function createChainableLogger(baseLogger: (...args: any[]) => void) {
   const logger = (...args: any[]) => baseLogger(...args)
@@ -33,29 +48,29 @@ export const l = createChainableLogger(console.log)
 export const err = createChainableLogger(console.error)
 
 export {
-  argv,
-  env,
-  exit,
-  fileURLToPath,
-  Buffer,
-  readFile,
-  readdir,
   access,
-  writeFile,
+  argv,
   basename,
-  extname,
-  join,
+  Buffer,
   dirname,
-  isAbsolute,
-  resolve,
-  relative,
-  unlink,
-  rename,
-  existsSync,
-  writeFileSync,
-  readFileSync,
-  mkdirSync,
+  env,
   exec,
   execFile,
-  spawn
+  existsSync,
+  exit,
+  extname,
+  fileURLToPath,
+  isAbsolute,
+  join,
+  mkdirSync,
+  readdir,
+  readFile,
+  readFileSync,
+  relative,
+  rename,
+  resolve,
+  spawn,
+  unlink,
+  writeFile,
+  writeFileSync,
 }
